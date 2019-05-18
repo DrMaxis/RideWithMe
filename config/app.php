@@ -180,7 +180,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         // Package Service Providers that aren't auto-discover...
-
+        FarhanWazir\GoogleMaps\GMapsServiceProvider::class,
         // Application Service Providers...
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
@@ -239,6 +239,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'GMaps' => FarhanWazir\GoogleMaps\Facades\GMapsFacade::class,
 
         // Package Aliases
     ],

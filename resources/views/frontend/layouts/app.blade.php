@@ -21,6 +21,13 @@
         {{ style(mix('css/frontend.css')) }}
 
         @stack('after-styles')
+
+        {!! $map['js']!!}
+
+        <script type="text/javascript">
+            var centreGot = false;
+        </script>
+
     </head>
     <body>
         @include('includes.partials.demo')
