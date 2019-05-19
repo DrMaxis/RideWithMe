@@ -7,6 +7,8 @@
 
 import '../bootstrap';
 import '../plugins';
+import 'moment';
+import 'jquery.easing';
 import Vue from 'vue';
 
 window.Vue = Vue;

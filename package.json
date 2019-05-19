@@ -64,6 +64,9 @@
         "node": ">=6.0.0"
     },
     "dependencies": {
-        "npm": "^6.9.0"
+        "jquery.easing": "^1.4.1",
+        "moment": "^2.24.0",
+        "npm": "^6.9.0",
+        "respond.js": "^1.4.2"
     }
 }

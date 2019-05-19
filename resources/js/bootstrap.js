@@ -9,6 +9,7 @@ import $ from 'jquery';
 import 'popper.js'; // Required for BS4
 import 'bootstrap';
 
+
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
