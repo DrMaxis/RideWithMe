@@ -25,6 +25,6 @@
                     <li><a href="#">Contact US</a></li>							
                 </ul>						
             </div>
-            <a href="#">Book For A Ride</a>
+            <a href="#">Request A Ride</a>
         </div>
     </nav>
