@@ -10,7 +10,7 @@
                                 <div class="slider-content">
                                     <h2>A reliable way to</h2>
                                     <h2>Travel Around</h2>
-                                    <p>We Offer The Best Taxi Service In The City</p>							
+                                    <p>We Offer The Best Carpooling Service In The City</p>							
                                     <a href="#" title="Learn More" class="learn-more">Learn More</a>		
                                    
                                 </div>
@@ -24,7 +24,7 @@
                                 <div class="slider-content">
                                     <h2>A reliable way to</h2>
                                     <h2>Travel Around</h2>
-                                    <p>We Offer The Best Taxi Service In The City</p>							
+                                    <p>We Offer The Best Carpooling Service In The City</p>							
                                     <a href="#" title="Learn More" class="learn-more">Learn More</a>		
                                    
                                 </div>
@@ -38,7 +38,7 @@
                                     <div class="slider-content">
                                         <h2>A reliable way to</h2>
                                         <h2>Travel Around</h2>
-                                        <p>We Offer The Best Taxi Service In The City</p>							
+                                        <p>We Offer The Best Carpooling Service In The City</p>							
                                         <a href="#" title="Learn More" class="learn-more">Learn More</a>		
                                        
                                     </div>
@@ -52,7 +52,7 @@
                 <div class="container">
                     <div class="col-md-4">
                         <form name="book-taxi" class="book-taxi-form">
-                            <h3>Book Your Taxi Now</h3>	
+                            <h3>Request A Ride Now</h3>	
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="txt_name">Name :</label>
                                 <input type="text" class="form-control" id="txt_name" placeholder="Your Name" />
@@ -74,7 +74,7 @@
                                 <div id="datepicker" class="input-group">
                                     <input class="form-control" data-format="yyyy-MM-dd" type="text" placeholder="DD/MM/YYYY" />
                                     <span class="add-on">
-                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar"><img src="images/icon/date-picker.png" alt="datepicker" /></i>
+                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar"><img src="{{asset('img/frontend/icons/date-picker.png')}}" alt="datepicker"/></i>
                                     </span> 
                                 </div>
                             </div>
