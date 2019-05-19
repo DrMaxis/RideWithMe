@@ -10,7 +10,7 @@
                                 <div class="slider-content">
                                     <h2>A reliable way to</h2>
                                     <h2>Travel Around</h2>
-                                    <p>We Offer The Best Carpooling Service In The City</p>							
+                                    <p>We Offer The Best Carpooling Service In Ghana</p>							
                                     <a href="#" title="Learn More" class="learn-more">Learn More</a>		
                                    
                                 </div>
@@ -24,7 +24,7 @@
                                 <div class="slider-content">
                                     <h2>A reliable way to</h2>
                                     <h2>Travel Around</h2>
-                                    <p>We Offer The Best Carpooling Service In The City</p>							
+                                    <p>We Offer The Best Carpooling Service In Ghana</p>							
                                     <a href="#" title="Learn More" class="learn-more">Learn More</a>		
                                    
                                 </div>
@@ -38,7 +38,7 @@
                                     <div class="slider-content">
                                         <h2>A reliable way to</h2>
                                         <h2>Travel Around</h2>
-                                        <p>We Offer The Best Carpooling Service In The City</p>							
+                                        <p>We Offer The Best Carpooling Service In Ghana</p>							
                                         <a href="#" title="Learn More" class="learn-more">Learn More</a>		
                                        
                                     </div>
