@@ -1,23 +1,18 @@
-/*
-	[Table of contents]
 
-	## Site Loader
-*/
-
-/* ## Site Loader */
 .load-position .logo {
 	margin: 0 auto;
 	width: 150px;
 }
 .load-complete .ball-clip-rotate > div {
-	border-color: #FFCB08 #FFCB08 transparent;
-	background-color: #FFCB08;
-	margin: 0 auto;
-	display: block;
-	top: 50%;
-	position: absolute;
-	left: 0;
-	right: 0;
+    margin: 0 auto;
+    display: block;
+    top: 50%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    border: 5px solid transparent;
+    border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+    border-image-slice: 1;
 }
 .load-complete {
     position: fixed;

@@ -1,39 +1,3 @@
-/*
-	Theme Name: Ride With Me - Taxi Company HTML5 Template
-	Author: EraThemes
-	Author URL: http://themeforest.net/user/erathemes
-	Created: 01 Oct 2015
-	Updated: 12 Oct 2015 
-	Version: 1.0
-*/
-
-/*
-	[Table of contents]
-
-	## Global
-		- Font Settings
-		- Padding/Margin
-
-	## Header
-		- Top Header
-			-- Social
-			-- Top Menu
-			-- Logo block
-		- Navigation Menu
-		- Social Icons
-
-	## Footer
-		- Copyright Text	
-		
-	## Responsive
-		-- min-width: 992 to max-width: 1200
-		-- min-width: 768 to max-width: 991
-		-- min-width: 319 to max-width: 767
-		-- min-width: 991
-*/
-
-/* ## Global */
-
 body {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 15px;
