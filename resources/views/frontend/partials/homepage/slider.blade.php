@@ -51,38 +51,35 @@
             <div class="booking-form">
                 <div class="container">
                     <div class="col-md-4">
-                        <form name="book-taxi" class="book-taxi-form">
+                        <form name="book-taxi" class="book-taxi-form" action="{{ route('frontend.ride.session.request') }}" method="POST">
+                            @csrf 
+
                             <h3>Request A Ride Now</h3>	
                             <div class="form-group col-md-6 col-sm-6">
-                                <label for="txt_name">Name :</label>
-                                <input type="text" class="form-control" id="txt_name" placeholder="Your Name" />
+                                <label for="passenger_name">Name :</label>
+                                <input type="text" class="form-control" id="passenger_name" name="passenger_name" value="{{old('passenger_name')}}" placeholder="Your Name" />
                             </div>
                             <div class="form-group col-md-6 col-sm-6">
-                                <label for="txt_phone">Phone Number :</label>
-                                <input type="text" class="form-control" id="txt_phone" placeholder="Enter Phone Number" />
+                                <label for="phone_number">Phone Number :</label>
+                                <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{old('phone_number')}}" placeholder="Enter Phone Number" />
+                                <span id="valid-msg" class="hide" style="color:green;">✓ Valid</span>
+                                <span id="error-msg" class="hide" style="color:red;"></span>
                             </div>
                             <div class="form-group col-md-6 col-sm-6">
-                                <label for="txt_startfrom">Pickup Place :</label>
-                                <input type="text" class="form-control" id="txt_startfrom" placeholder="Start From" />
+                                <label for="pickup_location">Pickup Place :</label>
+                                <input type="text" class="form-control" id="pickup_location_input" name="pickup_location" value="{{old('pickup_location')}}" placeholder="Start From" />
                             </div>
                             <div class="form-group col-md-6 col-sm-6">
-                                <label for="txt_drop">Drop Place :</label>
-                                <input type="text" class="form-control" id="txt_drop" placeholder="Drop To" />
+                                <label for="dropoff_location">Drop Place :</label>
+                                <input type="text" class="form-control" id="dropoff_location_input" name="dropoff_location" value="{{old('dropoff_location')}}" placeholder="Drop To" />
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="txt_drop">Date Pickup :</label>									
+                                <label for="request_date">Date Pickup :</label>									
                                 <div id="datepicker" class="input-group">
-                                    <input class="form-control" data-format="yyyy-MM-dd" type="text" placeholder="DD/MM/YYYY" />
+                                    <input class="form-control" data-format="MM/dd/yyyy HH:mm:ss PP" id="request_date" name="request_date" value="{{old('request_date')}}" placeholder="DD/MM/YYYY" />
                                     <span class="add-on">
                                         <i data-time-icon="icon-time" data-date-icon="icon-calendar"><img src="{{asset('img/frontend/icons/date-picker.png')}}" alt="datepicker"/></i>
                                     </span> 
-                                </div>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <div id="timepicker" class="input-group time-picker">
-                                    <div class="col-md-4 col-sm-4 col-xs-4"><input class="form-control" min="1" max="12" type="number" /></div>
-                                    <div class="col-md-4 col-sm-4 col-xs-4"><input class="form-control" min="1" max="60" type="number" /></div>
-                                    <div class="col-md-4 col-sm-4 col-xs-4"><select class="form-control"><option>AM</option><option>PM</option></select></div>
                                 </div>
                             </div>
                             <div class="col-md-12"><button type="submit" title="submit" class="btn">Submit</button></div>

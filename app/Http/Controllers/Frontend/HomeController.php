@@ -16,42 +16,48 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $config['center'] = 'Kumasi, Ghana';
-        $config['zoom'] = '14';
-        $config['map_height'] = '500px';
-        $config['geocodeCaching'] = true;
-        $config['scrollwheel'] = false;
-        $config['places'] = TRUE;
-        $config['placesAutocompleteInputID'] = 'myPlaceTextBox';
-        $config['placesAutocompleteBoundsMap'] = TRUE; // set results biased towards the maps viewport
-        $config['placesAutocompleteOnChange'] = 'createMarker_map({ map: map, position:event.latLng });';
-        $config['scaleControlPosition'] = 'BOTTOM_RIGHT';
-    /*     $config['sensor'] = true;
-
-
-
-        $config['onboundschanged'] = 'if (!centreGot) {
-            var mapCentre = map.getCenter();
-            marker_0.setOptions({
-                position: new google.maps.LatLng(mapCentre.lat(), mapCentre.lng()) 
-            });
-        }
-        centreGot = true;';
-      */
-        $gMap = new GMaps();
-        $gMap->initialize($config);
+        //From Location Map
+        $map_1_config['center'] = 'Kumasi, Ghana';
+        $map_1_config['zoom'] = '14';
+        $map_1_config['map_height'] = '500px';
+        $map_1_config['geocodeCaching'] = true;
+        $map_1_config['scrollwheel'] = false;
+    /*     $map_1_config['map_name'] = 'from_map';
+        $map_1_config['map_div_id'] = 'from_map_canvas'; */
+        $map_1_config['places'] = TRUE;
+        $map_1_config['placesAutocompleteInputID'] = 'pickup_location_input'; 
+        $map_1_config['placesAutocompleteBoundsMap'] = TRUE; // set results biased towards the maps viewport
+/*         $map_1_config['placesAutocompleteOnChange'] = 'createMarker_map({ map: from_map, position:event.latLng });';
+ */        $map_1_config['scaleControlPosition'] = 'BOTTOM_RIGHT';
+        $map = new GMaps();
+        $map->initialize($map_1_config);
 
 
         // set up the marker ready for positioning 
         // once we know the users location
         $marker = array();
-       $gMap->add_marker($marker);
+       $map->add_marker($marker);
+       $data['fromLocationMap'] =  $map->create_map();
 
-
+       //To Location Map
+       $map_2_config['center'] = 'Kumasi, Ghana';
+       $map_2_config['zoom'] = '14';
+       $map_2_config['map_height'] = '500px';
+       $map_2_config['geocodeCaching'] = true;
+       $map_2_config['scrollwheel'] = false;
+    /*    $map_2_config['map_name'] = 'to_map';
+       $map_2_config['map_div_id'] = 'to_map_canvas'; */
+       $map_2_config['places'] = TRUE;
+       $map_2_config['placesAutocompleteInputID'] = 'dropoff_location_input'; 
+       $map_2_config['placesAutocompleteBoundsMap'] = TRUE; // set results biased towards the maps viewport
+/*        $map_2_config['placesAutocompleteOnChange'] = 'createMarker_map({ map: to_map, position:event.latLng });';
+ */       $map_2_config['scaleControlPosition'] = 'BOTTOM_RIGHT';
+       $map->initialize($map_2_config);
+       $data['toLocationMap'] =  $map->create_map();
        
-        $map = $gMap->create_map();
+        
 
 
-        return view('frontend.index')->with(['map' => $map]);
+        return view('frontend.index')->with(['data' => $data]);
     }
 }

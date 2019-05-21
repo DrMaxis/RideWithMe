@@ -68,16 +68,17 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/vendor/main.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('css/vendor/codecs.css')}}">
 
-
+    {{ style(mix('css/frontend.css')) }}
 
     @yield('google-maps')
 
     @yield('prescripts')
 
-
+ {{-- {!! $data['fromLocationMap']['js']!!}
+ {!! $data['toLocationMap']['js']!!} --}}
 {{-- 
     @include('frontend.includes.google.map')
-    {!! $map['js']!!}
+   
 
     <script type="text/javascript">
         var centreGot = false;

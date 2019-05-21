@@ -122,6 +122,7 @@ return [
             'register_box_title' => 'Register',
             'register_button' => 'Register',
             'remember_me' => 'Remember Me',
+            'submit_ride_request_button' => 'Request A Ride',
         ],
 
         'contact' => [

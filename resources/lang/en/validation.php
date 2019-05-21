@@ -202,6 +202,8 @@ return [
             'old_password' => 'Old Password',
             'timezone' => 'Timezone',
             'language' => 'Language',
+            'pickup_location' => 'Pick Up Location',
+            'dropoff_location' => 'Dropoff Location',
         ],
     ],
 ];

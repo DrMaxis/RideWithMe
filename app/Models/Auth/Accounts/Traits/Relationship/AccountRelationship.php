@@ -3,12 +3,14 @@
 namespace App\Models\Auth\Accounts\Traits\Relationship;
 
 use App\Models\Auth\User;
+use App\Models\Auth\RideRequests\RideRequest;
+use App\Models\Auth\Transactions\Transaction;
 
 
 
 
 /**
- * Class UserRelationship.
+ * Class AccountRelationship.
  */
 trait AccountRelationship
 {

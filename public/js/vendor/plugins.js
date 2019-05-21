@@ -348,9 +348,18 @@
 		});
 		
 		$('#datepicker').datetimepicker({
-			pickTime: true
+			language: 'en',
+			pick12HourFormat: true,
+			pickTime: true,
+			inline: true
+			
 		});
 		
+		$("#timepicker").datetimepicker({
+			pickDate: false,
+			pickTime: true,
+			inline: true
+		});
 	
 		/* - Blog */
 		if($(".blog").length){

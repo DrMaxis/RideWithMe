@@ -3,6 +3,8 @@
 namespace App\Models\Auth\RideRequests\Traits\Relationship;
 
 use App\Models\Auth\User;
+use App\Models\Auth\Accounts\Account;
+use App\Models\Auth\Transactions\Transaction;
 
 
 

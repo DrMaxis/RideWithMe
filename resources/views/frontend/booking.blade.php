@@ -3,10 +3,35 @@
 @section('title', app_name() . ' | ' . __('navs.general.home'))
 
 @section('google-maps')
+{{-- 
  {!! $data['fromLocationMap']['js'] !!}
- {!! $data['toLocationMap']['js'] !!} 
+ {!! $data['toLocationMap']['js'] !!}  --}}
+ {!! $data['bookingMap']['js'] !!} 
+
+ <script type="text/javascript">
+	function initAutocomplete() {
+	  // Create the autocomplete object, restricting the search to geographical
+	  // location types.
+	  toLocation = new google.maps.places.Autocomplete((document.getElementById('pickup_location_input')),
+		  {types: ['geocode']});
+		  fromLocation = new google.maps.places.Autocomplete((document.getElementById('dropoff_location_input')),
+		  {types: ['geocode']});
+
+		  fromLocation.bindTo('bounds', bookingMap);
+		  toLocation.bindTo('bounds', bookingMap);
+	  // When the user selects an address from the dropdown, populate the address
+	  // fields in the form.
+	  toLocation.addListener('place_changed', fillInAddress);
+	  fromLocation.addListener('place_changed', fillInAddress);
+	  
+	}
+  
+
+	  </script>
+
 
 @endsection
+
 @section('prescripts')
 
 @endsection
@@ -16,21 +41,17 @@
 @endsection
 
 @section('content')
-{{-- 
 
+<!-- Page Content -->
+<div class="container-fluid no-padding page-content book-taxi-online-form">
 
+@include('frontend.partials.booking.breadcrumb')
 
-<input type="text" id="myPlaceTextBox" /> --}}
-<div class="hide-map"  style="display:none" >
-	{!! $data['fromLocationMap']['html'] !!}
-	{!! $data['toLocationMap']['html'] !!}
-</div>
+@include('frontend.partials.booking.map')
 
-@include('frontend.partials.homepage.slider')
-@include('frontend.partials.homepage.aboutus')
-@include('frontend.partials.homepage.flowdiagram')
-@include('frontend.partials.homepage.achievements')
-@include('frontend.partials.homepage.partners')
+@include('frontend.partials.booking.form')
+</div><!-- Page Content/- -->
+
 @endsection
 
 
@@ -46,6 +67,7 @@
 	
 	<!-- Library - Bootstrap v3.3.5 -->
 	<script src="{{asset('vendor/bootstrap/bootstrap.min.js')}}"></script><!-- Bootstrap JS File v3.3.5 -->
+	
  	<script src="{{asset('vendor/bootstrap/bootstrap-datetimepicker.min.js')}}"></script><!-- Bootstrap JS File v3.3.5 -->
 	<!-- jQuery Easing v1.3 -->
 	<script src="{{asset('vendor/js/jquery.easing.min.js')}}"></script>
@@ -72,5 +94,7 @@
 	<script type="text/javascript" src="{{asset('js/vendor/plugins.js')}}"> </script>
 	
     @include('frontend.includes.partials.scripts.verification.phoneNumberInputValidation')
+
+
 
     @endsection
