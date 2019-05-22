@@ -4,5 +4,15 @@
     </div>
      --}}
 <div class="hide-map" >
-	{!! $data['bookingMap']['html'] !!}
+    {!! $data['bookingMap']['html'] !!}
+    
+
+
 </div>
+    <div class="textcenter">
+        <button id="routeGo">Route</button>
+        <button id="routeClear">Clear Route</button>
+       
+    </div>
+    
+    <div id="directions"></div>

@@ -24,18 +24,19 @@ class RideRequestController extends Controller
         $map = new GMaps();
         
 
-        
+
 
          //To Location Map
-         $map_3_config['center'] = 'Kumasi, Ghana';
+         $map_3_config['center'] = session()->get('rideRequestSessionData')['pickup_location'] ?? 'Accra, Ghana';
          $map_3_config['zoom'] = '14';
          $map_3_config['map_height'] = '500px';
          $map_3_config['geocodeCaching'] = true;
-         $map_3_config['map_name'] = 'bookingMap';
          $map_3_config['places'] = TRUE;
          $map_3_config['placesAutocompleteBoundsMap'] = TRUE; // set results biased towards the maps viewport
+         $map_3_config['placesAutocompleteInputID'] = 'pickup_location_input'; 
+        $map_3_config['placesAutocompleteOnChange'] = 'createMarker_map({ map: map, position:event.latLng });';
          $map_3_config['scrollwheel'] = false;
-         $map_3_config['map_div_id'] = 'map_canvas_one';
+       /*   $map_3_config['map_div_id'] = 'map_canvas_one'; */
          $map_3_config['scaleControlPosition'] = 'BOTTOM_RIGHT';
 
     

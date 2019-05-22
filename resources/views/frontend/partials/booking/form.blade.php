@@ -12,17 +12,20 @@
 				<div class="section-header">
 					<h3>Book Your Taxi Online</h3>
 				</div>
+
+				<p id="di"></p>
+				<p id="du"></p>
 				<!-- Online Booking Form -->
 				<form class="online-booking-form row">
 						
 					<h4>Booking Datails</h4>
 					<div class="form-group col-md-6 col-sm-12 col-xs-12">
 						<label>Form</label>
-						<input type="text" class="form-control" id="pickup_location_input" placeholder="place, City">
+						<input type="text" class="form-control" name="pickup_location" id="pickup_location_input" data-pickupLocation="{{session()->get('rideRequestSessionData')['pickup_location']}}" value="{{session()->get('rideRequestSessionData')['pickup_location']}}" placeholder="place, City">
 					</div>
 					<div class="form-group col-md-6 col-sm-12 col-xs-12">
 						<label>To</label>
-						<input type="text" class="form-control" id="dropoff_location_input" placeholder="place, City">
+						<input type="text" class="form-control"  name="dropoff_location" id="dropoff_location_input" data-dropoffLocation="{{session()->get('rideRequestSessionData')['dropoff_location']}}" value="{{session()->get('rideRequestSessionData')['dropoff_location']}}"  placeholder="place, City">
 					</div>
 					<div class="form-group col-md-6 col-sm-12 col-xs-12">
 						<label>Taxi Type</label>
