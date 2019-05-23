@@ -109,12 +109,10 @@ document.getElementById('pickup_location_input').value = "";
         setMapOnAll(null);
       }
 
-
-
  function deleteMarkers() {
         clearMarkers();
         markers_map = [];
-      }
+	  }
 
 	function fillInAddress() {
 	  // Get the place details from the autocomplete object.
@@ -177,10 +175,11 @@ document.getElementById('pickup_location_input').value = "";
 <div class="container-fluid no-padding page-content book-taxi-online-form">
 
 	@include('frontend.partials.booking.breadcrumb')
-
 	@include('frontend.partials.booking.map')
-
 	@include('frontend.partials.booking.form')
+	
+
+
 </div><!-- Page Content/- -->
 
 @endsection

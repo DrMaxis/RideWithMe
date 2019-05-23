@@ -550,3 +550,20 @@ ul {
         width: 1200px;
     }
 }
+
+
+.mb-10 {
+	margin-bottom: 1rem;
+}
+
+.mb-25 {
+	margin-bottom: 2rem;
+}
+
+.mt-25 {
+	margin-top: 2rem;
+}
+
+.textcenter {
+	text-align: center;
+}
