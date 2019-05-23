@@ -6,6 +6,8 @@
 {{-- 
  {!! $data['fromLocationMap']['js'] !!}
  {!! $data['toLocationMap']['js'] !!}  --}}
+
+
 {!! $data['bookingMap']['js'] !!}
 
 <script type="text/javascript">
@@ -98,6 +100,9 @@ document.getElementById('pickup_location_input').value = "";
 		
 		
 	}
+
+
+
 // Sets the map on all markers in the array.
  function setMapOnAll(map) {
         for (var i = 0; i < markers_map.length; i++) {
@@ -150,11 +155,10 @@ document.getElementById('pickup_location_input').value = "";
                         alert("Request failed.")
 					}
 				});
-
-
-		
 	}
- 
+	window.addEventListener('load', function() {
+		initAutocomplete();
+	}, false);
 </script>
 
 

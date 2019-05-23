@@ -15,7 +15,7 @@ return [
     'adsense_publisher_id' => env('GOOGLE_ADSENSE_PUBLISHER_ID', ''), //Google AdSense publisher ID
 
     'geocode' => [
-        'cache' => false, //Geocode caching into database
+        'cache' => true, //Geocode caching into database
         'table_name' => 'gmaps_geocache', //Geocode caching database table name
     ],
 

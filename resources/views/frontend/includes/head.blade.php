@@ -80,12 +80,14 @@
     @include('frontend.includes.google.map')
    
 
-    <script type="text/javascript">
-        var centreGot = false;
-    </script> --}}
+    --}}
 
-
-
+{{-- <script type="text/javascript">
+      window.addEventListener('load', function() {
+        initAutocomplete();
+      }, false);
+    </script> 
+ --}}
 	
 
 </head>

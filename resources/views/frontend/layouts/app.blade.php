@@ -6,7 +6,7 @@
 @endlangrtl
 @include('frontend.includes.head')
 
-<body data-offset="200" data-spy="scroll" data-target=".ow-navigation" onload="initAutocomplete()">
+<body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
 
 
    
