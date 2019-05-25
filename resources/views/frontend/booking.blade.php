@@ -23,7 +23,9 @@
 		var dropoff = document.getElementById('dropoff_location_input');
 		var pickupLocation = pickup.getAttribute('data-pickupLocation');
 		var dropoffLocation = dropoff.getAttribute('data-dropoffLocation');
-
+		var totalDistanceInput = document.createElement('input');
+		var travelTimeInput = document.createElement('input');
+		var bookingForm = document.getElementById('book-ride-form');
 
 
 		directionsDisplay.setMap(map);
@@ -73,9 +75,20 @@ for(var i=0; i<legs.length; ++i) {
     totalDistance += legs[i].distance.value;
     totalDuration += legs[i].duration.value;
 }
-console.log(totalDistance);
-console.log(totalDuration);
 
+
+
+ setAttributes(totalDistanceInput,{'id': 'total_distance', 'name': 'total_distance', 'type': 'hidden'});
+ totalDistanceInput.value = totalDistance;
+ travelTimeInput.value = totalDuration;
+ setAttributes(travelTimeInput,{'id': 'travel_time', 'name': 'travel_time', 'type': 'hidden'});
+bookingForm.appendChild(totalDistanceInput);
+bookingForm.appendChild(travelTimeInput);
+function setAttributes(el, attrs) {
+  for(var key in attrs) {
+    el.setAttribute(key, attrs[key]);
+  }
+}
 	});
 	
 
@@ -94,7 +107,6 @@ document.getElementById('pickup_location_input').value = "";
 	document.getElementById('dropoff_location_input').value = "";
 	deleteMarkers();
 	directionsDisplay.setDirections({ routes: [] });
-
 		}); 
 		
 		
@@ -181,7 +193,7 @@ document.getElementById('pickup_location_input').value = "";
 	@include('frontend.partials.booking.breadcrumb')
 	@include('frontend.partials.booking.map')
 	@include('frontend.partials.booking.form')
-	
+
 
 
 </div><!-- Page Content/- -->

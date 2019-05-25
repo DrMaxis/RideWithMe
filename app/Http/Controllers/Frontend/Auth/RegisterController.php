@@ -8,6 +8,8 @@ use App\Http\Requests\RegisterRequest;
 use App\Events\Frontend\Auth\UserRegistered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Repositories\Frontend\Auth\UserRepository;
+use App\Events\Frontend\Auth\Account\AccountCreated;
+use App\Repositories\Frontend\Auth\AccountRepository;
 
 /**
  * Class RegisterController.
@@ -16,19 +18,24 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    /**
+   /**
      * @var UserRepository
      */
     protected $userRepository;
+    /**
+     * @var AccountRepository
+     */
+    protected $accountRepository;
 
     /**
      * RegisterController constructor.
      *
      * @param UserRepository $userRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, AccountRepository $accountRepository)
     {
         $this->userRepository = $userRepository;
+        $this->accountRepository = $accountRepository;
     }
 
     /**
@@ -64,8 +71,9 @@ class RegisterController extends Controller
     {
         abort_unless(config('access.registration'), 404);
 
-        $user = $this->userRepository->create($request->only('first_name', 'last_name', 'email', 'password'));
-
+        $user = $this->userRepository->create($request->only('first_name', 'last_name', 'email', 'password', 'phone_number', 'phone_network'));
+        $userData = array('id' => $user->id,'email' => $user->email, 'phone_nmumber' => $user->phone_number, 'name' => $user->name, 'phone_network' => $user->phone_network );
+        $account = $this->accountRepository->create($userData);
         // If the user must confirm their email or their account requires approval,
         // create the account but don't log them in.
         if (config('access.users.confirm_email') || config('access.users.requires_approval')) {
@@ -81,7 +89,7 @@ class RegisterController extends Controller
         auth()->login($user);
 
         event(new UserRegistered($user));
-
+        event(new AccountCreated($account));
         return redirect($this->redirectPath());
     }
 }

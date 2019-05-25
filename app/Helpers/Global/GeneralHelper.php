@@ -41,3 +41,44 @@ if (! function_exists('home_route')) {
         return 'frontend.index';
     }
 }
+
+if (! function_exists('single_ride')) {
+    /**
+     * Return the route to the "home" page depending on authentication/authorization status.
+     *
+     * @return string
+     */
+    function single_ride($slug)
+    {
+        
+        return route('frontend.ride.show', [ 'slug' => $slug]);
+    }
+
+
+}
+
+
+
+if (! function_exists('slugify')) {
+
+    /**
+        * Transform the string to a slugified SEO friendly string
+        *
+        * @param $string
+        *
+        * @return String $string
+        * 
+        * @credit rorypicko
+        */
+       function slugify($string) {
+           //Lower case everything
+           $string = strtolower($string);
+           //Make alphanumeric (removes all other characters)
+           $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+           //Clean up multiple dashes or whitespaces
+           $string = preg_replace("/[\s-]+/", " ", $string);
+           //Convert whitespaces and underscore to dash
+           $string = preg_replace("/[\s_]/", "-", $string);
+           return $string;
+       }
+   }

@@ -3,7 +3,8 @@
 namespace App\Models\Auth\Accounts\Traits\Relationship;
 
 use App\Models\Auth\User;
-use App\Models\Auth\RideRequests\RideRequest;
+
+use App\Models\Auth\Rides\Ride;
 use App\Models\Auth\Transactions\Transaction;
 
 
@@ -21,7 +22,7 @@ trait AccountRelationship
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'uuid');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
         /**
@@ -32,14 +33,7 @@ trait AccountRelationship
         return $this->hasMany(Transaction::class, 'account_id', 'uuid');
     }
 
-         /**
-     * @return mixed
-     */
-    public function ride_requests()
-    {
-        return $this->hasMany(RideRequest::class, 'account_id', 'uuid');
-    }
-
+     
 
  
 

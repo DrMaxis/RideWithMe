@@ -12,7 +12,7 @@
        
     </div>
 
-    <div id="directions"></div>
+    <div class="container" id="directions"></div>
 
 </div>
    

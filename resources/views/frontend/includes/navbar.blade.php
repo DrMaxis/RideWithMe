@@ -20,11 +20,34 @@
                     <li><a href="#">Home</a></li>
                     <li><a href="#">About Us</a></li>
                     <li><a href="#">Our Services</a></li>
-                    <li><a href="#">Faq</a></li>
+
                      <li><a href="#">Online Booking</a></li>
-                    <li><a href="#">Contact US</a></li>							
+                    <li><a href="#">Contact US</a></li>	
+                    @auth
+            <li><a href="{{route('frontend.user.dashboard')}}" class="nav-link {{ active_class(Active::checkRoute('frontend.user.dashboard')) }}">@lang('navs.frontend.dashboard')</a></li>
+        @endauth
+
+        @guest
+            <li class="nav-item"><a href="{{route('frontend.auth.login')}}" class="nav-link {{ active_class(Active::checkRoute('frontend.auth.login')) }}">@lang('navs.frontend.login')</a></li>
+
+            @if(config('access.registration'))
+                <li class="nav-item"><a href="{{route('frontend.auth.register')}}" class="nav-link {{ active_class(Active::checkRoute('frontend.auth.register')) }}">@lang('navs.frontend.register')</a></li>
+            @endif
+
+        @else
+
+            <li>
+                <a href="{{ route('frontend.user.account') }}" class="dropdown-item {{ active_class(Active::checkRoute('frontend.user.account')) }}">{{ $logged_in_user->name }}</a>  
+            </li>   @can('view backend')
+                      <li>
+                          
+                            <a href="{{ route('admin.dashboard') }}" class="dropdown-item">@lang('navs.frontend.user.administration')</a>
+                    
+                    </li>  
+                    @endcan
+        @endguest						
                 </ul>						
             </div>
-            <a href="#">Request A Ride</a>
+            
         </div>
     </nav>

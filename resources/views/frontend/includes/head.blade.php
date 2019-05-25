@@ -1,3 +1,4 @@
+
 <head>
 	<meta charset="utf-8">
 
@@ -15,7 +16,6 @@
     <!-- Check if the language is set to RTL, so apply the RTL layouts -->
     <!-- Otherwise apply the normal LTR layouts -->
   {{--   {{ style(mix('css/frontend.css')) }}
-
     @stack('after-styles') --}}
 
 
@@ -79,7 +79,6 @@
 {{-- 
     @include('frontend.includes.google.map')
    
-
     --}}
 
 {{-- <script type="text/javascript">

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Auth\RideRequests\Traits\Relationship;
+namespace App\Models\Auth\Rides\Traits\Relationship;
 
 use App\Models\Auth\User;
 use App\Models\Auth\Accounts\Account;
@@ -10,9 +10,9 @@ use App\Models\Auth\Transactions\Transaction;
 
 
 /**
- * Class RideRequestRelationship.
+ * Class RideRelationship.
  */
-trait RideRequestRelationship
+trait RideRelationship
 {
  
 
@@ -20,21 +20,20 @@ trait RideRequestRelationship
         /**
      * @return mixed
      */
-    public function transaction()
+  /*   public function transaction()
     {
         return $this->belongsTo(Transaction::class, 'transaction_id', 'uuid');
-    }
+    } */
 
          /**
      * @return mixed
      */
-    public function account()
+    public function users()
     {
-        return $this->belongsTo(Account::class, 'account_id', 'uuid');
+        return $this->belongsToMany(User::class);
     }
 
 
- 
 
 
 }

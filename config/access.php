@@ -25,6 +25,12 @@ return [
         // Whether or not the users email can be changed on the edit profile screen
         'change_email' => env('CHANGE_EMAIL', false),
 
+        // Whether or not the user has to confirm their phone number when signing up
+        'confirm_phone_number' => env('CONFIRM_PHONE_NUMBER', false),
+
+        // Whether or not the users phone number can be changed on the edit profile screen
+        'change_phone_number' => env('CHANGE_PHONE_NUMBER', false),
+
         // The name of the super administrator role
         'admin_role' => 'administrator',
 

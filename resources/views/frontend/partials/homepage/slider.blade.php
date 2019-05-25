@@ -57,11 +57,11 @@
                             <h3>Request A Ride Now</h3>	
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="passenger_name">Name :</label>
-                                <input type="text" class="form-control" id="passenger_name" name="passenger_name" value="{{old('passenger_name')}}" placeholder="Your Name" />
+                                <input type="text" class="form-control" id="passenger_name" name="passenger_name" value="{{$logged_in_user->name ?? old('passenger_name')}}" placeholder="Your Name" />
                             </div>
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="phone_number">Phone Number :</label>
-                                <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{old('phone_number')}}" placeholder="Enter Phone Number" />
+                                <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ $logged_in_user->phone_number ?? old('phone_number')}}" placeholder="Enter Phone Number" />
                                 <span id="valid-msg" class="hide" style="color:green;">✓ Valid</span>
                                 <span id="error-msg" class="hide" style="color:red;"></span>
                             </div>

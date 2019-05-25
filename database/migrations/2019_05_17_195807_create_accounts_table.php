@@ -18,7 +18,7 @@ class CreateAccountsTable extends Migration
             $table->uuid('uuid')->unique();
             $table->unsignedBigInteger('user_id');
             $table->double('account_balance')->default(0.00);
-            $table->double('account_unconfirmed_balance')->default(0.00);
+            /* $table->double('account_unconfirmed_balance')->default(0.00); */
             $table->string('account_owner')->nullable();
             $table->string('account_email')->nullable();
             $table->string('account_phone')->nullable();
