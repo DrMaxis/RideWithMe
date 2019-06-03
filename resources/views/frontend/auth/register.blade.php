@@ -54,7 +54,7 @@
 
 
                 <div class="row">
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-3">
                             <div class="form-group">
                                     {{ html()->label(__('validation.attributes.frontend.email'))->for('email') }}
 
@@ -67,8 +67,23 @@
                             <!--col-->
                         </div>
                         <!--row-->
+
+
+                        <div class="col-12 col-md-3">
+                                <div class="form-group">
+                                        {{ html()->label(__('validation.attributes.frontend.national_id'))->for('national_id') }}
     
-                        <div class="col-12 col-md-4">
+                                        {{ html()->text('national_id')
+                                                    ->class('form-control')
+                                                    ->placeholder(__('validation.attributes.frontend.national_id'))
+                                                    ->attribute('maxlength', 191)
+                                                    ->required() }}
+                                </div>
+                                <!--col-->
+                            </div>
+                            <!--row-->
+    
+                        <div class="col-12 col-md-3">
                             <div class="form-group">
                                     {{ html()->label(__('validation.attributes.frontend.phone_number'))->for('phone_number') }}
                                     {{ html()->text('phone_number') ->class('form-control form-control-lg border-0') ->placeholder(__('validation.attributes.frontend.phone_number'))
@@ -79,9 +94,9 @@
                             <!--form-group-->
                         </div>
                         <!--col-->
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-3">
                                 <div class="form-group">
-                                    <label for="phone_network">Select Your Phone Network</label>
+                                    <label for="phone_network">Phone Network</label>
                                         <select name="phone_network" class="form-control">
                                                 <option>Mobile Phone Network</option>
                                                 <option>MTN</option>

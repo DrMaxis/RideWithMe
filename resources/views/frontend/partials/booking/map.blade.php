@@ -3,18 +3,33 @@
         {!! $data['toLocationMap']['html'] !!}
     </div>
      --}}
-<div class="container" >
-    {!! $data['bookingMap']['html'] !!}
-    
- <div class="textcenter mt-25">
-        <button id="routeGo"  class="btn mb-10">Calculate Route & Directions</button>
-        <button id="routeClear"  class="btn mb-10">Reset Rotute & Delete Markers</button>
-       
+<div class="container">
+
+    <div class="section-header" style="margin-top:50px;">
+        <h3>
+
+            <span> Map & Directions</span>
+
+        </h3>
     </div>
 
-    <div class="container" id="directions"></div>
+
+
+    <div class="map-container">
+
+        {!! $data['bookingMap']['html'] !!}
+
+        <div class="textcenter mt-25">
+            <button id="routeGo" class="btn btn-primary mb-10 calculate_ride">Calculate Route & Directions</button>
+            <button id="routeClear" class="btn btn-primary mb-10">Reset Rotute & Delete Markers</button>
+
+        </div>
+
+
+
+        <div class="container" id="directions" style="margin-bottom: 25px;"></div>
+
+    </div>
+
 
 </div>
-   
-    
-    

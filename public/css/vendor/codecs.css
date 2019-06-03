@@ -771,7 +771,6 @@ a.see-more:hover{
 
 /* - Entry Meta */
 .entry-meta {
-	position: absolute;
 	bottom: 0;
 	background-color: #000;
 	color: #fff;
@@ -2328,7 +2327,7 @@ a.learn-more{
 }
 .online-booking-form {
 	text-align: left;
-	padding-right: 98px;
+	
 }
 .online-booking-form > h4  {
 	padding: 0 15px; 

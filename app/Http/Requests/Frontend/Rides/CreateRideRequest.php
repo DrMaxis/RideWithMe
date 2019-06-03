@@ -30,11 +30,12 @@ class CreateRideRequest extends FormRequest
             'pickup_location' => ['required', 'string'],
             'dropoff_location' => ['required', 'string'],
             'request_date' => ['sometimes'],
-            'ride_name' => ['required', 'max:280'],
-            'ride_notes' => ['required'],
+            'ride_name' => ['required', 'max:280', 'unique:rides'],
+            'ride_notes' => ['required', 'max:6500'],
             'total_distance' => ['required'],
             'travel_time' => ['required'],
-            'accepted_terms' => ['required'],
+            'option' => ['required'],
+            
         ];
     }
 
@@ -46,7 +47,9 @@ class CreateRideRequest extends FormRequest
         return [
             'total_distance.required' => 'Please Calculate the Route for the Travel Distance',
             'travel_time.required' => 'Please Calculate the Route for the Travel Time',
-            'ride_name.required' => 'Please Name This Ride'
+            'ride_name.required' => 'Please Name This Ride',
+            'ride_name.unique' => 'A ride names cannot be the same as previous rides',
+            'option.required' => 'You must determine wheather you are a passenger or a driver for this ride.',
         ];
     } 
 }

@@ -71,7 +71,7 @@ class RegisterController extends Controller
     {
         abort_unless(config('access.registration'), 404);
 
-        $user = $this->userRepository->create($request->only('first_name', 'last_name', 'email', 'password', 'phone_number', 'phone_network'));
+        $user = $this->userRepository->create($request->only('first_name', 'last_name', 'email', 'password', 'phone_number', 'phone_network', 'national_id'));
         $userData = array('id' => $user->id,'email' => $user->email, 'phone_nmumber' => $user->phone_number, 'name' => $user->name, 'phone_network' => $user->phone_network );
         $account = $this->accountRepository->create($userData);
         // If the user must confirm their email or their account requires approval,

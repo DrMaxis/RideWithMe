@@ -2,6 +2,7 @@
 
 namespace App\Models\Auth\Traits\Relationship;
 
+use App\Models\Auth\Cars\Car;
 use App\Models\Auth\Rides\Ride;
 use App\Models\Auth\SocialAccount;
 use App\Models\Auth\PasswordHistory;
@@ -43,6 +44,14 @@ trait UserRelationship
     public function rides()
     {
         return $this->belongsToMany(Ride::class);
+    }
+
+        /**
+     * @return mixed
+     */
+    public function cars()
+    {
+        return $this->hasMany(Car::class);
     }
 
 

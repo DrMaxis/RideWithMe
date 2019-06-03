@@ -51,39 +51,98 @@
             <div class="booking-form">
                 <div class="container">
                     <div class="col-md-4">
-                        <form name="book-taxi" class="book-taxi-form" action="{{ route('frontend.ride.session.request') }}" method="POST">
-                            @csrf 
+                        
 
-                            <h3>Request A Ride Now</h3>	
-                            <div class="form-group col-md-6 col-sm-6">
-                                <label for="passenger_name">Name :</label>
-                                <input type="text" class="form-control" id="passenger_name" name="passenger_name" value="{{$logged_in_user->name ?? old('passenger_name')}}" placeholder="Your Name" />
-                            </div>
-                            <div class="form-group col-md-6 col-sm-6">
-                                <label for="phone_number">Phone Number :</label>
-                                <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ $logged_in_user->phone_number ?? old('phone_number')}}" placeholder="Enter Phone Number" />
-                                <span id="valid-msg" class="hide" style="color:green;">✓ Valid</span>
-                                <span id="error-msg" class="hide" style="color:red;"></span>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-6">
-                                <label for="pickup_location">Pickup Place :</label>
-                                <input type="text" class="form-control" id="pickup_location_input" name="pickup_location" value="{{old('pickup_location')}}" placeholder="Start From" />
-                            </div>
-                            <div class="form-group col-md-6 col-sm-6">
-                                <label for="dropoff_location">Drop Place :</label>
-                                <input type="text" class="form-control" id="dropoff_location_input" name="dropoff_location" value="{{old('dropoff_location')}}" placeholder="Drop To" />
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="request_date">Date Pickup :</label>									
-                                <div id="datepicker" class="input-group">
-                                    <input class="form-control" data-format="MM/dd/yyyy HH:mm:ss PP" id="request_date" name="request_date" value="{{old('request_date')}}" placeholder="DD/MM/YYYY" />
-                                    <span class="add-on">
-                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar"><img src="{{asset('img/frontend/icons/date-picker.png')}}" alt="datepicker"/></i>
-                                    </span> 
-                                </div>
-                            </div>
-                            <div class="col-md-12"><button type="submit" title="submit" class="btn">Submit</button></div>
-                        </form>
+
+
+                            @if(auth()->user())
+                            
+                                    {{ html()->form('POST', route('frontend.user.ride.session.request'))->class('book-taxi-form')->open() }}
+                                    
+                                    <h3>Request A Ride Now</h3>	
+                                    <div class="form-group col-md-6 col-sm-6">
+                                        {{ html()->label(__('validation.attributes.frontend.pickup_location'))->for('pickup_location') }}
+                                
+                                        {{ html()->text('pickup_location')
+                                            ->class('form-control')
+                                            ->placeholder(__('validation.attributes.frontend.pickup_location'))
+                                            ->attribute('maxlength', 191)
+                                            ->required() }}
+
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6">
+                                        {{ html()->label(__('validation.attributes.frontend.dropoff_location'))->for('dropoff_location') }}
+                                
+                                        {{ html()->text('dropoff_location')
+                                            ->class('form-control')
+                                            ->placeholder(__('validation.attributes.frontend.dropoff_location'))
+                                            ->attribute('maxlength', 191)
+                                            ->required() }}
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="request_date">Date Pickup :</label>									
+                                        <div id="datepicker" class="input-group">
+                                            <input class="form-control" data-format="MM/dd/yyyy HH:mm:ss PP" id="request_date" name="request_date" value="{{old('request_date')}}" placeholder="DD/MM/YYYY" />
+                                            <span class="add-on">
+                                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"><img src="{{asset('img/frontend/icons/date-picker.png')}}" alt="datepicker"/></i>
+                                            </span> 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12"><button type="submit" title="submit" class="btn">Submit</button></div>
+                               
+                                    {{ html()->form()->close() }}
+                                     
+                                            @else 
+                            
+                                    {{ html()->form('POST', route('frontend.auth.login.post'))->class('book-taxi-form')->open() }}
+                                                       
+                            
+                                                        <h3>Login & Request A Ride</h3>	
+                            
+                                                        <div class="form-group col-md-6 col-sm-6">
+                                                            {{ html()->label(__('validation.attributes.frontend.email'))->for('email') }}
+                                
+                                                                    {{ html()->email('email')
+                                                                        ->class('form-control')
+                                                                        ->placeholder(__('validation.attributes.frontend.email'))
+                                                                        ->attribute('maxlength', 191)
+                                                                        ->required() }}
+                                                        </div>
+                            
+                                                        <div class="form-group col-md-6 col-sm-6">
+                                                                {{ html()->label(__('validation.attributes.frontend.password'))->for('password') }}
+                                
+                                                                {{ html()->password('password')
+                                                                    ->class('form-control')
+                                                                    ->placeholder(__('validation.attributes.frontend.password'))
+                                                                    ->required() }}
+                                                        </div>
+                                                     
+                                                        <div class="form-group col-md-12 col-sm-12">
+                                                                
+                                                                        {{ html()->label(html()->checkbox('remember', true, 1) . ' ' . __('labels.frontend.auth.remember_me'))->for('remember') }}      
+                                                        </div>
+                            
+                                                        <div class="col-md-12"><button type="submit" title="submit" class="btn">Submit</button></div>
+                            
+                                                        <div class="form-group col-md-12 col-sm-12 text-center mt-25">
+                                                                    <a href="{{ route('frontend.auth.password.reset') }}">@lang('labels.frontend.passwords.forgot_password')</a>          
+                                                        </div>
+                            
+                            
+                                                        {{ html()->form()->close() }}
+                            
+                                            @endif
+                            
+
+
+
+
+
+
+                   
                     </div>
                 </div>
             </div><!-- Booking Form /- -->

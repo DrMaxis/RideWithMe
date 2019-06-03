@@ -24,6 +24,7 @@ class UserTableSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => 'secret',
             'confirmation_code' => md5(uniqid(mt_rand(), true)),
+            'national_id_number' => '229-32-3354',
             'confirmed' => true,
         ]);
 
@@ -33,6 +34,7 @@ class UserTableSeeder extends Seeder
             'email' => 'executive@executive.com',
             'password' => 'secret',
             'confirmation_code' => md5(uniqid(mt_rand(), true)),
+            'national_id_number' => '907-81-4601',
             'confirmed' => true,
         ]);
 
@@ -42,6 +44,7 @@ class UserTableSeeder extends Seeder
             'email' => 'user@user.com',
             'password' => 'secret',
             'confirmation_code' => md5(uniqid(mt_rand(), true)),
+            'national_id_number' => '975-90-7418',
             'confirmed' => true,
         ]);
 

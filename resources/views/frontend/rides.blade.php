@@ -3,7 +3,9 @@
 @section('title', app_name() . ' | ' . __('navs.general.home'))
 
 @section('google-maps')
-{!! $rideMap['js'] !!}
+{{--  {!! $data['fromLocationMap']['js'] !!}
+ {!! $data['toLocationMap']['js'] !!}  --}}
+
 @endsection
 @section('prescripts')
 
@@ -16,8 +18,11 @@
 @section('content')
 
 
+@include('frontend.partials.rides.breadcrumb')
+@include('frontend.partials.rides.list')
 
-@include('frontend.partials.singleRide.ride')
+
+
 
 @endsection
 

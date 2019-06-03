@@ -27,8 +27,6 @@ class RideSessionRequest extends FormRequest
     public function rules()
     {
         return [
-            'passenger_name' => ['required'],
-            'phone_number' => ['required'],
             'pickup_location' => ['required', 'string'],
             'dropoff_location' => ['required', 'string'],
             'request_date' => ['sometimes']

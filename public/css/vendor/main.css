@@ -825,4 +825,13 @@ ul {
   
   .accordion > .card .card-header {
 	margin-bottom: -1px;
-  }
+	}
+	
+	.nopad {
+		padding-left: 0px !important;
+		padding-right: 0px !important;
+	}
+
+	.hide-form {
+		display:none !important;
+	}

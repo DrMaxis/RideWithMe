@@ -213,6 +213,7 @@ return [
             'language' => 'Language',
             'pickup_location' => 'Pick Up Location',
             'dropoff_location' => 'Dropoff Location',
+            'national_id' => 'National ID Number'
         ],
     ],
 ];

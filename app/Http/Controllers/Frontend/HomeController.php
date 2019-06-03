@@ -22,13 +22,10 @@ class HomeController extends Controller
         $map_1_config['map_height'] = '500px';
         $map_1_config['geocodeCaching'] = true;
         $map_1_config['scrollwheel'] = false;
-    /*     $map_1_config['map_name'] = 'from_map';
-        $map_1_config['map_div_id'] = 'from_map_canvas'; */
         $map_1_config['places'] = TRUE;
-        $map_1_config['placesAutocompleteInputID'] = 'pickup_location_input'; 
+        $map_1_config['placesAutocompleteInputID'] = 'pickup_location'; 
         $map_1_config['placesAutocompleteBoundsMap'] = TRUE; // set results biased towards the maps viewport
-/*         $map_1_config['placesAutocompleteOnChange'] = 'createMarker_map({ map: from_map, position:event.latLng });';
- */        $map_1_config['scaleControlPosition'] = 'BOTTOM_RIGHT';
+        $map_1_config['scaleControlPosition'] = 'BOTTOM_RIGHT';
         $map = new GMaps();
         $map->initialize($map_1_config);
 
@@ -45,13 +42,10 @@ class HomeController extends Controller
        $map_2_config['map_height'] = '500px';
        $map_2_config['geocodeCaching'] = true;
        $map_2_config['scrollwheel'] = false;
-    /*    $map_2_config['map_name'] = 'to_map';
-       $map_2_config['map_div_id'] = 'to_map_canvas'; */
        $map_2_config['places'] = TRUE;
-       $map_2_config['placesAutocompleteInputID'] = 'dropoff_location_input'; 
+       $map_2_config['placesAutocompleteInputID'] = 'dropoff_location'; 
        $map_2_config['placesAutocompleteBoundsMap'] = TRUE; // set results biased towards the maps viewport
-/*        $map_2_config['placesAutocompleteOnChange'] = 'createMarker_map({ map: to_map, position:event.latLng });';
- */       $map_2_config['scaleControlPosition'] = 'BOTTOM_RIGHT';
+       $map_2_config['scaleControlPosition'] = 'BOTTOM_RIGHT';
        $map->initialize($map_2_config);
        $data['toLocationMap'] =  $map->create_map();
        

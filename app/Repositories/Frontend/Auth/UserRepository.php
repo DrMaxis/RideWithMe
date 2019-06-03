@@ -100,6 +100,7 @@ class UserRepository extends BaseRepository
                 'password' => $data['password'],
                 'phone_number' => $data['phone_number'],
                 'phone_network' => $data['phone_network'],
+                'national_id_number' => $data['national_id'],
                 // If users require approval or needs to confirm email
                 'confirmed' => ! (config('access.users.requires_approval') || config('access.users.confirm_email')),
             ]);

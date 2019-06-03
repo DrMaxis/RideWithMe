@@ -32,6 +32,7 @@ class BaseUser extends Authenticatable implements AuditableInterface
         'first_name',
         'last_name',
         'email',
+        'national_id_number',
         'avatar_type',
         'avatar_location',
         'password',

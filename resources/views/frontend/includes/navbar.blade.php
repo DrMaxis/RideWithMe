@@ -17,11 +17,11 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                    
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Our Services</a></li>
+                    <li><a href="{{route('frontend.index')}}">Home</a></li>
+                    <li><a href="{{route('frontend.user.booking.index')}}">Request A Ride</a></li>
+                    <li><a href="#">Current Rides</a></li>
 
-                     <li><a href="#">Online Booking</a></li>
+                     <li><a href="#">About Us</a></li>
                     <li><a href="#">Contact US</a></li>	
                     @auth
             <li><a href="{{route('frontend.user.dashboard')}}" class="nav-link {{ active_class(Active::checkRoute('frontend.user.dashboard')) }}">@lang('navs.frontend.dashboard')</a></li>

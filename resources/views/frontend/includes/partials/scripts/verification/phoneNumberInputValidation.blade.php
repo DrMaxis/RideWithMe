@@ -37,3 +37,12 @@ input.addEventListener('blur', function() {
 input.addEventListener('change', reset);
 input.addEventListener('keyup', reset);
 </script>
+
+
+
+
+
+
+
+
+

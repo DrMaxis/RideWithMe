@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Models\Auth\Rides\Traits\Relationship;
+namespace App\Models\Auth\Cars\Traits\Relationship;
 
 use App\Models\Auth\User;
-use App\Models\Auth\Accounts\Account;
-use App\Models\Auth\Transactions\Transaction;
+
 
 
 
 
 /**
- * Class RideRelationship.
+ * Class CarRelationship.
  */
-trait RideRelationship
+trait CarRelationship
 {
  
 
@@ -28,9 +27,9 @@ trait RideRelationship
          /**
      * @return mixed
      */
-    public function users()
+    public function owner()
     {
-        return $this->belongsToMany(User::class)->withPivot('user_id');
+        return $this->belongsTo(User::class);
     }
 
 
