@@ -6,17 +6,14 @@ use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Auth\Rides\Traits\Method\RideMethod;
 use App\Models\Auth\Rides\Traits\Relationship\RideRelationship;
-
-
-
-
+use App\Models\Auth\Rides\Traits\Attribute\RideAttribute;
 
 /**
  * Class RideRequest.
  */
 class Ride extends Model
 {
-    use RideRelationship, Uuid, RideMethod;
+    use RideRelationship, Uuid, RideMethod, RideAttribute;
 
 
     /**

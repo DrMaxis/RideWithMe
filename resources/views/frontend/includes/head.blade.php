@@ -40,7 +40,7 @@
 
   <!-- Library - Bootstrap v3.3.5 -->
   <link rel="stylesheet" type="text/css" href="{{asset('vendor/bootstrap/bootstrap.min.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('vendor/bootstrap/bootstrap-datetimepicker.min.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('vendor/bootstrap/datetimepicker/bootstrap-datetimepicker.min.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendor/fonts/font-awesome.min.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendor/awe/awe-booking-font.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendor/js/jquery-ui.css')}}">

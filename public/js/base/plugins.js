@@ -313,7 +313,7 @@
             });
     }
 
-    function theiaStickySidebar() {
+   /*  function theiaStickySidebar() {
         if ($('.awe-services').length > 0) {
             $('.awe-services').parent().theiaStickySidebar({
                 updateSidebarHeight: true
@@ -327,7 +327,7 @@
 
             });
         }
-    }
+    } */
     function magnificPopup() {
         if ($('.initiative-choose-other-open').length) {
             $('.initiative-choose-other-open').magnificPopup({

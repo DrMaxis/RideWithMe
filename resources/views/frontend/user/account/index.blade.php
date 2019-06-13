@@ -108,6 +108,7 @@
                     @forelse($logged_in_user->rides as $ride)
 
 
+                    {{dd($ride->asking_price)}}
                   <tr>
                     <td>{{$ride->ride_name}}</td>
                     <td>p/d</td>
