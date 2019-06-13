@@ -9,7 +9,7 @@ return [
     ],
 
     // Whether or not registration is enabled
-    'registration' => env('ENABLE_REGISTRATION', false),
+    'registration' => env('ENABLE_REGISTRATION', true),
 
     // Table names for access tables
     'table_names' => [
