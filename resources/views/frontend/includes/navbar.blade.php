@@ -2,12 +2,12 @@
 <nav class="navigation awe-navigation" data-responsive="1200">
     <ul class="menu-list">
         <li class="menu-item-has-children current-menu-parent">
-            <a href="{{route('frontend.rides.index')}}">Home</a>
+            <a href="#">Home</a>
 
         </li>
 
         <li class="menu-item-has-children">
-            <a href="{{route('frontend.rides.index')}}">Open Rides</a>
+            <a href="#">Open Rides</a>
 
         </li>
 
