@@ -1,28 +1,70 @@
-	<!-- Widget Area -->
-    <div class="col-md-3 widget-area">
-            <!-- Search Widget -->
-            <aside class="widget search-widget">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="SEARCH">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                        </span>
-                    </div>
-                </div>
-            </aside><!-- Search Widget -->
-            <!-- Categories Widget -->
-            <aside class="widget categories-widget">
-                <div class="widget-title">
-                    <h3>Locations</h3>
-                </div>
-                <ul class="categories-type">
-                    @foreach ($rideLocations as $location)
-                         <li>{{$location['place']}}<span>{{$location['count']}}</span></li>
-                    @endforeach
-                   
-                    
-                </ul>
-            </aside><!-- Categories Widget/- -->
-        
-        </div><!-- Widget Area/- -->
+<div class="col-md-3">
+    <div class="page-sidebar">
+        <div class="sidebar-title">
+            <h2>Rides</h2>
+
+        </div>
+        <!-- WIDGET -->
+        <div class="widget widget_has_radio_checkbox">
+            <h3 style="color:black">Latest Locations</h3>
+            <ul>
+                <li>
+                    <a href="#">
+                        <label>
+                            Amusement park
+                            <span
+                                style="float: right;float: right;clear: both;background-color: #a5a5a5a6;border-radius: 100%;height: 30px;width: 30px;text-align: center;line-height: 30px;font-size: 10px;border: 1px solid transparent;">88</span>
+                        </label>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <label>
+                            Amusement park
+                            <span
+                                style="float: right;float: right;clear: both;background-color: #a5a5a5a6;border-radius: 100%;height: 30px;width: 30px;text-align: center;line-height: 30px;font-size: 10px;border: 1px solid transparent;">88</span>
+                        </label>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <label>
+                            Amusement park
+                            <span
+                                style="float: right;float: right;clear: both;background-color: #a5a5a5a6;border-radius: 100%;height: 30px;width: 30px;text-align: center;line-height: 30px;font-size: 10px;border: 1px solid transparent;">88</span>
+                        </label>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <label>
+                            Amusement park
+                            <span
+                                style="float: right;float: right;clear: both;background-color: #a5a5a5a6;border-radius: 100%;height: 30px;width: 30px;text-align: center;line-height: 30px;font-size: 10px;border: 1px solid transparent;">88</span>
+                        </label>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <label>
+                            Amusement park
+                            <span
+                                style="float: right;float: right;clear: both;background-color: #a5a5a5a6;border-radius: 100%;height: 30px;width: 30px;text-align: center;line-height: 30px;font-size: 10px;border: 1px solid transparent;">88</span>
+                        </label>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <label>
+                            Amusement park
+                            <span
+                                style="float: right;float: right;clear: both;background-color: #a5a5a5a6;border-radius: 100%;height: 30px;width: 30px;text-align: center;line-height: 30px;font-size: 10px;border: 1px solid transparent;">88</span>
+                        </label>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- END / WIDGET -->
+
+    </div>
+</div>

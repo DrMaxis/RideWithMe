@@ -27,11 +27,11 @@ class CreateUsersTable extends Migration
             $table->string('phone_number')->unique()->nullable();
             $table->string('phone_network')->nullable();
             $table->timestamp('phone_number_changed_at')->nullable();
-            $table->boolean('phone_number_confirmed')->default(config('access.users.confirm_phone_number') ? false : true);
             $table->timestamp('password_changed_at')->nullable();
             $table->unsignedTinyInteger('active')->default(1);
             $table->string('confirmation_code')->nullable();
-            $table->boolean('confirmed')->default(config('access.users.confirm_email') ? false : true);
+            $table->string('phone_confirmation_code')->nullable();
+            $table->boolean('confirmed')->default(false);
             $table->string('timezone')->nullable();
             $table->timestamp('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();

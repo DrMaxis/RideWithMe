@@ -29,7 +29,7 @@ class RideSessionRequest extends FormRequest
         return [
             'pickup_location' => ['required', 'string'],
             'dropoff_location' => ['required', 'string'],
-            'request_date' => ['sometimes']
+            'request_date' => ['required']
         ];
     }
 

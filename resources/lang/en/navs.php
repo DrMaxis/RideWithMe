@@ -30,6 +30,9 @@ return [
             'change_password' => 'Change Password',
             'my_information' => 'My Information',
             'profile' => 'Profile',
+            'base_location' => 'Base Location',
+            'add_car' => 'Add Car',
+            'rider_profile' => 'Rider Profile',
         ],
     ],
 ];

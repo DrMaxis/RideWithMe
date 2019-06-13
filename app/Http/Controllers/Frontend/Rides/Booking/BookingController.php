@@ -8,7 +8,10 @@ use App\Models\Auth\Rides\Ride;
 use FarhanWazir\GoogleMaps\GMaps;
 use App\Http\Controllers\Controller;
 use App\Models\Auth\Accounts\Account;
+use App\Models\Auth\Amenities\Amenity;
 use Illuminate\Support\Facades\Session;
+use App\Models\Auth\TimeOptions\TimeOption;
+use App\Models\Auth\PriceOptions\PriceOption;
 use App\Events\Frontend\Auth\Rides\RideCreated;
 use App\Repositories\Frontend\Ride\RideRepository;
 use App\Http\Requests\Frontend\Rides\CreateRideRequest;
@@ -30,7 +33,7 @@ class BookingController extends Controller
     public function index()
     {
         $map = new GMaps();
-        $mapConfig['center'] = session()->get('rideRequestSessionData')['pickup_location'] ?? 'Accra, Ghana';
+        $mapConfig['center'] = 'Accra, Ghana';
         $mapConfig['zoom'] = '14';
         $mapConfig['map_height'] = '500px';
         $mapConfig['geocodeCaching'] = true;
@@ -42,7 +45,16 @@ class BookingController extends Controller
         $mapConfig['scaleControlPosition'] = 'BOTTOM_RIGHT';
         $map->initialize($mapConfig);
         $data['bookingMap'] =  $map->create_map();
-        return view('frontend.booking')->with('data', $data);
+
+        $priceOptions = PriceOption::all();
+        $timeOptions = TimeOption::all();
+        $amenities = Amenity::all();
+        return view('frontend.user.account.ride')->with([
+           'data' => $data,
+           'priceOptions' => $priceOptions,
+           'timeOptions' => $timeOptions,
+           'amenities' => $amenities
+        ]);
     }
 
 

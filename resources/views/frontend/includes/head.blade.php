@@ -18,13 +18,7 @@
   {{--   {{ style(mix('css/frontend.css')) }}
   @stack('after-styles') --}}
 
-
-
-
-
   {{-- Favicon --}}
-
-
   <link rel="apple-touch-icon" sizes="57x57" href="{{asset('img/frontend/favicon/apple-icon-57x57.png')}}">
   <link rel="apple-touch-icon" sizes="60x60" href="{{asset('img/frontend/favicon/apple-icon-60x60.png')}}">
   <link rel="apple-touch-icon" sizes="72x72" href="{{asset('img/frontend/favicon/apple-icon-72x72.png')}}">
@@ -44,33 +38,17 @@
   <meta name="theme-color" content="#ffffff">
 
 
-
-
-
-  <!-- Library - Loader CSS -->
-  <link rel="stylesheet" type="text/css" href="{{asset('vendor/loader/loaders.min.css')}}">
   <!-- Library - Bootstrap v3.3.5 -->
   <link rel="stylesheet" type="text/css" href="{{asset('vendor/bootstrap/bootstrap.min.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendor/bootstrap/bootstrap-datetimepicker.min.css')}}">
-  <!-- Font Icons -->
   <link rel="stylesheet" type="text/css" href="{{asset('vendor/fonts/font-awesome.min.css')}}">
-  <!-- Library - OWL Carousel V.2.0 beta -->
-  <link rel="stylesheet" type="text/css" href="{{asset('vendor/owl-carousel/owl.carousel.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('vendor/owl-carousel/owl.theme.css')}}">
-  <!-- Library - FlexSlider v2.5.0 -->
-  <link rel="stylesheet" type="text/css" href="{{asset('vendor/flexslider/flexslider.css')}}">
-  <!-- Library - Animate CSS -->
-  <link rel="stylesheet" type="text/css" href="{{asset('vendor/animate/animate.min.css')}}">
-  <!-- Custom - Common CSS -->
-  <link rel="stylesheet" type="text/css" href="{{asset('css/vendor/plugins.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('css/vendor/navigation.css')}}">
-  <!-- Custom - Theme CSS -->
-  <link rel="stylesheet" type="text/css" href="{{asset('css/vendor/main.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('css/vendor/codecs.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('vendor/awe/awe-booking-font.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('vendor/js/jquery-ui.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/base/style.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/base/demo.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('vendor/revslider-demo/css/settings.css')}}">
 
 
-
-  {{ style(mix('css/frontend.css')) }}
 
 
   @yield('xcss')

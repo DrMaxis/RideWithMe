@@ -2,7 +2,45 @@
 
 @section('title', app_name() . ' | ' . __('navs.frontend.dashboard') )
 
+
+
+@section('stylesheets')
+
+<!-- Library - Loader CSS -->
+<link rel="stylesheet" type="text/css" href="{{asset('vendor/loader/loaders.min.css')}}">
+<!-- Library - Bootstrap v3.3.5 -->
+<link rel="stylesheet" type="text/css" href="{{asset('vendor/bootstrap/bootstrap.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('vendor/bootstrap/bootstrap-datetimepicker.min.css')}}">
+<!-- Font Icons -->
+<link rel="stylesheet" type="text/css" href="{{asset('vendor/fonts/font-awesome.min.css')}}">
+<!-- Library - OWL Carousel V.2.0 beta -->
+<link rel="stylesheet" type="text/css" href="{{asset('vendor/owl-carousel/owl.carousel.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('vendor/owl-carousel/owl.theme.css')}}">
+<!-- Library - FlexSlider v2.5.0 -->
+<link rel="stylesheet" type="text/css" href="{{asset('vendor/flexslider/flexslider.css')}}">
+<!-- Library - Animate CSS -->
+<link rel="stylesheet" type="text/css" href="{{asset('vendor/animate/animate.min.css')}}">
+<!-- Custom - Common CSS -->
+<link rel="stylesheet" type="text/css" href="{{asset('css/vendor/plugins.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('css/vendor/navigation.css')}}">
+<!-- Custom - Theme CSS -->
+<link rel="stylesheet" type="text/css" href="{{asset('css/vendor/main.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('css/vendor/codecs.css')}}">
+
+
+
+{{ style(mix('css/frontend_a.css')) }}
+
+@endsection
+
+
+
+
+
+
+
 @section('content')
+<div class="container">
     <div class="row mb-4">
         <div class="col">
             <div class="card">
@@ -10,7 +48,8 @@
                     <strong>
                         <i class="fas fa-tachometer-alt"></i> @lang('navs.frontend.dashboard')
                     </strong>
-                </div><!--card-header-->
+                </div>
+                <!--card-header-->
 
                 <div class="card-body">
                     <div class="row">
@@ -20,13 +59,15 @@
 
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        {{ $logged_in_user->name }}<br/>
+                                        {{ $logged_in_user->name }}<br />
                                     </h4>
 
                                     <p class="card-text">
                                         <small>
-                                            <i class="fas fa-envelope"></i> {{ $logged_in_user->email }}<br/>
-                                            <i class="fas fa-calendar-check"></i> @lang('strings.frontend.general.joined') {{ timezone()->convertToLocal($logged_in_user->created_at, 'F jS, Y') }}
+                                            <i class="fas fa-envelope"></i> {{ $logged_in_user->email }}<br />
+                                            <i class="fas fa-calendar-check"></i>
+                                            @lang('strings.frontend.general.joined')
+                                            {{ timezone()->convertToLocal($logged_in_user->created_at, 'F jS, Y') }}
                                         </small>
                                     </p>
 
@@ -37,9 +78,11 @@
                                         </a>
 
                                         @can('view backend')
-                                            &nbsp;<a href="{{ route('admin.dashboard')}}" class="btn btn-danger btn-sm mb-1">
-                                                <i class="fas fa-user-secret"></i> @lang('navs.frontend.user.administration')
-                                            </a>
+                                        &nbsp;<a href="{{ route('admin.dashboard')}}"
+                                            class="btn btn-danger btn-sm mb-1">
+                                            <i class="fas fa-user-secret"></i>
+                                            @lang('navs.frontend.user.administration')
+                                        </a>
                                         @endcan
                                     </p>
                                 </div>
@@ -49,10 +92,13 @@
                                 <div class="card-header">Header</div>
                                 <div class="card-body">
                                     <h4 class="card-title">Info card title</h4>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <p class="card-text">Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.</p>
                                 </div>
-                            </div><!--card-->
-                        </div><!--col-md-4-->
+                            </div>
+                            <!--card-->
+                        </div>
+                        <!--col-md-4-->
 
                         <div class="col-md-8 order-2 order-sm-1">
                             <div class="row">
@@ -60,53 +106,75 @@
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             Item
-                                        </div><!--card-header-->
+                                        </div>
+                                        <!--card-header-->
 
                                         <div class="card-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
-                                        </div><!--card-body-->
-                                    </div><!--card-->
-                                </div><!--col-md-6-->
-                            </div><!--row-->
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis
+                                            deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
+                                        </div>
+                                        <!--card-body-->
+                                    </div>
+                                    <!--card-->
+                                </div>
+                                <!--col-md-6-->
+                            </div>
+                            <!--row-->
 
                             <div class="row">
                                 <div class="col">
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             Item
-                                        </div><!--card-header-->
+                                        </div>
+                                        <!--card-header-->
 
                                         <div class="card-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
-                                        </div><!--card-body-->
-                                    </div><!--card-->
-                                </div><!--col-md-6-->
-                            </div><!--row-->
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis
+                                            deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
+                                        </div>
+                                        <!--card-body-->
+                                    </div>
+                                    <!--card-->
+                                </div>
+                                <!--col-md-6-->
+                            </div>
+                            <!--row-->
 
                             <div class="row">
                                 <div class="col">
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             Item
-                                        </div><!--card-header-->
+                                        </div>
+                                        <!--card-header-->
 
                                         <div class="card-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
-                                        </div><!--card-body-->
-                                    </div><!--card-->
-                                </div><!--col-md-6-->
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis
+                                            deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
+                                        </div>
+                                        <!--card-body-->
+                                    </div>
+                                    <!--card-->
+                                </div>
+                                <!--col-md-6-->
 
                                 <div class="col">
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             Item
-                                        </div><!--card-header-->
+                                        </div>
+                                        <!--card-header-->
 
                                         <div class="card-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
-                                        </div><!--card-body-->
-                                    </div><!--card-->
-                                </div><!--col-md-6-->
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis
+                                            deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
+                                        </div>
+                                        <!--card-body-->
+                                    </div>
+                                    <!--card-->
+                                </div>
+                                <!--col-md-6-->
 
                                 <div class="w-100"></div>
 
@@ -114,37 +182,57 @@
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             Item
-                                        </div><!--card-header-->
+                                        </div>
+                                        <!--card-header-->
 
                                         <div class="card-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
-                                        </div><!--card-body-->
-                                    </div><!--card-->
-                                </div><!--col-md-6-->
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis
+                                            deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
+                                        </div>
+                                        <!--card-body-->
+                                    </div>
+                                    <!--card-->
+                                </div>
+                                <!--col-md-6-->
 
                                 <div class="col">
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             Item
-                                        </div><!--card-header-->
+                                        </div>
+                                        <!--card-header-->
 
                                         <div class="card-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
-                                        </div><!--card-body-->
-                                    </div><!--card-->
-                                </div><!--col-md-6-->
-                            </div><!--row-->
-                        </div><!--col-md-8-->
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis
+                                            deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.
+                                        </div>
+                                        <!--card-body-->
+                                    </div>
+                                    <!--card-->
+                                </div>
+                                <!--col-md-6-->
+                            </div>
+                            <!--row-->
+                        </div>
+                        <!--col-md-8-->
                     </div><!-- row -->
                 </div> <!-- card-body -->
             </div><!-- card -->
         </div><!-- row -->
     </div><!-- row -->
+
+</div>
+
 @endsection
 
 
 @section('xjs')
-
+<!-- Scripts -->
+@stack('before-scripts')
+{!! script(mix('js/manifest.js')) !!}
+{!! script(mix('js/vendor.js')) !!}
+{!! script(mix('js/frontend_a.js')) !!}
+@stack('after-scripts')
 
 
 

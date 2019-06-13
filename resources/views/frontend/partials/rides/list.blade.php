@@ -1,140 +1,73 @@
-<!-- Page Content -->
-<div class="container-fluid no-padding page-content">
-    <div class="section-padding"></div>
-    <!-- Container -->
+
+
+<section class="filter-page">
     <div class="container">
+        <div class="row">
 
-        @include('frontend.partials.rides.sidebar')
+                @include('frontend.partials.rides.sidebar')
+            <div class="col-md-9">
+                <div class="filter-page__content">
+                    <div class="filter-item-wrapper">
+
+                        <!-- ITEM -->
+                        <div class="trip-item">
+                         
+                            <div class="item-body">
+                                <div class="item-title">
+                                    <h2>
+                                        <a href="#">{{$ride->pickup_location}} to {{$ride->dropoff_location}}</a>
+                                    </h2>
+                                </div>
+                                <div class="item-list">
+                                    <ul>
+                                        <li></li>
+                                        <li>2 days, 1 night</li>
+                                    </ul>
+                                </div>
+                                <div class="item-footer">
+                                    <div class="item-rate">
+                                        <span>7.5 Good</span>
+                                    </div>
+                                    <div class="item-icon">
+                                        <i class="awe-icon awe-icon-gym"></i>
+                                        <i class="awe-icon awe-icon-car"></i>
+                                        <i class="awe-icon awe-icon-food"></i>
+                                        <i class="awe-icon awe-icon-level"></i>
+                                        <i class="awe-icon awe-icon-wifi"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-price-more">
+                                <div class="price">
+                                    Adult ticket
+                                    <ins>
+                                        <span class="amount">$200</span>
+                                    </ins>
+                                    <del>
+                                        <span class="amount">$200</span>
+                                    </del>
+
+                                </div>
+                                <a href="#" class="awe-btn">Book now</a>
+                            </div>
+                        </div>
+                 
+                    </div>
 
 
-        <!-- Blog Area -->
-        <div class="col-md-9 blog-area">
-            <div class="section-header">
-                <h3>Open Rides</h3>
+                    <!-- PAGINATION -->
+                    <div class="page__pagination">
+                        <span class="pagination-prev"><i class="fa fa-caret-left"></i></span>
+                        <span class="current">1</span>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#" class="pagination-next"><i class="fa fa-caret-right"></i></a>
+                    </div>
+                    <!-- END / PAGINATION -->
+                </div>
             </div>
-            @forelse ($rides as $ride)
-            <article class="blog-post-list">
 
-                <div class="entry-cover mt-25">
-                    <a href="#"><img src="{{asset('img/frontend/placeholders/2.jpg')}}" alt="blog-1"></a>
-                    <div class="entry-meta">
-                        <div class="meta-inner">
-                            <div class="by-line pull-left">Requested By <a href="#">{{$ride->creator_name}}</a></div>
-                            <div class="post-comment pull-right">
-                                <a href="#"><i class="fa fa-heart-o"></i>Driver Rating<span style="color:gold;"><b>
-                                            4.2</b></span></a>
-                                <br>
-                                <a href="#"><i class="fa fa-comment"></i>Passenger Rating<span
-                                        style="color:gold;">4.9</span></a>
-                            </div>
-                        </div>
-                        <div class="meta-inner">
-                            <div class="post-comment pull-left">
-
-                                <a class="post-date pull-left"><i class="fa fa-heart-o"></i>
-
-                                    Scheduled Pickup Time:
-                                    <span style="color:gold;">
-                                        {{date("jS F, Y", strtotime(substr($ride->scheduled_pickup_time, 1, 10)))}}
-
-                                        <b style="color:white;"> At</b>
-
-                                        {{substr($ride->scheduled_pickup_time, 11, 20)}}
-                                    </span>
-                                </a>
-
-                                <br>
-                                <a class="post-date pull-left "><i class="fa fa-heart-o"></i> Travling Distance : <span
-                                        style="color:gold;"><b> {{$ride->total_distance}} Km </b></span></a>
-                                <br>
-                                <a class="post-date pull-left"><i class="fa fa-heart-o"></i> Estimated Travel Time:
-                                    <span style="color:gold;"><b> Around 7 Minutes </b></span></a>
-                            </div>
-
-                            <div class="post-comment pull-right">
-                                <a href="#"><i class="fa fa-heart-o"></i>Traveling From <span style="color:gold;"><b>
-                                            {{$ride->pickup_location}}</b></span></a>
-                                <br>
-                                <a href="#"><i class="fa fa-comment"></i>Traveling To<span
-                                        style="color:gold;">{{$ride->dropoff_location}}</span></a>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="actions-container">
-
-                    <div class="textcenter mt-25">
-                        @auth
-
-                      
-                      
-                       
-
-                        @if( $ride->driver_id == $logged_in_user->id)
-
-                        <button id="routeGo" class="btn btn-primary mb-10">You are Driving for This Ride</button>
-                        @endif
-
-                       
-
-
-                       
-
-
-
-
-                        @endauth
-
-
-                        {{--  {{dd($ride->users)}} --}}
-
-
-                        @Guest
-                        <p>
-                            You will need to create an account or join this ride as a Guest
-                        </p>
-                        @endguest
-
-                    </div>
-                </div>
-
-                <div class="blog-content" style="width:100%">
-                    <h3 class="entry-title">Ride Notes</h3>
-                    <div class="entry-content">
-                        <p>{{$ride->ride_notes}}</p>
-                    </div>
-                </div>
-
-
-            </article>
-            @empty
-
-            <p>
-                There are currently no rides going anywhere.
-                Check back Later.
-            </p>
-            @endforelse
-
-
-
-            <!-- Pagination -->
-            <ul class="pagination">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">...</a></li>
-                <li><a href="#">6</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">Next</span>
-                    </a>
-                </li>
-            </ul><!-- Pagination/- -->
-        </div><!-- Blog Area/- -->
-
-
-    </div><!-- Container/- -->
-    <div class="section-padding"></div>
-</div><!-- Page Content/- -->
+        </div>
+    </div>
+</section>

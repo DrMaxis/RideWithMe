@@ -9,35 +9,45 @@
 <body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
 
 
-   
-        @include('includes.partials.logged-in-as')
-        @include('frontend.includes.preloader')
-        <a id="top"></a>
-        <div class="main-container">
 
-            @include('frontend.includes.header')
+    @include('includes.partials.logged-in-as')
+    @include('frontend.includes.preloader')
 
-            @include('includes.partials.messages')
+    <div id="page-wrap" class="main-container">
 
-            @yield('content')
+        @include('frontend.includes.header')
 
-@include('frontend.includes.footer')
-        </div><!-- container -->
-   
+        @include('includes.partials.messages')
 
-    <!-- Scripts -->
-    @stack('before-scripts')
- {!! script(mix('js/manifest.js')) !!}
-    {!! script(mix('js/vendor.js')) !!}
-    {!! script(mix('js/frontend.js')) !!} 
-    @stack('after-scripts') 
-
-
-@yield('xjs')
+        @yield('content')
 
 
 
+        @include('frontend.includes.footer')
+    </div><!-- container -->
+
+
+
+
+
+
+    <!-- JQuery v1.11.3 -->
+    <script src="{{asset('vendor/js/jquery.min.js')}}"></script>
+    <!-- Library - Bootstrap v3.3.5 -->
+    <script src="{{asset('vendor/bootstrap/bootstrap.min.js')}}"></script><!-- Bootstrap JS File v3.3.5 -->
+    <script src="{{asset('vendor/bootstrap/bootstrap-datetimepicker.min.js')}}"></script>
+    <!-- Bootstrap JS File v3.3.5 -->
+    <script type="text/javascript" src="{{asset('vendor/moment/moment-with-locales.js')}}"> </script>
+    <script type="text/javascript" src="{{asset('vendor/js/jquery.owl.carousel.js')}}"> </script>
+    <script type="text/javascript" src="{{asset('vendor/js/jquery-ui.js')}}"> </script>
+    <script type="text/javascript" src="{{asset('js/base/plugins.js')}}"> </script>
+
+
+
+    @yield('xjs')
     @include('includes.partials.ga')
+
+
 </body>
 
 </html>

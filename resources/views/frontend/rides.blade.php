@@ -2,25 +2,15 @@
 
 @section('title', app_name() . ' | ' . __('navs.general.home'))
 
-@section('google-maps')
-{{--  {!! $data['fromLocationMap']['js'] !!}
- {!! $data['toLocationMap']['js'] !!}  --}}
+@section('prescripts')@endsection
 
-@endsection
-@section('prescripts')
-
-@endsection
-
-@section('xcss')
-
-@endsection
+@section('xcss')@endsection
 
 @section('content')
 
 
 @include('frontend.partials.rides.breadcrumb')
 @include('frontend.partials.rides.list')
-
 
 
 
@@ -31,39 +21,80 @@
 
 
 
-	<!-- JQuery v1.11.3 -->
-	<script src="{{asset('vendor/js/jquery.min.js')}}"></script>
+{{-- 
+<script>
 
-	<!-- Library - Modernizer -->
-	<script src="{{asset('vendor/modernizr/modernizr.js')}}"></script>
+
+(function () {
+  /* submit form */
+				
+$('.passenger_join').click(function(event) {
+				event.preventDefault();
+
+var confirmation = window.confirm('By Submitting this ride request you agree to our terms and conditions and ride policies');
+
+if(confirmation) {
+var slug = $('.passenger_join').attr('data-ride');
+var token = '{{Session::token()}}';
+var submitUrl = $('.passenger_join').attr('data-URL');
+
+
+				
+				console.log('show loader here');
+				$('.transaction-loader').removeClass('off');
+				$('.cblock').remove();
+			
+	$.ajax({
+					method: 'POST',
+					url: submitUrl,
+					data: {
+								slug: slug, 
+								_token: token
+						},
+
+	success: function(e) {
 	
-	<!-- Library - Bootstrap v3.3.5 -->
-	<script src="{{asset('vendor/bootstrap/bootstrap.min.js')}}"></script><!-- Bootstrap JS File v3.3.5 -->
- 	<script src="{{asset('vendor/bootstrap/bootstrap-datetimepicker.min.js')}}"></script><!-- Bootstrap JS File v3.3.5 -->
-	<!-- jQuery Easing v1.3 -->
-	<script src="{{asset('vendor/js/jquery.easing.min.js')}}"></script>
+		$.notify({
+        wrapper: 'body',
+        message: 'Your request submitted successfuly!',
+        type: 'success',
+        position: 8,
+        dir: 'ltr',
+        autoClose: true,
+        duration: 4000,
+        onOpen: null,
+        onClose: null
+		});
+				}
+						})
 
-	<!-- Library - jQuery.appear -->
-	<script src="{{asset('vendor/appear/jquery.appear.js')}}"></script>
+		.fail(function(jqXHR, textStatus, errorThrown) { 
+
+							alert( jqXHR + errorThrown + textStatus);
+							window.location.reload(false); 
+							
+					}) 
+			.done(function(w) { 
+
+								$('.transaction-loader').addClass('off');
+						 
+						});
+} else {
 	
-	<!-- Library - OWL Carousel V.2.0 beta -->
-	<script src="{{asset('vendor/owl-carousel/owl.carousel.min.js')}}"></script>
-	
-	<!-- jQuery For Number Counter -->	
-	<script src="{{asset('vendor/number/jquery.animateNumber.min.js')}}"></script>
-
-	<!-- Library - Google Map API -->
-	{{-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> --}}
-	
-	<!-- Library - FlexSlider v2.5.0 -->
-    <script defer src="{{asset('vendor/flexslider/jquery.flexslider.js')}}"></script>
+}		
+				});
+})();
 
 
-    <script type="text/javascript" src="{{asset('vendor/moment/moment-with-locales.js')}}"> </script>
+</script> --}}
 
-    
-	<script type="text/javascript" src="{{asset('js/vendor/plugins.js')}}"> </script>
-	
-    @include('frontend.includes.partials.scripts.verification.phoneNumberInputValidation')
+
+
+
+
+
+
+
+
 
     @endsection

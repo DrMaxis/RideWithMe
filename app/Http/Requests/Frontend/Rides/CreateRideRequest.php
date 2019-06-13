@@ -27,14 +27,24 @@ class CreateRideRequest extends FormRequest
     public function rules()
     {
         return [
-            'pickup_location' => ['required', 'string'],
-            'dropoff_location' => ['required', 'string'],
-            'request_date' => ['sometimes'],
-            'ride_name' => ['required', 'max:280', 'unique:rides'],
-            'ride_notes' => ['required', 'max:6500'],
-            'total_distance' => ['required'],
-            'travel_time' => ['required'],
-            'option' => ['required'],
+'pickupLocation' => ['required', 'string'],
+'dropoffLocation' => ['required', 'string'],
+'driverScheduledDateTime'  => ['required_if:scheduledDate,'],
+'scheduledTime'  => ['sometimes'],
+'scheduledDate'  => ['required_if:driverScheduledDateTime,'],
+'rideNotes' => [ 'max:6500'],
+'rideOption'  => ['required'],
+'travelTime'  => ['required'],
+'totalDistance'  => ['required'],
+'availableSeats' => ['sometimes'],
+'car' => ['string'],
+'ameninityOptions' => ['sometimes'],
+'luggageSpaceAvailable' => ['required_if:luggageSpaceNeeded,'],
+'luggageSpaceNeeded' => ['required_if:luggageSpaceAvailable,'],
+'childSeatsNeeded' => ['sometimes'],
+'askingPriceOption' => ['required_if:askingPriceOffer,'],
+'askingPriceOffer' => ['required_if:askingPriceOption,'],
+
             
         ];
     }

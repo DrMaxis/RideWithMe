@@ -137,6 +137,9 @@ return [
             'reset_password_button' => 'Reset Password',
             'update_password_button' => 'Update Password',
             'send_password_reset_link_button' => 'Send Password Reset Link',
+            'phone_confirmation_box' => 'Confirm Your Phone number',
+            'confirm_phone_number_button' => 'Confirm Phone Number',
+
         ],
 
         'user' => [
@@ -154,6 +157,7 @@ return [
                 'first_name' => 'First Name',
                 'last_name' => 'Last Name',
                 'update_information' => 'Update Information',
+                'add_car' => 'Add Car',
             ],
         ],
     ],

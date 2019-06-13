@@ -13,10 +13,12 @@ const mix = require('laravel-mix');
 
 mix.setPublicPath('public')
     .setResourceRoot('../') // turns assets paths in css relative to css file
-    .sass('resources/sass/frontend/app.scss', 'css/frontend.css')
+    .sass('resources/sass/frontend/app_a.scss', 'css/frontend_a.css')
+    .sass('resources/sass/frontend/app_b.scss', 'css/frontend_b.css')
   /*   .sass('resources/sass/frontend/partials.scss', 'css/partials.css') */
     .sass('resources/sass/backend/app.scss', 'css/backend.css')
-    .js('resources/js/frontend/app.js', 'js/frontend.js')
+    .js('resources/js/frontend/app_a.js', 'js/frontend_a.js')
+    .js('resources/js/frontend/app_b.js', 'js/frontend_b.js')
     .js([
         'resources/js/backend/before.js',
         'resources/js/backend/app.js',

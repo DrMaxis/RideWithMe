@@ -14,6 +14,7 @@ use App\Repositories\Frontend\Ride\RideRepository;
 use App\Events\Frontend\Auth\Rides\PassengerJoined;
 use App\Http\Requests\Frontend\Rides\CreateRideRequest;
 use App\Http\Requests\Frontend\Session\RideSessionRequest;
+use App\Exceptions\GeneralException;
 
 /**
  * Class RideController.
@@ -99,7 +100,29 @@ class RideController extends Controller
     public function createRide(CreateRideRequest $request)
     {
 
-        $data = $request->only('ride_name', 'ride_notes', 'pickup_location', 'dropoff_location', 'request_date', 'total_distance', 'travel_time', 'option');
+        $data = $request->only(
+
+        'pickupLocation',
+        'dropoffLocation',
+        'driverScheduledDateTime',
+        'scheduledTime',
+        'scheduledDate',
+        'rideNotes',
+        'rideOption',
+        'travelTime' ,
+        'totalDistance',
+        'priceInput',
+        'priceOffer',
+        'availableSeats',
+        'car',
+        'ameninityOptions',
+        'luggageSpaceAvailable',
+        'luggageSpaceNeeded',
+        'childSeatsNeeded',
+        'askingPriceOption',
+        'askingPriceOffer'
+    
+    );
 
         $ride = $this->rideRepository->create($data);
 
@@ -111,36 +134,49 @@ return response()->json('Ride Created:'.$ride->name);
     }
 
 
-    public function joinAsPassenger($slug)  {
+    public function joinAsPassenger($ride)  {
 
 
         $passenger = auth()->user();
-        $ride = Ride::where('slug', '=', $slug)->first();
         $data = array('passenger_phone_number' => $passenger->phone_number);
 
 
-        $update = $this->rideRepository->update($ride->id, $data);
+        $update = $this->rideRepository->joinAsPassenger($ride, $data);
 
 
 
    if ($update) {
-            event(new PassengerJoined($ride, $passenger));
+            event(new PassengerJoined(Ride::find($ride), $passenger));
+        } else {
+             //  Throw Exeception
+            throw new GeneralException('Failed to add you to the ride');
         }
 
-        //  Throw Exeception
+       
 
-        return redirect()->route('frontend.forums.index')->withFlashSuccess(__('Board Updated'));
+    
+        return redirect()->back()->withFlashSuccess(__('You\'ve Been Added To this Ride'));
 
 
     } 
 
-    public function joinAsDriver() {
+    public function joinAsDriver(JoinAsDriverRequest $request, $slug) {
+
+        $driver = auth()->user();
+        $ride = Ride::where('slug','=', $slug);
+        $data = $request->only('car_id', 'price_option', 'leave_time', 'available_seats');
+        $update = $this->rideRepository->joinAsDriver($ride->id, $data);
+
+        if ($update) {
+            event(new DriverJoined($ride, $driver));
+        } else {
+             //  Throw Exeception
+            throw new GeneralException('Failed to add you to the ride');
+        }
 
     }
 
-    public function submitAGuest() {
-
-    }
+  
 
 
 

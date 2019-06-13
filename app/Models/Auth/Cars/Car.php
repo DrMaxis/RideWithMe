@@ -38,11 +38,11 @@ class Car extends Model
 
 
     protected $fillable = [
-'user_id',
-'model',
-'year',
-'plate_number',
-'color',
+        'user_id',
+        'model',
+        'year',
+        'plate_number',
+        'color',
     ];
 
 

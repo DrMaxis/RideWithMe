@@ -35,7 +35,7 @@
 							<input type="text" class="form-control" name="dropoff_location" id="dropoff_location_input"
 								data-dropoffLocation="{{session()->get('rideRequestSessionData')['dropoff_location']}}"
 								value="{{session()->get('rideRequestSessionData')['dropoff_location']}}"
-								placeholder="place, City">
+								placeholder="place, City" required>
 						</div>
 						<!--form-group-->
 					</div>
@@ -49,10 +49,10 @@
 						<div class="form-group">
 							<label for="request_date">Date & Time</label>
 							<div id="datepicker" class="input-group">
-								<input class="form-control" data-format="MM/dd/yyyy HH:mm:ss PP" id="request_date"
+								<input class="form-control" data-format="yyyy/MM/dd HH:mm:ss PP" id="request_date"
 									name="request_date"
 									value="{{session()->get('rideRequestSessionData')['request_date']}}"
-									placeholder="DD/MM/YYYY" />
+									placeholder="YYY/MM/DD" />
 								<span class="add-on">
 									<i data-time-icon="icon-time" data-date-icon="icon-calendar"><img
 											src="{{asset('img/frontend/icons/date-picker.png')}}"
@@ -90,7 +90,61 @@
 
 				<!--row-->
 				<div data-status="unverified" class="row car-info hide-form">
-					@if(count(auth()->user()->cars) >= 0)
+					@if(count($logged_in_user->cars) > 0)
+
+					<div class="col-12 col-md-4">
+
+						<div class="form-group">
+							<label>Available Seats</label>
+							<input type="number" name="available_seats" id="available_seats_input" step="1" min="0"
+								required>
+						</div>
+
+
+						<div data-status="verified" class="form-group car-group">
+							<label>Select A Car</label>
+							<select class="form-control" id="car_option_selector">
+								@foreach($logged_in_user->cars as $carOption)
+								<option id="car_option" data-carID="{{$carOption->uuid}}">{{$carOption->year}}
+									{{$carOption->model}} - {{$carOption->color}}
+								</option>
+								@endforeach
+							</select>
+						</div>
+
+				
+						<fieldset class="notes textcenter mt-25">
+
+							@foreach($timeOptions as $option)
+
+
+
+							<input id="{{$option->name}}" type="radio" name="driver_time_option" class="time variant-input"
+								data-timeOption="{{$option->value}}">
+							<label for="{{$option->name}}" class="variant-label">
+								<span class="label-text">
+									<span class="radio-button"><img
+											src="{{asset('img/frontend/icons/'.$option->name.'.png')}}"
+											class="time_variant_image" alt="{{$option->text}}"
+											title="{{$option->text}}"></span>
+								</span>
+							</label>
+
+							@endforeach
+
+
+
+
+
+						</fieldset>
+
+					</div>
+
+
+
+
+					@else
+
 
 					<div class="col-12 col-md-4">
 						<div data-status="unverified" class="form-group car-group">
@@ -104,30 +158,10 @@
 						</div>
 					</div>
 
-					@else
-
-
-					<div class="col-12 col-md-4">
-						<div data-status="verified" class="form-group car-group">
-							<label>Select A Car</label>
-							<select class="form-control" id="car_option_selector">
-								@foreach(auth()->user()->cars as $carOption)
-								<option id="car_option" data-carID="{{$carOption->uuid}}">{{$carOption->name}}
-								</option>
-								@endforeach
-							</select>
-						</div>
-					</div>
 
 
 
-					<div class="col-12 col-md-4">
-						<div class="form-group">
-							<label>Ride Price</label>
-							<input type="text" class="form-control" name="ride_price" id="ride_price_input"
-								value="{{old('ride_price')}}" placeholder="Ride Price">
-						</div>
-					</div>
+
 
 
 

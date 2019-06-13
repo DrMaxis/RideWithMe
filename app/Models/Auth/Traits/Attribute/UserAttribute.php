@@ -109,6 +109,16 @@ trait UserAttribute
         return $this->full_name;
     }
 
+        /**
+     * Return the country code and phone number concatenated
+     *
+     * @return string
+     */
+   /*  public function getPhoneNumberAttribute()
+    {
+        return $this->country_code.$this->phone_number;
+    } */
+
     /**
      * @return mixed
      */

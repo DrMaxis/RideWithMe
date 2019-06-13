@@ -1,8 +1,10 @@
 {
     "/js/backend.js": "/js/backend.js",
-    "/js/frontend.js": "/js/frontend.js",
-    "/css/frontend.css": "/css/frontend.css",
+    "/js/frontend_a.js": "/js/frontend_a.js",
+    "/css/frontend_a.css": "/css/frontend_a.css",
+    "/css/frontend_b.css": "/css/frontend_b.css",
     "/css/backend.css": "/css/backend.css",
+    "/js/frontend_b.js": "/js/frontend_b.js",
     "/js/manifest.js": "/js/manifest.js",
     "/js/vendor.js": "/js/vendor.js"
 }

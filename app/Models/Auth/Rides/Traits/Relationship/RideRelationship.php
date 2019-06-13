@@ -3,11 +3,9 @@
 namespace App\Models\Auth\Rides\Traits\Relationship;
 
 use App\Models\Auth\User;
-use App\Models\Auth\Accounts\Account;
-use App\Models\Auth\Transactions\Transaction;
 
-
-
+use App\Models\Auth\Amenities\Amenity;
+use App\Models\Auth\RidePassengers\RidePassenger;
 
 /**
  * Class RideRelationship.
@@ -33,7 +31,17 @@ trait RideRelationship
         return $this->belongsToMany(User::class)->withPivot('user_id');
     }
 
+     /**
+     * @return mixed
+     */
+    public function passengers()
+    {
+        return $this->hasMany(RidePassenger::class);
+    }
 
+    public function amenities() {
+        return $this->belongsToMany(Amenity::class)->withPivot('ride_id');
+    }
 
 
 }

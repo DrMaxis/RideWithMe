@@ -50,6 +50,14 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
         Route::get('account/confirm/{token}', [ConfirmAccountController::class, 'confirm'])->name('account.confirm');
         Route::get('account/confirm/resend/{uuid}', [ConfirmAccountController::class, 'sendConfirmationEmail'])->name('account.confirm.resend');
 
+
+        // Confirm Phone Number Route
+        Route::get('phone/confirm/form', [RegisterController::class, 'showConfirmSMSForm'])->name('account.phone.confirm.form');
+        Route::post('phone/confirmed', [ConfirmAccountController::class, 'confirmSMS'])->name('account.phone.confirm');
+
+
+
+
         // Password Reset Routes
         Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.email');
         Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email.post');

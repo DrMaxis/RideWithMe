@@ -189,7 +189,7 @@ return [
                 ],
             ],
         ],
-
+ 
         'frontend' => [
             'avatar' => 'Avatar Location',
             'email' => 'E-mail Address',
@@ -213,7 +213,13 @@ return [
             'language' => 'Language',
             'pickup_location' => 'Pick Up Location',
             'dropoff_location' => 'Dropoff Location',
-            'national_id' => 'National ID Number'
+            'national_id' => 'National ID Number',
+            'car_model' => 'Car Model',
+            'car_year' => 'Car Year',
+            'plate_number' => 'Car Plate Number',
+            'car_color' => 'Car Color',
+            'base_location' => 'Base Location',
+            'phone_confirmation' => 'Confirm Phone Number',
         ],
     ],
 ];

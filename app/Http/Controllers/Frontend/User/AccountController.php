@@ -14,6 +14,21 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return view('frontend.user.account');
+        return view('frontend.user.account.index');
     }
+
+
+    public function settings() {
+
+
+        return view('frontend.user.account.settings');
+    }
+
+    public function saveBaseLocation(Request $request) {
+
+        
+    }
+
+
+   
 }

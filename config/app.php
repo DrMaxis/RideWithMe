@@ -181,6 +181,7 @@ return [
 
         // Package Service Providers that aren't auto-discover...
         FarhanWazir\GoogleMaps\GMapsServiceProvider::class,
+        Nexmo\Laravel\NexmoServiceProvider::class,
         // Application Service Providers...
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
@@ -240,6 +241,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'GMaps' => FarhanWazir\GoogleMaps\Facades\GMapsFacade::class,
+        'Nexmo' => Nexmo\Laravel\Facade\Nexmo::class,
 
         // Package Aliases
     ],

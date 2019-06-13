@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Events\Frontend\Auth\UserConfirmed;
 use App\Events\Frontend\Auth\UserProviderRegistered;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
+use Illuminate\Support\Carbon;
 
 /**
  * Class UserRepository.
@@ -82,6 +83,45 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * @param $code
+     *
+     * @throws GeneralException
+     * @return mixed
+     */
+    public function findByPhoneConfirmationCode($code)
+    {
+        $user = $this->model
+            ->where('phone_confirmation_code', $code)
+            ->first();
+
+        if ($user instanceof $this->model) {
+            return $user;
+        }
+
+        throw new GeneralException(__('exceptions.backend.access.users.not_found'));
+    }
+
+
+       /**
+     * @param $code
+     *
+     * @throws GeneralException
+     * @return mixed
+     */
+    public function findByPhoneNumber($phoneNumber)
+    {
+        $user = $this->model
+            ->where('phone_number', $phoneNumber)
+            ->first();
+
+        if ($user instanceof $this->model) {
+            return $user;
+        }
+
+        throw new GeneralException(__('exceptions.backend.access.users.not_found'));
+    }
+
+    /**
      * @param array $data
      *
      * @throws \Exception
@@ -96,13 +136,14 @@ class UserRepository extends BaseRepository
                 'last_name' => $data['last_name'],
                 'email' => $data['email'],
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
+                'phone_confirmation_code' => generateSixDigitCode(4),
                 'active' => true,
                 'password' => $data['password'],
-                'phone_number' => $data['phone_number'],
+                'phone_number' => $data['phone_country_code'].$data['phone_number'],
                 'phone_network' => $data['phone_network'],
                 'national_id_number' => $data['national_id'],
                 // If users require approval or needs to confirm email
-                'confirmed' => ! (config('access.users.requires_approval') || config('access.users.confirm_email')),
+                'confirmed' => ! (config('access.users.requires_approval') || config('access.users.confirm_phone_number')),
             ]);
 
             if ($user) {
@@ -117,15 +158,53 @@ class UserRepository extends BaseRepository
              *
              * If this is a social account they are confirmed through the social provider by default
              */
-            if (config('access.users.confirm_email')) {
+           /*  if (config('access.users.confirm_email')) {
                 // Pretty much only if account approval is off, confirm email is on, and this isn't a social account.
                 $user->notify(new UserNeedsConfirmation($user->confirmation_code));
+            } */
+
+            if (config('access.users.confirm_phone_number')) {
+                // Pretty much only if account approval is off, confirm phone number is on, and this isn't a social account.
+                $this->sendConfirmationSMS($user->phone_number);
             }
 
             // Return the user object
             return $user;
         });
     }
+
+
+  /**
+     * @param $phoneNumber
+     *
+     * @throws \App\Exceptions\GeneralException
+     * @return mixed
+     */
+    public function sendConfirmationSMS($phoneNumber)
+    {
+
+        $user = $this->model
+            ->where('phone_number', $phoneNumber)
+            ->first();
+
+        if ($user->isConfirmed()) {
+            return redirect()->route('frontend.auth.login')->withFlashSuccess(__('exceptions.frontend.auth.confirmation.already_confirmed'));
+        }
+
+        $code = $user->phone_confirmation_code;
+        $client = app('Nexmo\Client');
+        $client->message()->send([
+            'to' => $phoneNumber,
+            'from' => env('BUISNESS_PHONE_NUMBER'),
+            'text' => 'Your RideWithMe SMS Verification Code: '. $code,
+        ]);
+
+     
+        return $client;
+    }
+
+
+
 
     /**
      * @param       $id
@@ -232,6 +311,33 @@ class UserRepository extends BaseRepository
 
             event(new UserConfirmed($user));
 
+            return $user->save();
+        }
+
+        throw new GeneralException(__('exceptions.frontend.auth.confirmation.mismatch'));
+    }
+
+
+     /**
+     * @param $code
+     *
+     * @throws GeneralException
+     * @return bool
+     */
+    public function confirmSMS($code)
+    {
+        $now = Carbon::now()->toDateTimeString();
+        $user = $this->findByPhoneConfirmationCode($code);
+
+        if ($user->confirmed === true) {
+            throw new GeneralException(__('exceptions.frontend.auth.confirmation.already_confirmed'));
+        }
+
+        if ($user->phone_confirmation_code === $code) {
+            $user->confirmed = true;
+
+            event(new UserConfirmed($user));
+            $user->phone_confirmation_code = 'Confirmed at ' . $now;
             return $user->save();
         }
 

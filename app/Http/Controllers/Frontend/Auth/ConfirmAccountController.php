@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Frontend\Auth\UserRepository;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
@@ -57,4 +58,28 @@ class ConfirmAccountController extends Controller
 
         return redirect()->route('frontend.auth.login')->withFlashSuccess(__('exceptions.frontend.auth.confirmation.resent'));
     }
+
+
+
+
+     
+    // Confirm SMS Verification
+
+    /**
+     * @param $code
+     *
+     * @throws \App\Exceptions\GeneralException
+     * @return mixed
+     */
+    public function confirmSMS(Request $request)
+    {
+        
+        $code = $request->phone_confirmation_code_input;
+        $this->user->confirmSMS($code);
+
+        return redirect()->route('frontend.auth.login')->withFlashSuccess(__('exceptions.frontend.auth.confirmation.success'));
+    }
+
+
+    //
 }

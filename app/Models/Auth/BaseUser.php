@@ -41,6 +41,7 @@ class BaseUser extends Authenticatable implements AuditableInterface
         'phone_network',
         'active',
         'confirmation_code',
+        'phone_confirmation_code',
         'confirmed',
         'timezone',
         'last_login_at',

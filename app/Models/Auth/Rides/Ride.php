@@ -36,6 +36,10 @@ class Ride extends Model
      */
 
 
+    
+   
+    
+      
 
     protected $fillable = [
         'ride_name',
@@ -43,6 +47,7 @@ class Ride extends Model
         'slug',
         'user_id',
         'stauts',
+        'confirm_link',
         'passengers',
         'driver_id',
         'driver_name',
@@ -54,6 +59,15 @@ class Ride extends Model
         'available_seats',
         'max_seats',
         'ride_price',
+        'leave_time',
+        'car_id', 
+        'scheduled_time',
+        'scheduled_date',
+        'luggage_space_needed',
+        'luggage_space_available',
+        'asking_price_option',
+        'asking_price_offer',
+        'child_seats',
         /* 'pickup_location_latitude',
         'pickup_location_longitude',
         'dropoff_location_latitude',

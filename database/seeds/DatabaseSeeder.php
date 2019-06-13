@@ -21,7 +21,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(AuthTableSeeder::class);
-
+        $this->call(PriceOptionsTableSeeder::class);
+        $this->call(TimeOptionsTableSeeder::class);
+        $this->call(AmenitiesTableSeeder::class);
         Model::reguard();
     }
 }

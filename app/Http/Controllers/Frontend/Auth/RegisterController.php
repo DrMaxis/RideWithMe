@@ -45,7 +45,7 @@ class RegisterController extends Controller
      */
     public function redirectPath()
     {
-        return route(home_route());
+        return route('frontend.auth.account.phone.confirm.form');
     }
 
     /**
@@ -61,6 +61,7 @@ class RegisterController extends Controller
             ->withSocialiteLinks((new SocialiteHelper)->getSocialLinks());
     }
 
+    
     /**
      * @param RegisterRequest $request
      *
@@ -71,12 +72,12 @@ class RegisterController extends Controller
     {
         abort_unless(config('access.registration'), 404);
 
-        $user = $this->userRepository->create($request->only('first_name', 'last_name', 'email', 'password', 'phone_number', 'phone_network', 'national_id'));
+        $user = $this->userRepository->create($request->only('first_name', 'last_name', 'email', 'password', 'phone_country_code', 'phone_number', 'phone_network', 'national_id'));
         $userData = array('id' => $user->id,'email' => $user->email, 'phone_nmumber' => $user->phone_number, 'name' => $user->name, 'phone_network' => $user->phone_network );
         $account = $this->accountRepository->create($userData);
         // If the user must confirm their email or their account requires approval,
         // create the account but don't log them in.
-        if (config('access.users.confirm_email') || config('access.users.requires_approval')) {
+        if (config('access.users.confirm_phone_number') || config('access.users.requires_approval')) {
             event(new UserRegistered($user));
 
             return redirect($this->redirectPath())->withFlashSuccess(
@@ -92,4 +93,21 @@ class RegisterController extends Controller
         event(new AccountCreated($account));
         return redirect($this->redirectPath());
     }
+    
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showConfirmSMSForm()
+    {
+        abort_unless(config('access.registration'), 404);
+
+        return view('frontend.auth.verification.phone')
+            ->withSocialiteLinks((new SocialiteHelper)->getSocialLinks());
+    }
+
+
+
+
 }

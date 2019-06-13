@@ -1,0 +1,20 @@
+
+// Global Variables
+ @import "../global"; 
+
+
+// Fonts
+ @import url('https://fonts.googleapis.com/css?family=Nunito'); 
+
+// Bootstrap Overrides
+ @import 'variables'; 
+
+// Bootstrap
+ @import '~bootstrap/scss/bootstrap'; 
+
+// Pages
+@import 'pages/dashboard';
+
+
+//Vendor
+@import 'vendor/intlTelInput/intlTelInput';
