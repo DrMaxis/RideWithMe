@@ -2,7 +2,7 @@
 <nav class="navigation awe-navigation" data-responsive="1200">
     <ul class="menu-list">
         <li class="menu-item-has-children current-menu-parent">
-            <a href="index.html">Home</a>
+            <a href="{{route('frontend.rides.index')}}">Home</a>
 
         </li>
 
