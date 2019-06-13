@@ -598,7 +598,7 @@
         seasonHover();
         tabs();
         accordion();
-        theiaStickySidebar();
+       /*  theiaStickySidebar(); */
         magnificPopup();
         stickyMenu();
 
