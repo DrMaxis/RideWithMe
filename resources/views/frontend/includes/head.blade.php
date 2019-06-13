@@ -7,7 +7,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title', app_name())</title>
   <meta name="description"
-    content="@yield('meta_description', 'Ride With Me, Ghana Carpooling Web & Mobile Application')">
+    content="@yield('meta_description', 'Ride With Me, African Carpooling & Ride Sharing')">
   <meta name="author" content="@yield('meta_author', 'Nathan Antwi'.' | '. 'Studio Unwanted')">
   @yield('meta')
 
