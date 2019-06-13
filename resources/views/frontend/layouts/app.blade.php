@@ -32,11 +32,12 @@
 	<script src="{{asset('vendor/js/jquery.min.js')}}"></script>
 	<!-- Library - Bootstrap v3.3.5 -->
 	<script src="{{asset('vendor/bootstrap/bootstrap.min.js')}}"></script><!-- Bootstrap JS File v3.3.5 -->
- 	<script src="{{asset('vendor/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js')}}"></script><!-- Bootstrap JS File v3.3.5 -->
+ 	
   <script type="text/javascript" src="{{asset('vendor/moment/moment-with-locales.js')}}"> </script>
-	<script type="text/javascript" src="{{asset('vendor/js/jquery.owl.carousel.js')}}"> </script>
+<script type="text/javascript" src="{{asset('vendor/js/jquery.owl.carousel.js')}}"> </script>
   <script type="text/javascript" src="{{asset('vendor/js/jquery-ui.js')}}"> </script>
-	<script type="text/javascript" src="{{asset('js/base/plugins.js')}}"> </script>
+  <script src="{{asset('vendor/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js')}}"></script><!-- Bootstrap JS File v3.3.5 -->
+<script type="text/javascript" src="{{asset('js/base/plugins.js')}}"> </script>
 
 
 

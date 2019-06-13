@@ -4,7 +4,7 @@
                     <div class="container">
                         <!-- LOGO -->
                         <div class="logo">
-                            <a href="{{route('frontend.rides.index')}}"><img src="{{asset('img/frontend/logo/logoicon-r.png')}}" alt=""></a>
+                            <a href="{{route('frontend.index')}}"><img src="{{asset('img/frontend/logo/logoicon-r.png')}}" alt=""></a>
                         </div>
                         <!-- END / LOGO -->
                         
