@@ -33,7 +33,7 @@ class BookingController extends Controller
     public function index()
     {
         $map = new GMaps();
-        $mapConfig['center'] = 'Accra, Ghana';
+        $mapConfig['center'] = 'auto';
         $mapConfig['zoom'] = '14';
         $mapConfig['map_height'] = '500px';
         $mapConfig['geocodeCaching'] = true;
