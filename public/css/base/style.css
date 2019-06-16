@@ -4446,7 +4446,7 @@ body.single-post .blog-page__content > .post .post-content {
 .trip-item .item-media .image-cover,
 .attraction-item .item-media .image-cover,
 .hotel-item .item-media .image-cover {
-  padding-top: 66.66%;
+ /*  padding-top: 66.66%; */
   overflow: hidden;
 }
 .flight-item .item-media .trip-icon,
@@ -4460,6 +4460,8 @@ body.single-post .blog-page__content > .post .post-content {
   top: 0;
   left: 14px;
 }
+
+
 .flight-item .item-body,
 .trip-item .item-body,
 .attraction-item .item-body,
@@ -4471,6 +4473,7 @@ body.single-post .blog-page__content > .post .post-content {
   overflow: hidden;
   overflow-x: auto;
 }
+
 .flight-item .item-body .item-title h2,
 .trip-item .item-body .item-title h2,
 .attraction-item .item-body .item-title h2,
@@ -4647,7 +4650,7 @@ body.single-post .blog-page__content > .post .post-content {
   float: right;
   overflow: hidden;
 }
-.flight-item .item-price-more:after,
+/* .flight-item .item-price-more:after,
 .trip-item .item-price-more:after,
 .attraction-item .item-price-more:after,
 .hotel-item .item-price-more:after {
@@ -4659,7 +4662,23 @@ body.single-post .blog-page__content > .post .post-content {
   bottom: 0;
   left: 0;
   border-left: 2px dotted #D4D4D4;
+} */
+
+.item-body::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  border-right: 2px dotted #000000;
 }
+
+
+
+
+
 .flight-item .item-price-more .price,
 .trip-item .item-price-more .price,
 .attraction-item .item-price-more .price,
@@ -7952,7 +7971,7 @@ body.single-post .blog-page__content > .post .post-content {
 .tour-map {
   max-width: 100%;
   width: 470px;
-  height: 250px;
+  height: auto;
   float: left;
   margin-right: 30px;
 }

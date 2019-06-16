@@ -7,6 +7,8 @@ use App\Models\Auth\Rides\Ride;
 use App\Models\Auth\SocialAccount;
 use App\Models\Auth\PasswordHistory;
 use App\Models\Auth\Accounts\Account;
+use App\Models\Auth\RidePickups\RidePickup;
+
 
 /**
  * Class UserRelationship.
@@ -54,5 +56,8 @@ trait UserRelationship
         return $this->hasMany(Car::class);
     }
 
+    public function pickup() {
+        return $this->belongTo(RidePickup::class);
+    }
 
 }

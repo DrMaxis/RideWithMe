@@ -21,7 +21,7 @@ class CreateRidePassengersTable extends Migration
             $table->string('passenger_name')->nullable();
             $table->string('passenger_email')->nullable();
             $table->string('phone_number')->nullable();
-            $table->boolean('confiemd')->default(false);
+            $table->boolean('confirmed')->default(false);
             $table->timestamps();
         });
     }

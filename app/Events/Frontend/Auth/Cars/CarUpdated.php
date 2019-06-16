@@ -7,9 +7,9 @@ use App\Models\Auth\Cars\Car;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * Class CarCreated.
+ * Class CarUpdated.
  */
-class CarCreated
+class CarUpdated
 {
     use SerializesModels;
 

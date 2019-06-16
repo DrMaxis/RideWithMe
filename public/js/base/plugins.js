@@ -622,7 +622,7 @@
         $('#page-wrap.dark').parent('body').addClass('body-dark');
 
 
-        if ($('.product-map').length) {
+       /*  if ($('.product-map').length) {
             $('.product-map').mdMapExtend({
                 appendTo: '.product-map',
                 autoCenter: true,
@@ -654,7 +654,7 @@
                 iconMarker: 'images/marker.png',
                 scrollwheel: false
             });
-        }
+        } */
 
 
         if (isMobile.any()) {

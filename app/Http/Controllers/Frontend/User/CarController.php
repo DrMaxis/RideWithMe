@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Frontend\User;
 use App\Models\Auth\Cars\Car;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
-use App\Events\Frontend\Auth\Rides\CarCreated;
-use App\Events\Frontend\Auth\Rides\CarDeleted;
+
+use App\Events\Frontend\Auth\Cars\CarCreated;
+use App\Events\Frontend\Auth\Cars\CarDeleted;
+use App\Events\Frontend\Auth\Cars\CarUpdated;
 use App\Repositories\Frontend\Car\CarRepository;
 use App\Http\Requests\Frontend\Cars\SaveCarRequest;
+use App\Http\Requests\Frontend\Cars\UpdateCarRequest;
 
 /**
  * Class CarController.
@@ -52,7 +55,7 @@ class CarController extends Controller
 
 
     $user = auth()->user();
-    $data = $request->only('car_model', 'car_year', 'plate_number', 'car_color');
+    $data = $request->only('car_model', 'car_year', 'plate_number', 'car_color','image_location', 'image_type');
     $car = $this->carRepository->create($data);
 
     if($car) {
@@ -82,4 +85,28 @@ class CarController extends Controller
         throw new GeneralException(__('exceptions.backend.access.users.social_delete_error'));
 
     }
+
+
+
+      /**
+     * @param UpdateProfileRequest $request
+     *
+     * @throws \App\Exceptions\GeneralException
+     * @return mixed
+     */
+    public function update(UpdateCarRequest $request, Car $car)
+    {
+        $output = $this->carRepository->update(
+            $car->id,
+            $request->only('car_model', 'car_year', 'car_color','image_location', 'image_type'),
+            $request->has('image_location') ? $request->file('image_location') : false
+        );
+
+       event(new CarUpdated($car, auth()->user()));
+       
+    
+        return redirect()->route('frontend.user.account')->withFlashSuccess(__('strings.frontend.user.profile_updated'));
+    }
+
+
 }

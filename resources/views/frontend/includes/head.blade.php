@@ -44,6 +44,7 @@
   <link rel="stylesheet" type="text/css" href="{{asset('vendor/fonts/font-awesome.min.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendor/awe/awe-booking-font.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendor/js/jquery-ui.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('vendor/js/jquery.owl.carousel.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/base/style.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/base/demo.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendor/revslider-demo/css/settings.css')}}">

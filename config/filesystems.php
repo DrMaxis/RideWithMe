@@ -53,6 +53,20 @@ return [
             'visibility' => 'public',
         ],
 
+        'car_images' => [
+            'driver' => 'local',
+            'root' => public_path('/img/frontend/user'),
+            'url' => env('APP_URL').'/carimages',
+            'visibility' => 'public',
+        ],
+        'user_avatars' => [
+            'driver' => 'local',
+            'root' => public_path('/img/frontend/user'),
+            'url' => env('APP_URL').'/avatars',
+            'visibility' => 'public',
+        ],
+
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

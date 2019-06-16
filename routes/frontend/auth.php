@@ -49,7 +49,7 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
         // Confirm Account Routes
         Route::get('account/confirm/{token}', [ConfirmAccountController::class, 'confirm'])->name('account.confirm');
         Route::get('account/confirm/resend/{uuid}', [ConfirmAccountController::class, 'sendConfirmationEmail'])->name('account.confirm.resend');
-
+       
 
         // Confirm Phone Number Route
         Route::get('phone/confirm/form', [RegisterController::class, 'showConfirmSMSForm'])->name('account.phone.confirm.form');

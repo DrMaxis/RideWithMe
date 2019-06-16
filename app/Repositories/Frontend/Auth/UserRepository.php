@@ -223,7 +223,7 @@ class UserRepository extends BaseRepository
 
         // Upload profile image if necessary
         if ($image) {
-            $user->avatar_location = $image->store('/avatars', 'public');
+            $user->avatar_location = $image->store('/avatars', 'user_avatars');
         } else {
             // No image being passed
             if ($input['avatar_type'] === 'storage') {
@@ -234,7 +234,7 @@ class UserRepository extends BaseRepository
             } else {
                 // If there is a current image, and they are not using it anymore, get rid of it
                 if (auth()->user()->avatar_location !== '') {
-                    Storage::disk('public')->delete(auth()->user()->avatar_location);
+                    Storage::disk('user_avatars')->delete(auth()->user()->avatar_location);
                 }
 
                 $user->avatar_location = null;

@@ -220,6 +220,7 @@ return [
             'car_color' => 'Car Color',
             'base_location' => 'Base Location',
             'phone_confirmation' => 'Confirm Phone Number',
+            'car_image_location' => "Upload An Image",
         ],
     ],
 ];

@@ -9,62 +9,83 @@
                 <div class="filter-page__content">
                     <div class="filter-item-wrapper">
 
-                        <!-- ITEM -->
-                        <div class="trip-item">
-                         
-                            <div class="item-body">
-                                <div class="item-title">
-                                    <h2>
-                                        <a href="#">{{$ride->pickup_location}} to {{$ride->dropoff_location}}</a>
-                                    </h2>
-                                </div>
-                                <div class="item-list">
-                                    <ul>
-                                        <li></li>
-                                        <li>2 days, 1 night</li>
-                                    </ul>
-                                </div>
-                                <div class="item-footer">
-                                    <div class="item-rate">
-                                        <span>7.5 Good</span>
+                            @forelse($rides as $ride)
+
+                            @if($ride->completed == 0 && $ride->driver != null)
+
+
+                            <!-- ITEM -->
+                            <div class="trip-item">
+                                <div class="item-media">
+                                    <div class="image-cover">
+                                        <img src="{{$ride->creator->picture}}"
+                                            alt="{{$ride->creator->name}}'s Picture'">
                                     </div>
-                                    <div class="item-icon">
-                                        <i class="awe-icon awe-icon-gym"></i>
-                                        <i class="awe-icon awe-icon-car"></i>
-                                        <i class="awe-icon awe-icon-food"></i>
-                                        <i class="awe-icon awe-icon-level"></i>
-                                        <i class="awe-icon awe-icon-wifi"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item-price-more">
-                                <div class="price">
-                                    Adult ticket
-                                    <ins>
-                                        <span class="amount">$200</span>
-                                    </ins>
-                                    <del>
-                                        <span class="amount">$200</span>
-                                    </del>
 
                                 </div>
-                                <a href="#" class="awe-btn">Book now</a>
+                                <div class="item-body">
+                                    <div class="item-title">
+                                        <h2>
+                                            <a href="{{route('frontend.user.ride.show', $ride->slug)}}">Riding To {{$ride->dropoff_address}}</a>
+                                        </h2>
+                                        <h6 style="font-size: 12px">Traveling From: {{$ride->pickup_address}} </h6>
+                                        <h6 style="font-size: 12px">
+                                            Ride Distance: {{round($ride->total_distance, 1)}}KM Approx. {{round($ride->travel_time)}} Minutes
+                                        </h6>
+                                        
+                                    </div>
+                                    <div class="item-list">
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                               
+                                                <h5 style="font-size: 14px;">
+                                                    Scheduled For Pickup On {{date("jS F, Y", strtotime(substr($ride->scheduled_pickup_time, 1, 10)))}} 
+
+                                                            <b > At</b>
+                                                        
+                                                                {{substr($ride->scheduled_pickup_time, 11, 20)}}  
+                                                </h5>
+                                                <h5 style="font-size: 14px;"> Available Seats: {{$ride->available_seats}}</h5>
+                                             
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="item-footer">
+                                        <div class="item-rate">
+                                            <span>Driver: {{$ride->creator->name}}</span>
+                                        </div>
+
+                                        
+
+                                    </div>
+                                </div>
+                                <div class="item-price-more">
+                                    <div class="price">
+                                        Asking Fare:
+                                        <ins>
+                                            <span class="amount">{{$ride->fare_split}} GH₵ / Seat</span>
+                                        </ins>
+                                    </div>
+                                    <a href="#" class="awe-btn">Book now</a>
+                                </div>
                             </div>
-                        </div>
+
+                            @endif
+
+                            @empty
+                            <h1> There Seems to be no rides yet. Check back later</h1>
+
+
+                            @endforelse
+
+
                  
                     </div>
 
 
-                    <!-- PAGINATION -->
-                    <div class="page__pagination">
-                        <span class="pagination-prev"><i class="fa fa-caret-left"></i></span>
-                        <span class="current">1</span>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#" class="pagination-next"><i class="fa fa-caret-right"></i></a>
-                    </div>
-                    <!-- END / PAGINATION -->
+            
                 </div>
             </div>
 

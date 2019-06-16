@@ -20,6 +20,7 @@ class CreateCarsTable extends Migration
             $table->string('model');
             $table->string('year')->nullable();
             $table->string('plate_number')->unique();
+            $table->string('image')->nullable();
             $table->string('color');
             $table->timestamps();
         });

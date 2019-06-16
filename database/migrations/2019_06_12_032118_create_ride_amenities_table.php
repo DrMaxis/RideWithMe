@@ -18,6 +18,7 @@ class CreateRideAmenitiesTable extends Migration
             $table->uuid('uuid');
             $table->string('name')->nullable();
             $table->string('slug')->nullable()->unique();
+            $table->string('icon_class')->nullable();
             $table->timestamps();
         });
     }

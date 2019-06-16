@@ -8,6 +8,7 @@ use App\Models\Auth\Cars\Car;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\GeneralException;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -65,10 +66,58 @@ class CarRepository extends BaseRepository
                     'year' => $data['car_year'],
                     'plate_number' => $data['plate_number'],
                     'color' => $data['car_color'],
-                ]);
+                    
+
+                        
+                
             
+                ]);
+
+                
             return $car;
         });
+    }
+
+
+
+        /**
+     * @param       $id
+     * @param array $input
+     * @param bool|UploadedFile  $image
+     *
+     * @throws GeneralException
+     * @return array|bool
+     */
+    public function update($id, array $input, $image = false)
+    {
+        $now = Carbon::now()->toDateTimeString();
+        $car = $this->getById($id);
+        $car->model = $input['car_model'];
+        $car->year = $input['car_year'];
+        $car->color = $input['car_color'];
+        // Upload profile image if necessary
+        if ($image) {
+            $car->image = $image->store('/carimages', 'car_images');
+        } else {
+            // No image being passed
+            if ($input['image_type'] === 'storage') {
+                // If there is no existing image
+                if ($car->image === '') {
+                    throw new GeneralException('You must supply an image for your car.');
+                }
+            } else {
+                // If there is a current image, and they are not using it anymore, get rid of it
+                if ($car->image !== '') {
+                    Storage::disk('car_images')->delete($car->image);
+                }
+
+                $car->image = null;
+            }
+        }
+
+       
+
+        return $car->save();
     }
 
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAmenityRideTable extends Migration
+class CreateRidePickupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,18 @@ class CreateAmenityRideTable extends Migration
      */
     public function up()
     {
-       
-        Schema::create('amenity_ride', function (Blueprint $table) {
+        Schema::create('ride_pickups', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('amenity_id');
+            $table->uuid('uuid');
             $table->unsignedBigInteger('ride_id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('pickup_location');
+            $table->double('pickup_price')->default(0.00);
             $table->timestamps();
         });
 
-
-        Schema::table('amenity_ride', function (Blueprint $table) {
-            $table->foreign('amenity_id')->references('id')->on('ride_amenities')->onDelete('cascade');
+        Schema::table('ride_pickups', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('ride_id')->references('id')->on('rides')->onDelete('cascade');
             /* $table->foreign('transaction_id')->references('uuid')->on('transactions')->onDelete('cascade'); */
         });
@@ -36,6 +37,6 @@ class CreateAmenityRideTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('amenity_ride');
+        Schema::dropIfExists('ride_pickups');
     }
 }

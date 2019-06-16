@@ -17,7 +17,7 @@ use App\Http\Controllers\Frontend\Rides\Booking\BookingController;
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('contact', [ContactController::class, 'index'])->name('contact');
 Route::post('contact/send', [ContactController::class, 'send'])->name('contact.send');
-Route::get('rides', [BookingController::class, 'listAllRides'])->name('rides.index');
+Route::get('rides', [BookingController::class, 'rides'])->name('rides.index');
 
 
 
@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth', 'password_expires']], function () {
         Route::get('/user/cars', [CarController::class, 'showCars'])->name('account.cars.index');
         Route::post('account/settings/car/save', [CarController::class, 'save'])->name('account.settings.car.save');
         Route::delete('account/settings/{car}/delete', [CarController::class, 'delete'])->name('account.settings.car.delete');
+        Route::patch('account/settings/{car}/update', [CarController::class, 'update'])->name('account.settings.car.update');
         Route::post('account/settings/location/save', [AccountController::class, 'saveBaseLocation'])->name('account.settings.baseLocation.save');
         Route::get('/booking', [BookingController::class, 'index'])->name('account.booking');
 
@@ -53,6 +54,7 @@ Route::group(['middleware' => ['auth', 'password_expires']], function () {
 Route::post('/booking/session/request', [BookingController::class, 'storeSessionData'])->name('ride.session.request');
 // Booking Page
 
+Route::get('ride/confirm/{token}', [ConfirmRideController::class, 'confirm'])->name('ride.confirm');
 
 //Submit Ride
 Route::post('/ride/submit', [RideController::class, 'createRide'])->name('ride.create');

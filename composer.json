@@ -25,6 +25,7 @@
         "nexmo/laravel": "^1.1",
         "owen-it/laravel-auditing": "^9.0",
         "predis/predis": "^1.1",
+        "simplesoftwareio/simple-qrcode": "^2.0",
         "spatie/laravel-html": "^2.4",
         "spatie/laravel-permission": "^2.36",
         "torann/geoip": "^1.0"

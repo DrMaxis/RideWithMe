@@ -29,14 +29,14 @@ class CreateRideRequest extends FormRequest
         return [
 'pickupLocation' => ['required', 'string'],
 'dropoffLocation' => ['required', 'string'],
-'driverScheduledDateTime'  => ['required_if:scheduledDate,'],
 'scheduledTime'  => ['sometimes'],
-'scheduledDate'  => ['required_if:driverScheduledDateTime,'],
+'scheduledDate'  => ['required'],
 'rideNotes' => [ 'max:6500'],
 'rideOption'  => ['required'],
 'travelTime'  => ['required'],
 'totalDistance'  => ['required'],
-'availableSeats' => ['sometimes'],
+'availableSeats' => ['required_if:seatsNeeded,'],
+'seatsNeeded' => ['required_if:,availableSeats'],
 'car' => ['string'],
 'ameninityOptions' => ['sometimes'],
 'luggageSpaceAvailable' => ['required_if:luggageSpaceNeeded,'],
@@ -44,6 +44,8 @@ class CreateRideRequest extends FormRequest
 'childSeatsNeeded' => ['sometimes'],
 'askingPriceOption' => ['required_if:askingPriceOffer,'],
 'askingPriceOffer' => ['required_if:askingPriceOption,'],
+'pickupsOfferd' => ['sometimes'],
+'pickupPrice' => ['sometimes'],
 
             
         ];

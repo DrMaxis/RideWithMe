@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events\Frontend\Auth\Rides;
+namespace App\Events\Frontend\Auth\Cars;
 
 use App\Models\Auth\User;
 use App\Models\Auth\Cars\Car;

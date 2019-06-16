@@ -65,31 +65,16 @@ class Ride extends Model
         'asking_price_option',
         'asking_price_offer',
         'child_seats',
-        /* 'pickup_location_latitude',
-        'pickup_location_longitude',
-        'dropoff_location_latitude',
-        'dropoff_location_longitude', */
-       /*  ,
-        'pickup_time',
-        'scheduled', */
-        'scheduled_pickup_time',
+        'pickups_offerd',
+        'pickups_needed',
+        'seats_needed',
         'estimated_fare',
         'calculated_fare',
         'total_distance',
         'travel_time',
         'fare_split',
-       /*  'accepted_by_driver',
-        'canceled_by_driver',
-        'confirmed_pickup_by_driver',
-        'confirmed_dropoff_by_driver', */
-      /*   'confirmed_pickup',
-        'confirmed_dropoff', */
-       /*  'payment_sent', */
-        /* 'transaction_id', */
         'canceled',
         'cancel_reason',
-        /* 'allow_others',
-        'accepted_terms', */
         'completed',
         'rating',
         'last_updated',

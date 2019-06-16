@@ -182,6 +182,7 @@ return [
         // Package Service Providers that aren't auto-discover...
         FarhanWazir\GoogleMaps\GMapsServiceProvider::class,
         Nexmo\Laravel\NexmoServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         // Application Service Providers...
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
@@ -242,6 +243,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'GMaps' => FarhanWazir\GoogleMaps\Facades\GMapsFacade::class,
         'Nexmo' => Nexmo\Laravel\Facade\Nexmo::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 
         // Package Aliases
     ],

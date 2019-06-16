@@ -5,7 +5,7 @@
                         <!-- BREADCRUMB -->
                         <div class="breadcrumb">
                             <ul>
-                                <li><a href="#">Home</a></li>
+                                <li><a href="{{route('frontend.index')}}">Home</a></li>
                                 <li><span>Trips</span></li>
                             </ul>
                         </div>

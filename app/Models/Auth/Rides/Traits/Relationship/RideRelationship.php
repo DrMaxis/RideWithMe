@@ -42,6 +42,12 @@ trait RideRelationship
     public function amenities() {
         return $this->belongsToMany(Amenity::class)->withPivot('ride_id');
     }
-
+  /**
+     * @return mixed
+     */
+    public function pickups()
+    {
+        return $this->hasMany(RidePickup::class);
+    }
 
 }

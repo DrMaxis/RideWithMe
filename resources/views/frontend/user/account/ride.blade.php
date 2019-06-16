@@ -712,7 +712,8 @@ $('.driver-submit#submit-ride').on('click', function() {
     let submitUrl = "{{route('frontend.user.ride.create')}}";
 var pickupLocation = $('#pickup_location_input').val();
 var dropoffLocation =  $('#dropoff_location_input').val();
-var driverScheduledDateTime = $('#driver_schedule_datetime_input').val();   
+var scheduledTime = $('#driver_schedule_time_input').val();
+var scheduledDate = $('#driver_schedule_datetime_input').val(); 
 var availableSeats = $('#available_seats_input').val();
 var carSelector = document.querySelector('#car_option_selector');	
 var car = carSelector.options[carSelector.selectedIndex].getAttribute('data-carID');
@@ -725,6 +726,14 @@ var priceOffer = $('.driver#price_offer_amount_input').val();
 var priceInput =  $('input[name=price_option ]:checked').attr('data-priceID');
 var luggageSpaceAvailable = $('#luggage_space_amount_input').val();
 var ameninityOptions = [];
+if ($('#yes_pickup_checkbox').is(':checked')) {
+var pickupsOfferd = 1;
+var pickupPrice = $('#pickup_price_input').val();
+} else {
+    var pickupsOfferd = 0; 
+    var pickupPrice = 0.00;
+}
+
 
 $('input[name=ameninity_option]:checked').each(function(index, value) {
 ameninityOptions.push($(this).attr('data-amenityID'));  
@@ -741,7 +750,6 @@ rideOption,
 travelTime,
 totalDistance,
 priceInput,
-driverScheduledDateTime,
 availableSeats,
 car,
 ameninityOptions,
@@ -757,7 +765,8 @@ luggageSpaceAvailable,
 					data: {
                         pickupLocation: pickupLocation,
                         dropoffLocation: dropoffLocation,
-                        driverScheduledDateTime: driverScheduledDateTime,
+                        scheduledTime: scheduledTime,
+                        scheduledDate: scheduledDate,
                         rideNotes: rideNotes,
                         rideOption: rideOption,
                         availableSeats: availableSeats,
@@ -769,6 +778,8 @@ luggageSpaceAvailable,
                         ameninityOptions: ameninityOptions,
                         luggageSpaceAvailable: luggageSpaceAvailable,
                         car:car,
+                        pickupsOfferd,
+                        pickupPrice,
                         
 						},
 
@@ -892,7 +903,9 @@ var childSeatsNeeded = $('#child_seats_needed_input').val();
   $('#passenger_schedule_time_picker').datetimepicker({
       format: 'LT'
   });
-  
+  $('#driver_schedule_time_picker').datetimepicker({
+      format: 'LT'
+  });
  
 });
 

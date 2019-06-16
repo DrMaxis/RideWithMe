@@ -3,7 +3,18 @@
 
 @section('xcss')
 <link href="{{asset('css/user/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+<style>
 
+.op-0 {
+  opacity: 0;
+  
+}
+
+.hr-15{
+  height: 1.5rem;
+}
+
+</style>
 @endsection
 
 

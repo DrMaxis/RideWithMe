@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Models\Auth\Cars;
+namespace App\Models\Auth\RidePickups;
 
 use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Auth\Cars\Traits\Method\CarMethod;
-use App\Models\Auth\Cars\Traits\Relationship\CarRelationship;
-use App\Models\Auth\Cars\Traits\Attribute\CarAttribute;
+use App\Models\Auth\RidePickups\Traits\Relationship\RidePickupRelationship;
 
 /**
- * Class CarRequest.
+ * Class RideRequest.
  */
-class Car extends Model
+class RidePickup extends Model
 {
-    use CarRelationship, Uuid, CarMethod, CarAttribute;
+    use RidePickupRelationship, Uuid;
 
 
     /**
@@ -23,7 +21,7 @@ class Car extends Model
      */
 
 
-    protected $table = 'cars';
+    protected $table = 'ride_pickups';
 
 
     /**
@@ -33,14 +31,16 @@ class Car extends Model
      */
 
 
+    
+   
+    
+      
 
     protected $fillable = [
+        'ride_id',
         'user_id',
-        'model',
-        'year',
-        'plate_number',
-        'color',
-        'image',
+        'pickup_location',
+        'pickup_price',        
     ];
 
 

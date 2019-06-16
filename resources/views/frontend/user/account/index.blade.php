@@ -88,17 +88,17 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th>Ride Name</th>
-                    <th>Position</th>
-                    <th>Total Fare</th>
+                    <th>Ride To</th>
+                    <th>Driver</th>
+                    <th>Fare</th>
                     <th>Date</th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
-                      <th>Ride Name</th>
-                      <th>Position</th>
-                      <th>Total Fare</th>
+                      <th>Ride To</th>
+                      <th>Driver</th>
+                      <th>Fare</th>
                       <th>Date</th>
                   </tr>
                 </tfoot>
@@ -107,12 +107,14 @@
 
                     @forelse($logged_in_user->rides as $ride)
 
-
-                    {{dd($ride->asking_price)}}
                   <tr>
-                    <td>{{$ride->ride_name}}</td>
-                    <td>p/d</td>
-                    <td>{{$ride->calculated_fare}}</td>
+                    <td>{{$ride->dropoff_location}}</td>
+                    @if($ride->driver_id == $logged_in_user->id)
+                    <td>You</td>
+                    @else 
+                    <td> {{$ride->driver_name}}</td>
+                    @endif
+                    <td>Total Fare: {{$ride->asking_price}} Split Fare:  {{$ride->fare_split}} </td>
                     <td>{{timezone()->convertToLocal($ride->created_at) }}</td>
                   </tr>
 

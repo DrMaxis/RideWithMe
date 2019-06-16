@@ -114,13 +114,16 @@ class RideController extends Controller
         'priceInput',
         'priceOffer',
         'availableSeats',
+        'seatsNeeded',
         'car',
         'ameninityOptions',
         'luggageSpaceAvailable',
         'luggageSpaceNeeded',
         'childSeatsNeeded',
         'askingPriceOption',
-        'askingPriceOffer'
+        'askingPriceOffer',
+        'pickupPrice',
+        'pickupsOfferd'
     
     );
 

@@ -9,4 +9,16 @@ namespace App\Models\Auth\Cars\Traits\Attribute;
 trait CarAttribute
 {
   
+
+
+  /**
+     * @return mixed
+     */
+    public function getPictureAttribute()
+    {
+        return $this->getPicture();
+    }
+
+
+
 }

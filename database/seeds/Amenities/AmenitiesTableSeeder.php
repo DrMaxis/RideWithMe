@@ -19,37 +19,34 @@ class AmenitiesTableSeeder extends Seeder
 
         
         Amenity::create([
-            'name' => 'Air Conditioning',
+            'name' => 'Air Conditioning & Heating',
             'slug' => slugify('Air Conditioning'),
-            
-        ]);
-
-        Amenity::create([
-            'name' => 'Heating',
-            'slug' => slugify('Heating'),
+            'icon_class' => 'fas fa-fan'
             
         ]);
 
         Amenity::create([
             'name' => 'Radio',
             'slug' => slugify('Radio'),
+            'icon_class' => 'fas fa-broadcast-tower',
             
         ]);
         Amenity::create([
             'name' => 'Aux Sound Input',
             'slug' => slugify('Aux Sound Input'),
+            'icon_class' => 'fas fa-headphone',
             
         ]);
         Amenity::create([
             'name' => 'Booster Seats',
             'slug' => slugify('Booster Seats'),
-            
+            'icon_class' => 'fas fa-chair',
         ]);
         
         Amenity::create([
             'name' => 'Iphone & Micro Usb Chargers',
             'slug' => slugify('Iphone & Micro Usb Chargers'),
-            
+            'icon_class' => 'fas fa-battery-three-quarters',
         ]);
 
 

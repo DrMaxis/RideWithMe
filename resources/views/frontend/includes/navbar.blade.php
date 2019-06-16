@@ -2,13 +2,12 @@
 <nav class="navigation awe-navigation" data-responsive="1200">
     <ul class="menu-list">
         <li class="menu-item-has-children current-menu-parent">
-            <a href="#">Home</a>
+                <a href="{{route('frontend.index')}}">Home</a>
 
         </li>
 
         <li class="menu-item-has-children">
-            <a href="#">Open Rides</a>
-
+                <a href="{{route('frontend.rides.index')}}">Open Rides</a>
         </li>
 
 
@@ -18,13 +17,7 @@
 
         </li>
 
-        @auth
-        <li><a href="{{route('frontend.user.dashboard')}}"
-                class="nav-link {{ active_class(Active::checkRoute('frontend.user.dashboard')) }}">@lang('navs.frontend.dashboard')</a>
-        </li>
-        @endauth
-
-
+       
         @guest
         <li class="nav-item">
             <a href="{{route('frontend.auth.login')}}" class="nav-link {{ active_class(Active::checkRoute('frontend.auth.login')) }}">@lang('navs.frontend.login')</a>

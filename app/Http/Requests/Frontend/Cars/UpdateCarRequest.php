@@ -4,9 +4,9 @@ namespace App\Http\Requests\Frontend\Cars;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class SaveCarRequest.
+ * Class UpdateCarRequest.
  */
-class SaveCarRequest extends FormRequest
+class UpdateCarRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,10 @@ class SaveCarRequest extends FormRequest
     public function rules()
     {
         return [
+            'image_type' => ['required', 'max:3000'],
+            'image_location' => ['sometimes', 'image', 'max:3000'],
             'car_model' => ['required', 'max:50'],
             'car_year' => ['required', 'max:10'],
-            'plate_number' => ['required', 'unique:cars'],
             'car_color' => ['required', 'max:30'],
         ];
     }
@@ -39,7 +40,7 @@ class SaveCarRequest extends FormRequest
      public function messages()
     {
         return [
-            'plate_number.unique' => 'There is Already a Car Listed with this Plate Number',
+            
             
         ];
     } 

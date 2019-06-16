@@ -40,7 +40,7 @@ trait UserMethod
                 return gravatar()->get($this->email, ['size' => $size]);
 
             case 'storage':
-                return url('storage/'.$this->avatar_location);
+                return url('img/frontend/user/'.$this->avatar_location);
         }
 
         $social_avatar = $this->providers()->where('provider', $this->avatar_type)->first();

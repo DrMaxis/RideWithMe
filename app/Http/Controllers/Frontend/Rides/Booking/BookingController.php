@@ -33,7 +33,7 @@ class BookingController extends Controller
     public function index()
     {
         $map = new GMaps();
-        $mapConfig['center'] = 'auto';
+        $mapConfig['center'] = 'Ghana';
         $mapConfig['zoom'] = '14';
         $mapConfig['map_height'] = '500px';
         $mapConfig['geocodeCaching'] = true;
@@ -77,7 +77,7 @@ class BookingController extends Controller
     }
 
 
-    public function listAllRides()
+    public function rides()
     {
 
         $rides = Ride::all();
@@ -91,8 +91,8 @@ class BookingController extends Controller
 
             $dropoff_location = $ride->dropoff_location;
             $location_array = explode(',', $dropoff_location);
-            $city = $location_array[1];
-            $state = $location_array[2];
+            $city = $location_array[0];
+            $state = $location_array[1];
 
 
             $places[] = $city . ',' . $state;
