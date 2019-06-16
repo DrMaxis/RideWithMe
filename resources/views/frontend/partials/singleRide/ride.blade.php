@@ -112,62 +112,61 @@
                 <div class="product-detail__gallery">
                     <div class="product-slider-wrapper">
                         <div class="product-slider">
-                            <div class="item">
-                                <img src="https://www.gravatar.com/avatar/6a903cd8c26a4cb1a7781f54651d63e6.jpg?s=80&amp;d=mm&amp;r=g"
-                                    alt="">
-                            </div>
-                            <div class="item">
-                                <img src="https://www.gravatar.com/avatar/6a903cd8c26a4cb1a7781f54651d63e6.jpg?s=80&amp;d=mm&amp;r=g"
-                                    alt="">
-                            </div>
-                            <div class="item">
-                                <img src="https://www.gravatar.com/avatar/6a903cd8c26a4cb1a7781f54651d63e6.jpg?s=80&amp;d=mm&amp;r=g"
-                                    alt="">
-                            </div>
-                            <div class="item">
-                                <img src="https://www.gravatar.com/avatar/6a903cd8c26a4cb1a7781f54651d63e6.jpg?s=80&amp;d=mm&amp;r=g"
-                                    alt="">
-                            </div>
-                            <div class="item">
-                                <img src="https://www.gravatar.com/avatar/6a903cd8c26a4cb1a7781f54651d63e6.jpg?s=80&amp;d=mm&amp;r=g"
-                                    alt="">
-                            </div>
-                            <div class="item">
-                                <img src="https://www.gravatar.com/avatar/6a903cd8c26a4cb1a7781f54651d63e6.jpg?s=80&amp;d=mm&amp;r=g"
-                                    alt="">
-                            </div>
-                            <div class="item">
-                                <img src="https://www.gravatar.com/avatar/6a903cd8c26a4cb1a7781f54651d63e6.jpg?s=80&amp;d=mm&amp;r=g"
-                                    alt="">
-                            </div>
+
+                                <div class="item">
+
+
+
+                                        @if($ride->driver_id != null )
+                    
+                    
+                                        <img src="{{$ride->driver->cars->first()->picture}}">
+                    
+                    
+                    
+                    
+                                        @endif
+                    
+                    
+                    
+                    
+                    
+                                    </div>
+                                    <div class="item">
+                                            <img src="{{$ride->creator->picture}}" alt="">
+                            
+                                    </div>
 
                         </div>
                         <div class="product-slider-thumb-row">
                             <div class="product-slider-thumb">
+
+                                    <div class="item">
+
+
+
+                                            @if($ride->driver_id != null )
+                        
+                        
+                                            <img src="{{$ride->driver->cars->first()->picture}}">
+                        
+                        
+                
+                        
+                        
+                                            @endif
+                        
+                        
+                        
+                        
+                        
+                                        </div>
                                 <div class="item">
-                                    <img src="https://www.gravatar.com/avatar/6a903cd8c26a4cb1a7781f54651d63e6.jpg?s=80&amp;d=mm&amp;r=g"
-                                        alt="">
+                                        <img src="{{$ride->creator->picture}}" alt="">
+                        
                                 </div>
-                                <div class="item">
-                                    <img src="https://www.gravatar.com/avatar/6a903cd8c26a4cb1a7781f54651d63e6.jpg?s=80&amp;d=mm&amp;r=g"
-                                        alt="">
-                                </div>
-                                <div class="item">
-                                    <img src="https://www.gravatar.com/avatar/6a903cd8c26a4cb1a7781f54651d63e6.jpg?s=80&amp;d=mm&amp;r=g"
-                                        alt="">
-                                </div>
-                                <div class="item">
-                                    <img src="https://www.gravatar.com/avatar/6a903cd8c26a4cb1a7781f54651d63e6.jpg?s=80&amp;d=mm&amp;r=g"
-                                        alt="">
-                                </div>
-                                <div class="item">
-                                    <img src="https://www.gravatar.com/avatar/6a903cd8c26a4cb1a7781f54651d63e6.jpg?s=80&amp;d=mm&amp;r=g"
-                                        alt="">
-                                </div>
-                                <div class="item">
-                                    <img src="https://www.gravatar.com/avatar/6a903cd8c26a4cb1a7781f54651d63e6.jpg?s=80&amp;d=mm&amp;r=g"
-                                        alt="">
-                                </div>
+                                
+                              
                             </div>
                         </div>
                     </div>
