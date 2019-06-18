@@ -40,7 +40,9 @@ class RidePickup extends Model
         'ride_id',
         'user_id',
         'pickup_location',
-        'pickup_price',        
+        'seats_needed',
+        'luggage_space_needed',
+        'pickup_price',
     ];
 
 

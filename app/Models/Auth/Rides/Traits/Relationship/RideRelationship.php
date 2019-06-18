@@ -5,6 +5,7 @@ namespace App\Models\Auth\Rides\Traits\Relationship;
 use App\Models\Auth\User;
 
 use App\Models\Auth\Amenities\Amenity;
+use App\Models\Auth\RidePickups\RidePickup;
 use App\Models\Auth\RidePassengers\RidePassenger;
 
 /**

@@ -15,6 +15,7 @@ use App\Models\Auth\RideUser\RideUser;
 use App\Models\Auth\AmenityRide\AmenityRide;
 use App\Events\Frontend\Auth\Rides\RideConfirmed;
 use App\Models\Auth\RidePassengers\RidePassenger;
+use App\Models\Auth\RidePickups\RidePickup;
 
 /**
  * Class RideRepository.
@@ -62,7 +63,7 @@ class RideRepository extends BaseRepository
     {
 
 
-       
+
         return DB::transaction(function () use ($data) {
             $user = auth()->user();
             $now = Carbon::now()->toDateTimeString();
@@ -110,7 +111,6 @@ class RideRepository extends BaseRepository
                     'user_id' => $user->id,
                     'ride_id' => $ride->id,
                 ]);
-                
             } elseif ($data['rideOption'] == 'Passenger') {
                 $ride = parent::create([
                     'ride_notes' => $data['rideNotes'],
@@ -161,7 +161,7 @@ class RideRepository extends BaseRepository
     }
 
 
-    
+
 
     /**
      * @param       $id
@@ -173,11 +173,11 @@ class RideRepository extends BaseRepository
      */ /* ;*/
 
 
-    public function joinAsPassenger($id, array $input)
+    public function joinAsPassenger(Ride $ride, array $input, $passengerID)
     {
 
-        $ride = Ride::find($id);
-        $user = User::where('phone_number', '=', $input['passenger_phone_number'])->first();
+
+        $user = User::where('id', '=', $passengerID)->first();
 
         if ($ride->available_seats > 0) {
             $seats = $ride->available_seats - 1;
@@ -200,6 +200,30 @@ class RideRepository extends BaseRepository
             'phone_number' => $user->phone_number,
         ]);
 
+        if ($input['pickupLocation']) {
+
+            RidePickup::create([
+                'ride_id' => $ride->id,
+                'user_id' => $passengerID,
+                'pickup_location' => $input['pickupLocation'],
+                'seats_needed' => $input['seatsNeeded'],
+                'luggage_space_needed' => $input['luggageSpaceNeeded'],
+                'pickup_price' => $ride->pickup_price ?? 0.00,
+
+            ]);
+        } else {
+
+            RidePickup::create([
+                'ride_id' => $ride->id,
+                'user_id' => $passengerID,
+                'pickup_location' => $ride->pickup_location,
+                'seats_needed' => $input['seatsNeeded'],
+                'luggage_space_needed' => $input['luggageSpaceNeeded'],
+                'pickup_price' => $ride->pickup_price ?? 0.00,
+
+            ]);
+        }
+
         return $ride->save();
     }
 
@@ -214,9 +238,7 @@ class RideRepository extends BaseRepository
         $ride->driver_id = $user->id;
         $ride->driver_name = $user->name;
         $ride->driver_phone = $user->phone_number;
-        $ride->leave_time = $input['leave_time'];
-        $ride->ride_price = calculateRidePrice($ride->estimated_fare, $input['price_option']);
-        $ride->max_seats = $input['available_seats'];
+        $ride->driver_arrive_time = $input['driverArriveTime'];
         $ride->car_id = $input['car_id'];
         RideUser::create([
             'user_id' => $user->id,
@@ -224,11 +246,17 @@ class RideRepository extends BaseRepository
         ]);
 
 
+        RidePickup::create([
+            'ride_id' => $ride->id,
+            'user_id' => $ride->user_id,
+            'pickup_location' => $ride->pickup_location,
+            'pickup_price' => $ride->pickup_price ?? 0.00,
 
+        ]);
 
         return $ride->save();
     }
-    
+
 
 
     /**
@@ -239,7 +267,7 @@ class RideRepository extends BaseRepository
      */
     public function confirm($code, $user)
     {
-        
+
         $ride = $this->findByConfirmationCode($code);
         $passenger = RidePassenger::where('user_id', '=', $user->id)->where('ride_id', '=', $ride->id)->first();
 
@@ -259,10 +287,10 @@ class RideRepository extends BaseRepository
     }
 
 
-    
 
 
-      /**
+
+    /**
      * @param $code
      *
      * @throws GeneralException
@@ -280,6 +308,4 @@ class RideRepository extends BaseRepository
 
         throw new GeneralException(__('exceptions.backend.access.users.not_found'));
     }
-
-
 }

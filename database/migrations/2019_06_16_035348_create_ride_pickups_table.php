@@ -19,7 +19,9 @@ class CreateRidePickupsTable extends Migration
             $table->unsignedBigInteger('ride_id');
             $table->unsignedBigInteger('user_id');
             $table->string('pickup_location');
-            $table->double('pickup_price')->default(0.00);
+            $table->double('pickup_price')->default(0.00)->nullable();
+            $table->integer('luggage_space_needed')->default(0);
+            $table->integer('seats_needed')->default(0);
             $table->timestamps();
         });
 

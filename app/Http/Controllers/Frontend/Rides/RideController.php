@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Frontend\Rides;
 use App\Models\Auth\User;
 use App\Models\Auth\Rides\Ride;
 use FarhanWazir\GoogleMaps\GMaps;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Models\Auth\Accounts\Account;
 use Illuminate\Support\Facades\Session;
@@ -14,7 +15,7 @@ use App\Repositories\Frontend\Ride\RideRepository;
 use App\Events\Frontend\Auth\Rides\PassengerJoined;
 use App\Http\Requests\Frontend\Rides\CreateRideRequest;
 use App\Http\Requests\Frontend\Session\RideSessionRequest;
-use App\Exceptions\GeneralException;
+use App\Http\Requests\Frontend\Rides\Passenger\JoinRideRequest;
 
 /**
  * Class RideController.
@@ -67,11 +68,22 @@ class RideController extends Controller
         $mapConfig['directionsStart'] = $ride->pickup_location;
         $mapConfig['directionsEnd'] = $ride->dropoff_location;
         $mapConfig['directionsDivID'] = 'directionsDiv';
+        $mapConfig['places'] = TRUE;
+        $mapConfig['placesAutocompleteInputID'] = 'pickup_location_input';
         $mapConfig['scrollwheel'] = false;
         $mapConfig['scaleControlPosition'] = 'BOTTOM_RIGHT';
         $map->initialize($mapConfig);
         $rideMap =  $map->create_map();
 
+/*         $autoCompleteInputMap['center'] = 'Ghana';
+        $autoCompleteInputMap['geocodeCaching'] = true;
+        $autoCompleteInputMap['places'] = TRUE;
+        $autoCompleteInputMap['placesAutocompleteInputID'] = 'pickup_location_input'; */
+       
+/*       
+        $map->initialize($autoCompleteInputMap);
+        $autocompleteInput =  $map->create_map();
+ */
       /*   $passengers = $ride->users->where('id', '!=', $ride->user_id); */
         $passengers = $ride->users;
         $ride_creator = User::where('id','=',$ride->user_id)->first();
@@ -86,7 +98,8 @@ class RideController extends Controller
            'ride_creator' => $ride_creator,
            'ride_driver' => $ride_driver,
            'passengers' => $passengers,
-           'rideMap' => $rideMap
+           'rideMap' => $rideMap,
+           /* 'autocompleteInput' => $autocompleteInput */
             
             ]);
     }
@@ -137,19 +150,20 @@ return response()->json('Ride Created:'.$ride->name);
     }
 
 
-    public function joinAsPassenger($ride)  {
+    public function joinAsPassenger(JoinRideRequest $request, $rideID)  {
 
 
         $passenger = auth()->user();
-        $data = array('passenger_phone_number' => $passenger->phone_number);
+        $ride = Ride::where('uuid','=', $rideID)->first();
+        $data = array('pickupLocation' => $request['pickupLocation'], 'seatsNeeded' => $request['seatsNeeded'], 'luggageSpaceNeeded' => $request['luggageSpaceNeeded']);
 
 
-        $update = $this->rideRepository->joinAsPassenger($ride, $data);
+        $update = $this->rideRepository->joinAsPassenger($ride, $data, $passenger->id);
 
 
 
    if ($update) {
-            event(new PassengerJoined(Ride::find($ride), $passenger));
+            event(new PassengerJoined($ride, $passenger));
         } else {
              //  Throw Exeception
             throw new GeneralException('Failed to add you to the ride');
@@ -167,7 +181,7 @@ return response()->json('Ride Created:'.$ride->name);
 
         $driver = auth()->user();
         $ride = Ride::where('slug','=', $slug);
-        $data = $request->only('car_id', 'price_option', 'leave_time', 'available_seats');
+        $data = $request->only('car_id','driverArriveTime');
         $update = $this->rideRepository->joinAsDriver($ride->id, $data);
 
         if ($update) {

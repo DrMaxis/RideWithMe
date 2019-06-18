@@ -4,6 +4,7 @@ namespace App\Models\Auth\RidePassengers\Traits\Relationship;
 
 use App\Models\Auth\User;
 use App\Models\Auth\Rides\Ride;
+use App\Models\Auth\RidePickups\RidePickup;
 
 
 
@@ -23,6 +24,7 @@ trait RidePassengerRelationship
     }
 
 
+   
 
 
 }
