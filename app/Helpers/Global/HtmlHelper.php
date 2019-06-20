@@ -51,7 +51,7 @@ if (! function_exists('form_submit')) {
      *
      * @return mixed
      */
-    function form_submit($title, $classes = 'btn btn-success btn-sm pull-right')
+    function form_submit($title, $classes = 'btn btn-success btn-primary')
     {
         return resolve(HtmlHelper::class)->formSubmit($title, $classes);
     }

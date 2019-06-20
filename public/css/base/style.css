@@ -210,7 +210,7 @@ img {
 }
 
 .awe-parallax {
-  color: #fff;
+  color: rgb(0, 0, 0);
   background-position: 50% 50%;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -3432,7 +3432,6 @@ body.single-post .blog-page__content > .post .post-content {
 /* 6.   Login
 --------------------------------------------------------------------------------*/
 .login-register-page__content {
-  max-width: 390px;
   width: 100%;
   float: right;
   padding: 63px 0 135px 0;

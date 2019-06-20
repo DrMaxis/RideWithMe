@@ -7,7 +7,11 @@
         </li>
 
         <li class="menu-item-has-children">
-                <a href="{{route('frontend.rides.index')}}">Open Rides</a>
+                <a href="{{route('frontend.rides.open.index')}}">Open Rides</a>
+        </li>
+
+        <li class="menu-item-has-children">
+                <a href="{{route('frontend.rides.requests.index')}}">Ride Requests</a>
         </li>
 
 

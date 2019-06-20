@@ -1,3 +1,6 @@
+
+
+
 <div class="col-lg-6 mb-4 driver-pricing-container hidden-form">
 
     
@@ -97,8 +100,9 @@
                                     @endforeach
                                     <div class="mb-4" style="margin-top:1rem">
                                         <div class="">
-                                            <a href="#"> How are these prices calculated?</a>
+                                           {{--  <a href="#"> How are these prices calculated?</a> --}}
                                         </div>
+                                       
                                     </div>
         
                                 </div>

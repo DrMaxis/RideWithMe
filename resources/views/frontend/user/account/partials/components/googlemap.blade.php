@@ -10,14 +10,15 @@
                 {!! $data['bookingMap']['html'] !!}
 
                 <div class="textcenter mt-25" style="text-align:center; margin-top:15px;">
-                    <button id="routeGo" class="btn btn-primary mb-10 calculate_ride">Calculate Route &
-                        Directions</button>
-                    <button id="routeClear" class="btn btn-primary mb-10">Reset Rotute & Delete Markers</button>
-
+                    <button id="routeGo" class="btn btn-primary mbrem-1 calculate_ride">Calculate Route</button>
+                    <button  class="btn btn-primary mbrem-1 show-directions-button" data-directionsNextState="visable">Show Directions</button>
+                    <button id="routeClear" class="btn btn-primary mbrem-1">Reset Rotute & Delete Markers</button>
+                    
+                 
                 </div>
 
 
-                <div class="col-lg-12" style="margin-top:50px;">
+                <div class="col-lg-12 map-directions hidden-form" style="margin-top:50px;">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Directions</h6>

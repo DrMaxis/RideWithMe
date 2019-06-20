@@ -77,10 +77,10 @@ class BookingController extends Controller
     }
 
 
-    public function rides()
+    public function openRides()
     {
 
-        $rides = Ride::all();
+        $rides = Ride::where('driver_id', '!=', null)->where('completed','=', 0)->get();
         $places = array();
         $rideLocations = array();
 
@@ -114,7 +114,54 @@ class BookingController extends Controller
         
 
 
-        return view('frontend.rides')->with([
+        return view('frontend.openRides')->with([
+            
+            'rides' =>  $rides,
+            'rideLocations' => $rideLocations,
+        
+        
+        ]);
+    }
+
+
+    public function requestedRides()
+    {
+
+        $rides = Ride::where('driver_id', '=', null)->where('completed','=', 0)->get();
+        $places = array();
+        $rideLocations = array();
+
+
+
+
+        foreach ($rides as $ride) {
+
+            $dropoff_location = $ride->dropoff_location;
+            $location_array = explode(',', $dropoff_location);
+            $city = $location_array[0];
+            $state = $location_array[1];
+
+
+            $places[] = $city . ',' . $state;
+        }
+
+        foreach ($places as $place) {
+            
+
+            $locations = Ride::where('dropoff_location', 'LIKE', '%' . $place . '%')->get();
+
+            $placeCount = count($locations);
+
+            $rideLocations[$place] = [
+                'place' => $place,
+                'count' => $placeCount,
+            ];
+        }
+
+        
+
+
+        return view('frontend.requestedRides')->with([
             
             'rides' =>  $rides,
             'rideLocations' => $rideLocations,

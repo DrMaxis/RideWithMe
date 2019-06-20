@@ -272,6 +272,10 @@
     .input-group-addon:last-child {
         border-left: 0;
     }
+
+    .mbrem-1 {
+        margin-bottom: 1rem;
+    }
 </style>
 @endsection
 
@@ -280,7 +284,9 @@
 @endsection
 
 @section('content')
-
+<div id="submit_response" class="">
+                                              
+    </div>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -487,7 +493,7 @@
 
 
 <script type="text/javascript">
-            let pickupLocationInput = $('#pickup_location_input');
+    let pickupLocationInput = $('#pickup_location_input');
             let dropoffLocationInput = $('#dropoff_location_input');
             let requestDateInput = $('#scheduled_date_input');
             let extraInfoInput = $('#extra_information_input');
@@ -525,6 +531,25 @@
                 clearInputs();
             });
     
+
+
+$('.show-directions-button').on('click', function() {
+
+if($(this).attr('data-directionsNextState') == 'visable') {
+    $('.col-lg-12.map-directions').removeClass('hidden-form');
+    $('.show-directions-button').text('Hide Directions');
+    $(this).attr('data-directionsNextState', 'hidden');
+} else if($(this).attr('data-directionsNextState') == 'hidden') {
+ $('.col-lg-12.map-directions').addClass('hidden-form');
+ $('.show-directions-button').text('Show Directions');
+ $(this).attr('data-directionsNextState', 'visable');
+}
+
+});
+
+
+
+
             function clearInputs() {
                  $('#passenger_schedule_date_input').attr('value', '');
                  $('#passenger_schedule_time_input').attr('value', '');
@@ -918,21 +943,57 @@ $('.transaction-loader').removeClass('off');
 						},
 
 
-						})
+                        })
+                        .fail(function(jqXHR, textStatus, error) {
+                            $('.transaction-loader').addClass('off');
+                            $.notify({
+                                    wrapper: 'body',
+                                    message: 'There was a problem submitting your request. Refreshing page...',
+                                    type: 'error',
+                                    position: 8,
+                                    dir: 'ltr',
+                                    autoClose: true,
+                                    duration: 10000,
+                                    onOpen: null,
+                                    onClose: null
+                                    }); 
+
+            if( jqXHR.status === 422 ) {
+
+            var errors = $.parseJSON(jqXHR.responseText);
+            $.each(errors, function (key, value) {
+                // console.log(key+ " " +value);
+            $('#submit_response').addClass("alert alert-danger");
+
+                if($.isPlainObject(value)) {
+                    $.each(value, function (key, value) {                       
+                    $('#submit_response').show().append(value+"<br/>");
+                    });
+                }else{
+                $('#submit_response').show().append(value+"<br/>"); //this is my div with messages
+                }
+            });
+            setTimeout(function() { 
+     window.location.replace("{{route('frontend.user.account.booking')}}");
+    }, 10000);
+
+          }
+
+                        })
 					 
 			.done(function(w) {
                 
-				$.notify({
+	$.notify({
         wrapper: 'body',
         message: 'Your request submitted successfuly! Redirecting to Dashboard',
         type: 'success',
         position: 8,
         dir: 'ltr',
         autoClose: true,
-        duration: 4000,
+        duration: 5000,
         onOpen: null,
         onClose: null
-		}); 
+		    }); 
         
         setTimeout(function() { 
 $('.transaction-loader').addClass('off');
@@ -978,6 +1039,7 @@ var seatsNeeded = $('#seats_needed_input').val();
                     headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
+                            
 					data: {
                         pickupLocation: pickupLocation,
                         dropoffLocation: dropoffLocation,
@@ -993,21 +1055,53 @@ var seatsNeeded = $('#seats_needed_input').val();
                         luggageSpaceNeeded: luggageSpaceNeeded,
                         childSeatsNeeded: childSeatsNeeded,
                         seatsNeeded: seatsNeeded
-                        
-						},
+                        },
 
-						})
+                        })
+                        .fail(function(jqXHR, textStatus, error) {
+                            $('.transaction-loader').addClass('off');
+                            $.notify({
+        wrapper: 'body',
+        message: 'There was a problem submitting your request. Refreshing page...',
+        type: 'error',
+        position: 8,
+        dir: 'ltr',
+        autoClose: true,
+        duration: 10000,
+        onOpen: null,
+        onClose: null
+		}); 
+            if( jqXHR.status === 422 ) {
+            var errors = $.parseJSON(jqXHR.responseText);
+            $.each(errors, function (key, value) {
+                // console.log(key+ " " +value);
+            $('#submit_response').addClass("alert alert-danger");
+
+                if($.isPlainObject(value)) {
+                    $.each(value, function (key, value) {                       
+                    $('#submit_response').show().append(value+"<br/>");
+                    });
+                }else{
+                $('#submit_response').show().append(value+"<br/>"); //this is my div with messages
+                }
+            });
+            setTimeout(function() { 
+     window.location.replace("{{route('frontend.user.account.booking')}}");
+    }, 10000);
+ }
+
+                        })
 					 
 			.done(function(w) {
  
 				$.notify({
         wrapper: 'body',
         message: 'Your request submitted successfuly! Redirecting to Dashboard',
-        type: 'success',
+        type: 'fail',
         position: 8,
         dir: 'ltr',
         autoClose: true,
-        duration: 4000,
+        duration: 5000,
         onOpen: null,
         onClose: null
 		}); 

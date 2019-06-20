@@ -1,7 +1,7 @@
 <div class="col-md-3">
     <div class="page-sidebar">
         <div class="sidebar-title">
-            <h2>Rides</h2>
+            <h2>Current Trips</h2>
 
         </div>
         <!-- WIDGET -->

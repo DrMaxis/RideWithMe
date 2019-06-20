@@ -37,7 +37,9 @@
 <script type="text/javascript" src="{{asset('vendor/js/jquery.owl.carousel.js')}}"> </script>
   <script type="text/javascript" src="{{asset('vendor/js/jquery-ui.js')}}"> </script>
   <script src="{{asset('vendor/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js')}}"></script><!-- Bootstrap JS File v3.3.5 -->
+  <script type="text/javascript" src="{{asset('vendor/js/jquery.parallax-1.1.3.js')}}"> </script>
 <script type="text/javascript" src="{{asset('js/base/plugins.js')}}"> </script>
+
 
 
 

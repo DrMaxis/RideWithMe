@@ -62,6 +62,12 @@ class CreateRideRequest extends FormRequest
             'ride_name.required' => 'Please Name This Ride',
             'ride_name.unique' => 'A ride names cannot be the same as previous rides',
             'option.required' => 'You must determine wheather you are a passenger or a driver for this ride.',
+            'availableSeats.required_if' => 'You must determine the amount of available seats if you are creating a ride as a driver',
+            'seatsNeeded.required_if' => 'You must determine the amount of seats you need if you are creating a ride',
+            'askingPriceOption.required_if' => 'You must either choose a price option or input your asking price offer',
+            'askingPriceOffer.required_if' => 'You must either choose a price option or input your asking price offer',
+            'luggageSpaceAvailable.required_if' => 'You must determine the amount of luggage space available if you are creating a ride as a driver',
+
         ];
     } 
 }

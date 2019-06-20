@@ -17,7 +17,8 @@ use App\Http\Controllers\Frontend\Rides\Booking\BookingController;
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('contact', [ContactController::class, 'index'])->name('contact');
 Route::post('contact/send', [ContactController::class, 'send'])->name('contact.send');
-Route::get('rides', [BookingController::class, 'rides'])->name('rides.index');
+Route::get('riderequests', [BookingController::class, 'requestedRides'])->name('rides.requests.index');
+Route::get('openrides', [BookingController::class, 'openRides'])->name('rides.open.index');
 
 
 

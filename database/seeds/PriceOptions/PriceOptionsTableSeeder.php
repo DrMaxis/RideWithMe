@@ -18,11 +18,7 @@ class PriceOptionsTableSeeder extends Seeder
       
 
         
-        PriceOption::create([
-            'name' => 'Add10Percent',
-            'value' => 0.10,
-            'text' => 'Add 10 Percent',
-        ]);
+     
 
         PriceOption::create([
             'name' => 'Add15Percent',
@@ -47,13 +43,6 @@ class PriceOptionsTableSeeder extends Seeder
             'value' => 0.30,
             'text' => 'Add 30 Percent',
         ]);
-
-        PriceOption::create([
-            'name' => 'NoFee',
-            'value' => 0.00,
-            'text' => 'Add No Fee',
-        ]);
-
 
       
 

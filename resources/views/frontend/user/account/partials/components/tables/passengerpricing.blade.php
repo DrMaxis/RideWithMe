@@ -1,3 +1,4 @@
+
 <div class="col-lg-6 mb-4 passenger-pricing-container">
 
     <!-- Project Card Example -->
@@ -99,8 +100,11 @@
                             @endforeach
                             <div class="mb-4" style="margin-top:1rem">
                                 <div class="">
-                                    <a href="#"> How are these prices calculated?</a>
+                               {{--      <a href="#"> How are these prices calculated?</a> --}}
                                 </div>
+                                <div id="submit_response" class="">
+                                              
+                                    </div>
                             </div>
 
                         </div>

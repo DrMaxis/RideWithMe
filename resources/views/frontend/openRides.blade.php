@@ -10,7 +10,7 @@
 
 
 @include('frontend.partials.rides.breadcrumb')
-@include('frontend.partials.rides.list')
+@include('frontend.partials.rides.openRidesList')
 
 
 

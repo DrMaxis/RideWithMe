@@ -142,10 +142,17 @@ class RideController extends Controller
 
         $ride = $this->rideRepository->create($data);
 
-        event(new RideCreated($ride));
+
+        if($ride) {
+              event(new RideCreated($ride));
+
 
 
 return response()->json('Ride Created:'.$ride->name);
+        } else {
+            return response()->json(['errors'=>$ride->errors()->all()]);
+        }
+      
        
     }
 

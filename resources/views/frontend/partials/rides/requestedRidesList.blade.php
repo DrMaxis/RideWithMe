@@ -11,7 +11,7 @@
 
                             @forelse($rides as $ride)
 
-                            @if($ride->completed == 0 && $ride->driver != null)
+                          
 
 
                             <!-- ITEM -->
@@ -45,7 +45,7 @@
                                                         
                                                                 {{$ride->scheduled_time}}  
                                                 </h5>
-                                                <h5 style="font-size: 14px;"> Available Seats: {{$ride->available_seats}}</h5>
+                                                <h5 style="font-size: 14px;"> Seats Needed: {{$ride->seats_needed}}</h5>
                                              
                                             </div>
 
@@ -54,7 +54,8 @@
                                     </div>
                                     <div class="item-footer">
                                         <div class="item-rate">
-                                            <span>Driver: {{$ride->creator->name}}</span>
+                                                <span><b>Driver Needed </b> Request Made by {{$ride->creator->name}} |
+                                                    {{$ride->creator->phone_number}}</span>
                                         </div>
 
                                         
@@ -68,14 +69,14 @@
                                             <span class="amount">{{$ride->fare_split}} GH₵ / Seat</span>
                                         </ins>
                                     </div>
-                                    <a href="{{route('frontend.user.ride.show', $ride->slug)}}" class="awe-btn">Join This Ride</a>
+                                    <a href="{{route('frontend.user.ride.show', $ride->slug)}}" class="awe-btn">Drive For This Ride</a>
                                 </div>
                             </div>
 
-                            @endif
+                        
 
                             @empty
-                            <h1> There Seems to be no rides yet. Check back later</h1>
+                            <h3> There Seems to be no open ride requests. Check back later</h3>
 
 
                             @endforelse

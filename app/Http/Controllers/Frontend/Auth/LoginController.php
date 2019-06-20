@@ -37,15 +37,45 @@ class LoginController extends Controller
             ->withSocialiteLinks((new SocialiteHelper)->getSocialLinks());
     }
 
+
     /**
-     * Get the login username to be used by the controller.
+     * Validate the user login request. With their phone number and password
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->phonenumber() => 'required|string',
+            'password' => 'required|string',
+        ]);
+    }
+
+
+    /**
+     * Get the login phonenumber to be used by the controller.
      *
      * @return string
      */
-    public function username()
+    public function phonenumber()
     {
-        return config('access.users.username');
+        return 'phone_number';
     }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        return $request->only($this->phonenumber(), 'password');
+    }
+
 
     /**
      * The user has been authenticated.
@@ -59,7 +89,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         // Check to see if the users account is confirmed and active
-        if (! $user->isConfirmed()) {
+        if (!$user->isConfirmed()) {
             auth()->logout();
 
             // If the user is pending (account approval is on)
@@ -72,7 +102,7 @@ class LoginController extends Controller
             throw new GeneralException(__('exceptions.frontend.auth.confirmation.resend', ['url' => route('frontend.auth.account.confirm.resend', e($user->{$user->getUuidName()}))]));
         }
 
-        if (! $user->isActive()) {
+        if (!$user->isActive()) {
             auth()->logout();
 
             throw new GeneralException(__('exceptions.frontend.auth.deactivated'));
@@ -120,7 +150,7 @@ class LoginController extends Controller
     public function logoutAs()
     {
         // If for some reason route is getting hit without someone already logged in
-        if (! auth()->user()) {
+        if (!auth()->user()) {
             return redirect()->route('frontend.auth.login');
         }
 
@@ -132,7 +162,7 @@ class LoginController extends Controller
             resolve(AuthHelper::class)->flushTempSession();
 
             // Re-login admin
-            auth()->loginUsingId((int) $admin_id);
+            auth()->loginUsingId((int)$admin_id);
 
             // Redirect to backend user page
             return redirect()->route('admin.auth.user.index');

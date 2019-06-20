@@ -158,6 +158,7 @@ return [
                 'last_name' => 'Last Name',
                 'update_information' => 'Update Information',
                 'add_car' => 'Add Car',
+                'car_photo' => 'Car Photo',
             ],
         ],
     ],
