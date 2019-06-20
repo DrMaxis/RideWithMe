@@ -1082,7 +1082,7 @@ var seatsNeeded = $('#seats_needed_input').val();
                     $('#submit_response').show().append(value+"<br/>");
                     });
                 }else{
-                $('#submit_response').show().append(value+"<br/>"); //this is my div with messages
+                $('#submit_response').show().append(value+"<br/>"); 
                 }
             });
             setTimeout(function() { 
