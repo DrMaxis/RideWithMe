@@ -13,7 +13,8 @@
                             {{$ride->creator->phone_number}}</span>
 
                         @else
-                        <span><b>Driver Needed</b>{{$ride->creator->name}} | {{$ride->creator->phone_number}}</span>
+                        <span><b>Driver Needed </b> Request Made by {{$ride->creator->name}} |
+                            {{$ride->creator->phone_number}}</span>
                         @endif
                     </div>
                     <div class="trips">
@@ -183,10 +184,10 @@
                             <a href="#tabs-1">Ride Information</a>
                         </li>
                         <li>
-                            <a href="#tabs-2">Extra Details</a>
+                            <a href="#tabs-2">Details</a>
                         </li>
                         <li>
-                            <a href="#tabs-3">Reviews & Misc.</a>
+                            <a href="#tabs-3">Reviews</a>
                         </li>
                         <li>
                             <a href="#tabs-4">Rider Information</a>
@@ -248,7 +249,14 @@
                                             <p> Driver</p>
                                         </th>
                                         <td>
+                                            @if($ride->driver_id != null )
                                             <p>{{$ride->driver->name}}</p>
+
+
+                                            @else
+                                            <p>A Driver has not joied this ride yet.</p>
+                                            @endif
+
                                         </td>
                                     </tr>
                                     <tr>
@@ -265,21 +273,26 @@
                                             </p>
                                         </td>
                                     </tr>
+                                    @if($ride->pickup_price == 0.00 || $ride->pickup_price == null)
                                     <tr>
                                         <th>
-                                            <p>Pickup Fees</p>
+                                            <p>Pickup Price</p>
                                         </th>
+
                                         <td>
-                                            <p>{{$ride->pickup_fee}}</p>
+
+
+                                            <p>{{$ride->pickup_price}}</p>
                                         </td>
                                     </tr>
+                                    @endif
                                     <tr>
                                         <th>
                                             <p>Seating</p>
                                         </th>
                                         <td>
                                             @if($ride->seats_needed != null)
-                                            <p>This Rider needs <b> {{$ride->seats_needed}} </b>
+                                            <p>This Rider needs <b> {{$ride->seats_needed}} Seats</b>,
                                                 @if($ride->child_seats != null)
 
                                                 {{$ride->child_seats}} of which are for children.
@@ -292,6 +305,8 @@
                                             @endif
                                         </td>
                                     </tr>
+
+
                                     <tr>
                                         <th>
                                             <p>Amenities</p>
@@ -573,12 +588,13 @@
                                         <th>
                                             <p> Passengers</p>
                                         </th>
-
+                                        {{-- {{dd($ride->passengers)}} --}}
                                         <td>
                                             @forelse($ride->passengers as $passenger)
                                             <p>{{$passenger->passenger_name}}</p>
                                             <p>
-                                                Joined On: {{ timezone()->convertToLocal($passenger->created_at, 'F jS, Y') }}
+                                                Joined On:
+                                                {{ timezone()->convertToLocal($passenger->created_at, 'F jS, Y') }}
                                             </p>
                                             @empty
                                             <p>There are No Passengers on this ride</p>
@@ -604,14 +620,15 @@
                                     </tr>
                                     <tr>
                                         <th>
-                                            <p>Pickup Fees</p>
+                                            <p>Pickup Information</p>
                                         </th>
                                         <td>
+                                            
+                                            @if($ride->pickups->isNotEmpty() && count($ride->passengers) > 1) )
                                             <p>{{$ride->pickup_fee}}</p>
 
                                             @forelse($ride->passengers as $passenger)
-                                            @if(
-                                            $ride->pickups->where('passenger','=',$passenger->user_id)->first()->pickup_location
+                                            @if($ride->pickups->where('passenger','=',$passenger->user_id)->first()->pickup_location
                                             != null)
                                             <p>{{$passenger->passenger_name}} needs to be picked up at
                                                 {{$ride->pickups->where('passenger','=',$passenger->user_id)->first()->pickup_location}}
@@ -623,6 +640,12 @@
                                             @empty
                                             <p>No passenger Pickup Information</p>
                                             @endforelse
+
+                                            @else
+
+                                            <p>No passenger Pickup Information</p>
+
+                                            @endif
                                         </td>
 
 
@@ -632,9 +655,10 @@
                                         <th>
                                             <p>Seating</p>
                                         </th>
-                                        
+
                                         <td>
-@forelse($ride->passengers as $passenger)
+                                            @if($ride->pickups->isNotEmpty() && count($ride->passengers) > 1) )
+                                            @forelse($ride->passengers as $passenger)
                                             <p>{{$passenger->passenger_name}} needs
                                                 {{$ride->pickups->where('passenger','=',$passenger->user_id)->first()->seats_needed}}
                                                 seat(s)</p>
@@ -644,6 +668,21 @@
 
                                             <p>No passenger Seating Information</p>
                                             @endforelse
+                                            @else
+
+                                            @if($logged_in_user->id == $ride->driver_id)
+                                            <p>No passenger Seating Information</p>
+                                            @else
+                                            <p>{{$ride->creator->name}} needs {{$ride->seats_needed}} seat(s) Total</p>
+                                            @endif
+
+
+
+                                            @endif
+                                            @if($ride->child_seats != null)
+
+                                            <p>Child Seats: {{$ride->child_seats}}</p>
+                                            @endif
                                         </td>
 
 
@@ -653,16 +692,28 @@
                                         <th>
                                             <p>Luggages</p>
                                         </th>
-                                        
+
                                         <td>
-@forelse($ride->passengers as $passenger)
-                                            <p>{{$passenger->passenger_name}} Has 
+                                            @if($ride->pickups->isNotEmpty() && count($ride->passengers) > 1) )
+                                            @forelse($ride->passengers as $passenger)
+                                            <p>{{$passenger->passenger_name}} Has
                                                 {{$ride->pickups->where('passenger','=',$passenger->user_id)->first()->luggage_space_needed}}
                                                 Bag(s)</p>
 
                                             @empty
                                             <p>No passenger Luggage Information</p>
                                             @endforelse
+
+                                            @else
+                                            @if($logged_in_user->id == $ride->driver_id)
+                                            <p>No passenger Luggage Information</p>
+                                            @else
+                                            <p>{{$ride->creator->name}} has a total of {{$ride->luggage_space_needed}}
+                                                luggage(s)</p>
+                                            @endif
+
+
+                                            @endif
                                         </td>
 
 
@@ -680,11 +731,38 @@
                 <div class="detail-sidebar">
                     <div class="call-to-book">
                         <i class="awe-icon awe-icon-phone"></i>
-                        <em>For More Information Call the Driver</em>
-                        <span>{{$ride->driver->phone_number}}</span>
+
+                        @if($ride->driver_id != null )
+
+
+
+                        <span>Driver {{$ride->driver->name}}. <br> Reach Them At {{$ride->driver->phone_number}}</span>
+                        @else
+
+                        <span>Requested By {{$ride->creator->name}}. <br> Reach Them At
+                            {{$ride->creator->phone_number}}</span>
+
+                        @endif
+
                     </div>
+                    
+                    @if($ride->available_seats == 0 || $logged_in_user->id == $ride->driver_id ||
+                    $ride->passengers->where('user_id', '=', $logged_in_user->uuid)->isNotEmpty())
+
                     <div class="booking-info">
-                        @if($ride->available_seats == 0)
+                        @if($ride->available_seats == 0 || $ride->available_seats == null)
+                        <h3>This Ride is Full and not accepting any more passengers</h3>
+                        @else
+                        <h3>You are included in this ride.</h3>
+                        @endif
+                    </div>
+
+
+                    @else
+
+
+                    <div class="booking-info">
+                        @if($ride->available_seats == 0 || $ride->available_seats == null)
                         <h3>This Ride is Full and not accepting any more passengers</h3>
                         @else
                         <h3>Booking info</h3>
@@ -695,7 +773,7 @@
 
                                     <select class="awe-select seats-needed-selector">
 
-                                        @for ($i = 1 ; $i <= $ride->available_seats; $i++)
+                                        @for ($i = 1; $i <= $ride->available_seats; $i++)
                                             <option value="{{ $i }}">{{ $i }}</option>
                                             @endfor
 
@@ -706,7 +784,7 @@
                                 <label>Luggages</label>
                                 <div class="form-item">
                                     <select class="awe-select luggage-space-selector">
-                                        @for ($i = 1 ; $i <= $ride->luggage_space_available; $i++)
+                                        @for ($i = 1; $i <= $ride->luggage_space_available; $i++)
                                             <option value="{{ $i }}">{{ $i }}</option>
                                             @endfor
                                     </select>
@@ -740,6 +818,8 @@
                         @endif
 
                     </div>
+                    @endif
+
                 </div>
             </div>
         </div>

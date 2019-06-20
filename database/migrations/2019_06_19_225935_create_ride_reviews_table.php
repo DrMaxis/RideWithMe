@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRidePickupsTable extends Migration
+class CreateRideReviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,23 @@ class CreateRidePickupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ride_pickups', function (Blueprint $table) {
+        Schema::create('ride_reviews', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uuid');
             $table->unsignedBigInteger('ride_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('pickup_location');
-            $table->double('pickup_price')->default(0.00)->nullable();
-            $table->integer('luggage_space_needed')->default(0);
-            $table->integer('seats_needed')->default(0);
-            $table->string('passenger');
+            $table->double('safety_rating')->nullable();
+            $table->double('quality_rating')->nullable();
+            $table->double('punctuality_rating')->nullable();
+            $table->double('charisma_rating')->nullable();
+            $table->double('passengers_rating')->nullable();
+            $table->longText('review')->nullable();
             $table->timestamps();
         });
 
-        Schema::table('ride_pickups', function (Blueprint $table) {
+        Schema::table('ride_reviews', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('ride_id')->references('id')->on('rides')->onDelete('cascade');
-            /* $table->foreign('transaction_id')->references('uuid')->on('transactions')->onDelete('cascade'); */
         });
     }
 
@@ -40,6 +40,6 @@ class CreateRidePickupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ride_pickups');
+        Schema::dropIfExists('ride_reviews');
     }
 }

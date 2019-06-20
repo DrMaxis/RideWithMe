@@ -5,10 +5,123 @@
 <link href="{{asset('css/user/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 <link href="{{asset('vendor/bootstrap/datetimepicker/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
 <link href="{{asset('vendor/bootstrap/datetimepicker/bootstrap-datetimepicker-standalone.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="{{asset('vendor/js/jquery.notify.min.css')}}">
 
 <style>
+    .payment-loader {
+        position: relative;
+        margin: 75px auto;
+        width: 150px;
+        height: 150px;
+        display: block;
+        overflow: hidden;
+    }
+
+    .payment-loader div {
+        height: 100%;
+    }
+
+
+    /* loader 4 */
+    .payment-loader4,
+    .payment-loader4 div {
+        border-radius: 50%;
+        padding: 8px;
+        border: 2px solid transparent;
+        -webkit-animation: rotate linear 3.5s infinite;
+        animation: rotate linear 3.5s infinite;
+        border-radius: 50%;
+        padding: 4px;
+        -webkit-animation: rotate2 4s infinite linear;
+        animation: rotate2 4s infinite linear;
+    }
+
+    .payment-loader,
+    .payment-loader * {
+        will-change: transform;
+    }
+
+
     .hidden-form {
         display: none !important;
+    }
+
+    .off {
+        display: none !important;
+    }
+
+    @-webkit-keyframes rotate {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        50% {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes rotate {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        50% {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @-webkit-keyframes rotate2 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+            border-top-color: rgba(0, 0, 0, 0.5);
+        }
+
+        50% {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            border-top-color: rgba(0, 0, 255, 0.5);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+            border-top-color: rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    @keyframes rotate2 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+            border-top-color: rgba(0, 0, 0, 0.5);
+        }
+
+        50% {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            border-top-color: rgba(0, 0, 255, 0.5);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+            border-top-color: rgba(0, 0, 0, 0.5);
+        }
     }
 
     .has-success .input-group-addon {
@@ -179,9 +292,36 @@
 
     <!-- Content Row -->
     <div class="row rider_info">
+        <div class="transaction-loader off" style="margin: 0 auto">
+            <div class="row">
+                <div class="col-12">
+                    <div class="payment-loader payment-loader4">
+                        <div>
+                            <div>
+                                <div>
+                                    <div>
+                                        <div>
+                                            <div>
+                                                <div>
+                                                    <div>
+                                                        <div>
+                                                            <div></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Content Column -->
-        <div class="col-lg-12 mb-4">
+        <div class="col-lg-12 mb-4 rider-info-col">
 
             <!-- Project Card Example -->
             <div class="card shadow mb-4">
@@ -339,6 +479,7 @@
 <script src="{{asset('js/user/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('vendor/moment/moment-with-locales.js')}}"></script>
 <script src="{{asset('vendor/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendor/js/jquery.notify.min.js')}}"> </script>
 
 
 <!-- Page level custom scripts -->
@@ -346,17 +487,22 @@
 
 
 <script type="text/javascript">
-    let pickupLocationInput = $('#pickup_location_input');
+            let pickupLocationInput = $('#pickup_location_input');
             let dropoffLocationInput = $('#dropoff_location_input');
             let requestDateInput = $('#scheduled_date_input');
             let extraInfoInput = $('#extra_information_input');
             let calculateButton = $('.calculate_ride');
+            let submitButton = $('#submit-ride');
     $(function () {
             
           let submitUrl = "{{route('frontend.user.ride.create')}}";
 
            
-            
+           
+
+            if($('.col-lg-12.car-information').attr('data-verification') == 'unverified') {
+                submitButton.attr('disabled', true);
+            }
         
             /* when user chooses passenger or driver  */
             
@@ -741,20 +887,8 @@ ameninityOptions.push($(this).attr('data-amenityID'));
 });
 
         
-				
-				console.log('show loader here');
-
-console.log(
-rideNotes,
-rideOption,
-travelTime,
-totalDistance,
-priceInput,
-availableSeats,
-car,
-ameninityOptions,
-luggageSpaceAvailable,
-);
+$('.rider-info-col').remove();				
+$('.transaction-loader').removeClass('off');
 
 				$.ajax({
 					method: 'POST',
@@ -787,11 +921,10 @@ luggageSpaceAvailable,
 						})
 					 
 			.done(function(w) {
-                console.log(w);
-/* $('.transaction-loader').addClass('off');
+                
 				$.notify({
         wrapper: 'body',
-        message: 'Your request submitted successfuly!',
+        message: 'Your request submitted successfuly! Redirecting to Dashboard',
         type: 'success',
         position: 8,
         dir: 'ltr',
@@ -799,7 +932,12 @@ luggageSpaceAvailable,
         duration: 4000,
         onOpen: null,
         onClose: null
-		}); */
+		}); 
+        
+        setTimeout(function() { 
+$('.transaction-loader').addClass('off');
+window.location.replace("{{route('frontend.user.account')}}");
+}, 3000);
 });
 
     });
@@ -826,13 +964,13 @@ var priceInput =  $('input[name=price_option ]:checked').attr('data-priceID');
 var priceOffer = $('.passenger#price_offer_amount_input').val();
 var luggageSpaceNeeded = $('#luggage_amount_input').val();
 var childSeatsNeeded = $('#child_seats_needed_input').val();
+var seatsNeeded = $('#seats_needed_input').val();
 
 
 
 
-	
-				console.log('show loader here');
-				console.log(scheduledTime,scheduledDate,rideNotes,rideOption,travelTime,totalDistance,priceInput, priceOffer);
+                $('.rider-info-col').remove();
+				$('.transaction-loader').removeClass('off');
 
 				$.ajax({
 					method: 'POST',
@@ -854,18 +992,17 @@ var childSeatsNeeded = $('#child_seats_needed_input').val();
                         askingPriceOffer: priceOffer,
                         luggageSpaceNeeded: luggageSpaceNeeded,
                         childSeatsNeeded: childSeatsNeeded,
+                        seatsNeeded: seatsNeeded
                         
 						},
-
 
 						})
 					 
 			.done(function(w) {
-                console.log(w);
-/* $('.transaction-loader').addClass('off');
+ 
 				$.notify({
         wrapper: 'body',
-        message: 'Your request submitted successfuly!',
+        message: 'Your request submitted successfuly! Redirecting to Dashboard',
         type: 'success',
         position: 8,
         dir: 'ltr',
@@ -873,7 +1010,13 @@ var childSeatsNeeded = $('#child_seats_needed_input').val();
         duration: 4000,
         onOpen: null,
         onClose: null
-		}); */
+		}); 
+        setTimeout(function() { 
+$('.transaction-loader').addClass('off');
+     window.location.replace("{{route('frontend.user.account')}}");
+    }, 3000);
+
+        
 });
 
 });

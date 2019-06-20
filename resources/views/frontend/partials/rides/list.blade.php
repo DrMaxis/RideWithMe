@@ -39,11 +39,11 @@
                                             <div class="col-lg-8">
                                                
                                                 <h5 style="font-size: 14px;">
-                                                    Scheduled For Pickup On {{date("jS F, Y", strtotime(substr($ride->scheduled_pickup_time, 1, 10)))}} 
+                                                    Scheduled For Pickup On {{date("jS F, Y", strtotime(substr($ride->scheduled_date, 1, 10)))}} 
 
                                                             <b > At</b>
                                                         
-                                                                {{substr($ride->scheduled_pickup_time, 11, 20)}}  
+                                                                {{$ride->scheduled_time}}  
                                                 </h5>
                                                 <h5 style="font-size: 14px;"> Available Seats: {{$ride->available_seats}}</h5>
                                              
@@ -68,7 +68,7 @@
                                             <span class="amount">{{$ride->fare_split}} GH₵ / Seat</span>
                                         </ins>
                                     </div>
-                                    <a href="#" class="awe-btn">Book now</a>
+                                    <a href="{{route('frontend.user.ride.show', $ride->slug)}}" class="awe-btn">Join This Ride</a>
                                 </div>
                             </div>
 

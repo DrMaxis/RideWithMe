@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Auth\Rides\Ride;
+
 if (!function_exists('app_name')) {
     /**
      * Helper to grab the application name.
@@ -35,7 +37,7 @@ if (!function_exists('home_route')) {
                 return 'admin.dashboard';
             }
 
-            return 'frontend.user.dashboard';
+            return 'frontend.user.account';
         }
 
         return 'frontend.index';
@@ -118,6 +120,51 @@ if (!function_exists('generateSixDigitCode')) {
         return $code;
     }
 }
+
+
+if (!function_exists('getRideLocations')) {
+    /**
+     * Generate a six digits code
+     *
+     * @param int $codeLength
+     * @return string
+     */
+    function getRideLocations()
+    {
+        $rides = Ride::all();
+        $places = array();
+        $rideLocations = array();
+
+
+
+
+        foreach ($rides as $ride) {
+
+            $dropoff_location = $ride->dropoff_location;
+            $location_array = explode(',', $dropoff_location);
+            $city = $location_array[0];
+            $state = $location_array[1];
+
+
+            $places[] = $city . ',' . $state;
+        }
+
+        foreach ($places as $place) {
+            
+
+            $locations = Ride::where('dropoff_location', 'LIKE', '%' . $place . '%')->get();
+
+            $placeCount = count($locations);
+
+            $rideLocations[$place] = [
+                'place' => $place,
+                'count' => $placeCount,
+            ];
+        }
+        return $rideLocations;
+    }
+}
+
 
 
 

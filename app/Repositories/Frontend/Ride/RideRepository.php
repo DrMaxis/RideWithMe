@@ -209,6 +209,7 @@ class RideRepository extends BaseRepository
                 'seats_needed' => $input['seatsNeeded'],
                 'luggage_space_needed' => $input['luggageSpaceNeeded'],
                 'pickup_price' => $ride->pickup_price ?? 0.00,
+                'passenger' => auth()->user()->uuid,
 
             ]);
         } else {
@@ -220,6 +221,7 @@ class RideRepository extends BaseRepository
                 'seats_needed' => $input['seatsNeeded'],
                 'luggage_space_needed' => $input['luggageSpaceNeeded'],
                 'pickup_price' => $ride->pickup_price ?? 0.00,
+                'passenger' => auth()->user()->uuid,
 
             ]);
         }

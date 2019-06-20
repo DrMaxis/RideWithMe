@@ -56,7 +56,7 @@
                 <div class="sale-flights-tabs tabs">
                     <ul>
                         <li><a href="#sale-flights-tabs-1">Open Rides</a></li>
-                        <li><a href="#sale-flights-tabs-2">Latest Requests</a></li>
+                        <li><a href="#sale-flights-tabs-2">Latest Ride Requests</a></li>
                     </ul>
                     <div class="sale-flights-tabs__content tabs__content">
                         <div id="sale-flights-tabs-1">
@@ -120,7 +120,7 @@
                                             <span class="amount">{{$ride->fare_split}} GH₵ / Seat</span>
                                         </ins>
                                     </div>
-                                    <a href="#" class="awe-btn">Book now</a>
+                                    <a href="{{route('frontend.user.ride.show', $ride->slug)}}" class="awe-btn">Join This Ride</a>
                                 </div>
                             </div>
 
@@ -155,7 +155,7 @@
                                     <div class="item-body">
                                         <div class="item-title">
                                             <h2>
-                                                <a href="#">Riding To {{$ride->dropoff_address}}</a>
+                                                <a href="{{route('frontend.user.ride.show', $ride->slug)}}">Riding To {{$ride->dropoff_address}}</a>
                                             </h2>
                                             <h6 style="font-size: 12px">Traveling From: {{$ride->pickup_address}} </h6>
                                             <h6 style="font-size: 12px">
@@ -174,7 +174,7 @@
                                                             
                                                                     {{$ride->scheduled_time}}  
                                                     </h5>
-                                                    <h5 style="font-size: 14px;">Seats Needed: {{$ride->available_seats}}</h5>
+                                                    <h5 style="font-size: 14px;">Seats Needed: {{$ride->seats_needed}} @if($ride->child_seats != null) ({{$ride->child_seats}}  for children) @endif</h5>
                                                  
                                                 </div>
     
@@ -197,7 +197,20 @@
                                                 <span class="amount">{{$ride->fare_split}} GH₵</span>
                                             </ins>
                                         </div>
-                                        <a href="#" class="awe-btn">Book now</a>
+                                        @auth
+                                        @if($logged_in_user->cars->isNotEmpty())
+                                        <a href="{{route('frontend.user.ride.show', $ride->slug)}}" class="awe-btn">Drive For This Ride</a>
+                                                                            @else 
+                                                                            <a href="{{route('frontend.user.account')}}">You must add a car to your account to drive for a ride</a>
+                                                                            @endif
+                                                                            @endauth
+                                                                            
+                                                                            @guest 
+
+                                                                            <a href="{{route('frontend.auth.login')}}" class="awe-btn">Login to Drive</a>
+
+                                                                            @endguest
+                                       
                                     </div>
                                 </div>
 

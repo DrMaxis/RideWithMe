@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <!-- WIDGET -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="widget widget_contact_info">
                         <div class="widget_background">
                             <div class="widget_background__half">
@@ -14,83 +14,59 @@
                             </div>
                         </div>
                         <div class="logo">
-                            <img src="images/logo-footer.png" alt="">
+                            <img src="{{asset('img/frontend/logo/logoicon-r.png')}}" alt="">
                         </div>
                         <div class="widget_content">
-                            <p>25 California Avenue, Santa Monica, California. USA</p>
-                            <p>+1-888-8765-1234</p>
-                            <a href="#">contact@RideWithMe.com</a>
+                            <p>{{env('BUISNESS_ADDRESS')}}, {{env('BUISNESS_CITY')}}, {{env('BUISNESS_STATE')}}. {{env('BUISNESS_COUNTRY')}}</p>
+                            <p>Phone: {{env('BUISNESS_PHONE_NUMBER')}}</p>
+                            <a href="mailto:{{env('BUISNESS_EMAIL')}}">Email: {{env('BUISNESS_EMAIL')}}</a>
                         </div>
                     </div>
                 </div>
                 <!-- END / WIDGET -->
 
-                <!-- WIDGET -->
-                <div class="col-md-2">
-                    <div class="widget widget_about_us">
-                        <h3>About Us</h3>
-                        <div class="widget_content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel dignissim dolor. Ut risus orci, aliquam sit amet semper eget, egestas aliquam felis.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- END / WIDGET -->
+           
 
                 <!-- WIDGET -->
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="widget widget_categories">
-                        <h3>Categiries</h3>
-                        <ul>
-                            <li><a href="#">Countries</a></li>
-                            <li><a href="#">Regions</a></li>
-                            <li><a href="#">Cities</a></li>
-                            <li><a href="#">Districts</a></li>
-                            <li><a href="#">Countries</a></li>
-                            <li><a href="#">Airports</a></li>
-                            <li><a href="#">Hotels</a></li>
-                            <li><a href="#">Places of interest</a></li>
+                        <h3>Locations</h3>
+
+                       
+
+
+                        <ul> 
+                           
+                            @forelse(getRideLocations() as $location)
+                             <li style="display: inline-block;width: 100%;margin-bottom: 38px;"><a href="#">{{$location['place']}}</a></li>
+                            @empty 
+<li><a>There are no recent ride locations</a></li>
+                            @endforelse
+                           
+                           
                         </ul>
                     </div>
                 </div>
                 <!-- END / WIDGET -->
 
                 <!-- WIDGET -->
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="widget widget_recent_entries">
-                        <h3>Recent Blog</h3>
+                        <h3>Our Services</h3>
                         <ul>
-                            <li><a href="#">Countries</a></li>
-                            <li><a href="#">Regions</a></li>
-                            <li><a href="#">Cities</a></li>
-                            <li><a href="#">Districts</a></li>
-                            <li><a href="#">Countries</a></li>
-                            <li><a href="#">Airports</a></li>
-                            <li><a href="#">Hotels</a></li>
-                            <li><a href="#">Places of interest</a></li>
+                            <li style="display: inline-block;width: 100%;margin-bottom: 38px;"><a href="#">Find Local Rides or Scheduled Rides for long distances</a></li>
+                            <li style="display: inline-block;width: 100%;margin-bottom: 38px;"><a href="#">Get Alerted About Your Ride Updated Through SMS</a></li>
+                            <li style="display: inline-block;width: 100%;margin-bottom: 38px;"><a href="#">Instant Ride Directions and Route Calulation</a></li>
+                            <li style="display: inline-block;width: 100%;margin-bottom: 38px;"><a href="#">Mobile Money & Credit or Debit Card Payments Accepted</a></li>
+                            <li style="display: inline-block;width: 100%;margin-bottom: 38px;"><a href="#">Get Paied & Withdraw Cash Directly to your payment medium of choice.</a></li>
+                            
                         </ul>
-                    </div>
-                </div>
-                <!-- END / WIDGET -->
-
-                <!-- WIDGET -->
-                <div class="col-md-3">
-                    <div class="widget widget_follow_us">
-                        <div class="widget_content">
-                            <p>For Special booking request, please call</p>
-                            <span class="phone">099-099-000</span>
-                            <div class="awe-social">
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- END / WIDGET -->
             </div>
             <div class="copyright">
-                <p>©2015 RideWithMe travel™ All rights reserved.</p>
+                <p>2019 RideWithMe travel™ All rights reserved.</p>
             </div>
         </div>
     </footer>

@@ -19,8 +19,10 @@ class HomeController extends Controller
     {
        
         $rides = Ride::all();
+       
 
-
-        return view('frontend.index')->with(['rides' => $rides]);
+        return view('frontend.index')->with([
+            'rides' => $rides
+        ]);
     }
 }

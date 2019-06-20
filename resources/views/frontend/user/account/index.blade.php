@@ -104,7 +104,6 @@
                 </tfoot>
 
                   <tbody>
-
                     @forelse($logged_in_user->rides as $ride)
 
                   <tr>

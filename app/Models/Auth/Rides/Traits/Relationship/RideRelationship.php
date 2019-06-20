@@ -6,6 +6,7 @@ use App\Models\Auth\User;
 
 use App\Models\Auth\Amenities\Amenity;
 use App\Models\Auth\RidePickups\RidePickup;
+use App\Models\Auth\RideReviews\RideReview;
 use App\Models\Auth\RidePassengers\RidePassenger;
 
 /**
@@ -49,6 +50,11 @@ trait RideRelationship
     public function pickups()
     {
         return $this->hasMany(RidePickup::class);
+    }
+
+    public function reviews() {
+        return $this->hasMany(RideReview::class);
+        
     }
 
 }

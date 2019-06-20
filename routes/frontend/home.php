@@ -53,8 +53,8 @@ Route::group(['middleware' => ['auth', 'password_expires']], function () {
 // Homepage Request Form
 Route::post('/booking/session/request', [BookingController::class, 'storeSessionData'])->name('ride.session.request');
 // Booking Page
-
-Route::get('ride/confirm/{token}', [ConfirmRideController::class, 'confirm'])->name('ride.confirm');
+/* 
+Route::get('ride/confirm/{token}', [ConfirmRideController::class, 'confirm'])->name('ride.confirm'); */
 
 //Submit Ride
 Route::post('/ride/submit', [RideController::class, 'createRide'])->name('ride.create');

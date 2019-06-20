@@ -196,7 +196,7 @@ class UserRepository extends BaseRepository
         $client->message()->send([
             'to' => $phoneNumber,
             'from' => env('BUISNESS_PHONE_NUMBER'),
-            'text' => 'Your RideWithMe SMS Verification Code: '. $code,
+            'text' => 'Your RideWithMe SMS Verification Code: '. $code. '  Please Visit ->'.route('frontend.auth.account.phone.confirm.form').' to confirm and activate your account!',
         ]);
 
      

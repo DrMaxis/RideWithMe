@@ -226,7 +226,9 @@ opacity: 0;
 
 {{-- Logout Modal --}}
 @include('frontend.user.account.partials.modals.logout')
+@if($cars->isNotEmpty())
 @include('frontend.user.account.partials.modals.carImage')
+@endif
 @endsection
 
 

@@ -1,4 +1,7 @@
-<div class="col-lg-12">
+
+@if($logged_in_user->cars->isNotEmpty())
+
+<div data-verification="verified" class="col-lg-12 car-information">
     <div class="form-group">
             <label>Select A Car</label>
             <select class="form-control" id="car_option_selector">
@@ -144,3 +147,19 @@
     
         </div>
 </div>
+
+@else 
+
+
+<div data-verification="unverified" class="col-lg-12 car-information">
+       
+    <p>You must add a car to your account before creating or joining any rides that require you to drive.</p>
+    
+    
+    
+    
+    
+    
+  
+    </div>
+@endif

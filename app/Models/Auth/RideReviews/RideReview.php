@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models\Auth\RidePickups;
+namespace App\Models\Auth\RideReviews;
 
 use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Auth\RidePickups\Traits\Relationship\RidePickupRelationship;
+use App\Models\Auth\RideReviews\Traits\Relationship\RideReviewRelationship;
 
 /**
- * Class RideRequest.
+ * Class RideReview.
  */
-class RidePickup extends Model
+class RideReview extends Model
 {
-    use RidePickupRelationship, Uuid;
+    use RideReviewRelationship, Uuid;
 
 
     /**
@@ -21,7 +21,7 @@ class RidePickup extends Model
      */
 
 
-    protected $table = 'ride_pickups';
+    protected $table = 'ride_reviews';
 
 
     /**
@@ -30,20 +30,16 @@ class RidePickup extends Model
      * @var array
      */
 
-
-    
-   
-    
-      
-
     protected $fillable = [
         'ride_id',
         'user_id',
-        'pickup_location',
-        'seats_needed',
-        'luggage_space_needed',
-        'pickup_price',
-        'passenger',
+        'safety_rating',
+        'quality_rating',
+        'punctuality_rating',
+        'charisma_rating',
+        'safety_rating',
+        'passengers_rating',
+        'review',
     ];
 
 
