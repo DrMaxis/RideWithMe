@@ -180,7 +180,7 @@ class RideRepository extends BaseRepository
         $user = User::where('id', '=', $passengerID)->first();
 
         if ($ride->available_seats > 0) {
-            $seats = $ride->available_seats - 1;
+            $seats = $ride->available_seats - $input['seats_needed'];
         } else {
             $seats = 0;
         }

@@ -628,10 +628,10 @@
                                             <p>{{$ride->pickup_fee}}</p>
 
                                             @forelse($ride->passengers as $passenger)
-                                            @if($ride->pickups->where('passenger','=',$passenger->user_id)->first()->pickup_location
+                                            @if($ride->pickups->where('passenger','=',$passenger->uuid)->first()->pickup_location
                                             != null)
                                             <p>{{$passenger->passenger_name}} needs to be picked up at
-                                                {{$ride->pickups->where('passenger','=',$passenger->user_id)->first()->pickup_location}}
+                                                {{$ride->pickups->where('passenger','=',$passenger->uuid)->first()->pickup_location}}
                                             </p>
                                             @else
                                             <p>will be meet at the designated location.
