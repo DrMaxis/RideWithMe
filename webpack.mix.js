@@ -76,7 +76,8 @@ mix.webpackConfig({
             '/booking': ['resources/views/frontend/user/account/ride.blade.php'],
             '/login': ['resources/views/frontend/auth/login.blade.php'],
             '/register': ['resources/views/frontend/auth/register.blade.php'],
-
+            '/phone/confirm/form': ['resources/views/frontend/auth/verfication/phone.blade.php'],
+            
 
             // '/posts': ['resources/views/posts.blade.php']
         },
