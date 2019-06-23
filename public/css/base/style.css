@@ -260,7 +260,6 @@ img {
   -ms-border-radius: 2px;
   -o-border-radius: 2px;
   border-radius: 2px;
-  white-space: nowrap;
   text-transform: uppercase;
   cursor: pointer;
   line-height: normal;
@@ -4466,7 +4465,7 @@ body.single-post .blog-page__content > .post .post-content {
 .attraction-item .item-body,
 .hotel-item .item-body {
   position: relative;
-  padding: 18px 34px;
+  padding: 50px 25px;
   width: 50%;
   float: left;
   overflow: hidden;
@@ -4622,7 +4621,7 @@ body.single-post .blog-page__content > .post .post-content {
   float: left;
   font-size: 18px;
   font-weight: 700;
-  color: #B1B1B1;
+  color: #0580cb;
 }
 .flight-item .item-body .item-footer .item-icon,
 .trip-item .item-body .item-footer .item-icon,
@@ -6501,7 +6500,6 @@ body.single-post .blog-page__content > .post .post-content {
   margin-bottom: 0;
   text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap;
 }
 .product-detail__info .trips .item p .fa,
 .product-detail__info .trips .item p .awe-icon {
@@ -9567,10 +9565,10 @@ select {
     font-size: 36px;
   }
 
-  .product-detail__info .property-highlights .item,
+  /* .product-detail__info .property-highlights .item,
   .product-detail__info .trips .item {
     width: 50%;
-  }
+  } */
 
   .awe-search-tabs-2 .ui-tabs-nav li .ui-tabs-anchor {
     min-width: 0;

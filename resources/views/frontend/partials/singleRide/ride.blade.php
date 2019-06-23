@@ -7,72 +7,81 @@
                         <h2>Traveling To {{$ride->dropoff_location}} From {{$ride->pickup_location}}</h2>
                     </div>
                     <div class="product-address">
-                        @if($ride->driver_id != null )
-
-                        <span style="font-size: 1.8rem;"><b>Driver:</b> {{$ride->creator->name}} |
-                            {{$ride->creator->phone_number}}</span>
-
+                        @if($ride->driver != null )
+                        <span style="font-size: 1.8rem;"><b>Driver:</b> {{$ride->driver->name}} |
+                            {{$ride->driver->phone_number}}</span>
                         @else
                         <span><b>Driver Needed </b> Request Made by {{$ride->creator->name}} |
                             {{$ride->creator->phone_number}}</span>
                         @endif
                     </div>
                     <div class="trips">
-                        <div class="item">
-                            <h6>Scheduled For </h6>
-                            <p>
-                                <i
-                                    class="glyphicon glyphicon-calendar"></i>{{date("jS F, Y", strtotime(substr($ride->scheduled_date, 1, 10)))}}
-                            </p>
-                        </div>
-                        <div class="item">
-                            <h6>Ride Duration</h6>
-                            <p><i class="fa fa-clock-o"></i>{{round($ride->total_distance, 1)}}KM /
-                                {{round($ride->travel_time)}} Minutes</p>
-                        </div>
-                        <div class="item">
-                            @if($ride->scheduled_time != null)
-                            <h6>DepartureTime</h6>
-                            <p>{{$ride->scheduled_time}}</p>
-                            @else
-                            <h6>DepartureTime</h6>
-                            <p>Has Not Been Set</p>
-                            @endif
-                        </div>
-                        <div class="item">
-                            <h6>Available Seats</h6>
-                            @if($ride->available_seats == 0 )
-                            <p>Full</p>
-                            @else
-                            <p>{{$ride->available_seats}}</p>
-                            @endif
 
+                        <div class="row">
+                            <div class="item">
+                                <h6>Scheduled For </h6>
+                                <p>
+                                    <i
+                                        class="glyphicon glyphicon-calendar"></i>{{date("jS F, Y", strtotime(substr($ride->scheduled_date, 1, 10)))}}
+                                </p>
+                            </div>
+                            <div class="item">
+                                <h6>Ride Duration</h6>
+                                <p>
+                                    <span>Approx.</span>
+                                    {{round($ride->total_distance, 1)}}KM
+                                </p>
+                                <p>
+                                    {{convertMinuteTimeToHourMinute(round($ride->travel_time), '%02d hours %02d minutes')}}
+                                </p>
+
+                            </div>
+
+                            <div class="item">
+                                @if($ride->scheduled_time != null)
+                                <h6>DepartureTime</h6>
+                                <p>{{$ride->scheduled_time}}</p>
+                                @else
+                                <h6>DepartureTime</h6>
+                                <p>Has Not Been Set</p>
+                                @endif
+                            </div>
 
                         </div>
-                        <div class="item">
-                            @if($ride->pickups_offerd == true)
-                            <h6>Pickups Offerd</h6>
-                            <p title="Yes">Pickups Are Offerd</p>
-                            @elseif($ride->pickups_needed == true)
-                            <h6>Pickup Needed</h6>
-                            <p title="Yes">Pickup Needed</p>
-                            @else
-                            <h6>Pickup Information</h6>
-                            <p>Pickups are not offerd</p>
+                        <hr>
 
-                            @endif
+                        <div class="row">
+                            <div class="item">
+                                <h6>Available Seats</h6>
+                                @if($ride->available_seats == 0 )
+                                <p>Full</p>
+                                @else
+                                <p>{{$ride->available_seats}}</p>
+                                @endif
+                            </div>
+                            <div class="item">
+                                <h6>Pickup Information</h6>
+                                @if($ride->pickups_offerd == true)
+                                <p title="Pickups Are Offerd">Pickups Are Offerd</p>
+                                @elseif($ride->pickups_needed == true)
+                                <p title="Yes">Pickup Needed</p>
+                                @else
+                                <p>No Pickup Info Yet</p>
+                                @endif
+                            </div>
+                            <div class="item">
+                                @if($ride->luggage_space_available != null)
+                                <h6>Luggage Space</h6>
+                                <p>Approx. Bag Space: {{$ride->luggage_space_available}} </p>
+                                @elseif($ride->luggage_space_needed != null)
+                                <h6>Luggage Space</h6>
+                                <p>Bag Space Needed: {{$ride->luggage_space_needed ?? 'None' }} </p>
+                                @else
+                                <h6>No Luggage Information</h6>
+                                @endif
+                            </div>
                         </div>
-                        <div class="item">
-                            @if($ride->luggage_space_available != null)
-                            <h6>Luggage Space</h6>
-                            <p>Approx. Bag Space: {{$ride->luggage_space_available}} </p>
-                            @elseif($ride->luggage_space_needed != null)
-                            <h6>Luggage Space</h6>
-                            <p>Approx. Bag Space Needed:{{$ride->luggage_space_needed }} </p>
-                            @else
-                            <h6>No Luggage Information</h6>
-                            @endif
-                        </div>
+
                     </div>
 
 
@@ -84,7 +93,17 @@
                                     <p>Ride Fare:</p>
                                 </th>
                                 <th class="adult"><span>Total Fare </span></th>
-                                <th class="kid"><span>Split Fare by {{$ride->max_seats}}</span></th>
+                                @if($ride->max_seats == 0 || $ride->max_seats == null)
+
+                                <th class="kid"><span>This Ride does not qualify for a split fare</span></th>
+
+                                @else
+
+                                <th class="kid"><span>Split Fare: {{$ride->fare_split}} ({{$ride->max_seats}})</span>
+                                </th>
+
+                                @endif
+
                             </tr>
                         </thead>
                         <tbody>
@@ -99,14 +118,157 @@
 
                                 </td>
                                 <td class="kid">
+                                    @if($ride->max_seats == 0 || $ride->max_seats == null)
+                                    @else
                                     <ins>
                                         <span class="amount">{{$ride->fare_split}} GH₵</span>
                                     </ins>
+
+                                    @endif
+
 
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+
+                </div>
+
+                <div class="detail-sidebar">
+
+                    {{-- 
+                    @if($ride->available_seats == 0 || $logged_in_user->id == $ride->driver_id ||
+                    $ride->passengers->where('user_id', '=', $logged_in_user->uuid)->isNotEmpty())
+
+                    <div class="booking-info">
+                        @if($ride->available_seats == 0 || $ride->available_seats == null)
+                        <h3>This Ride is Full and not accepting any more passengers</h3>
+                        @else
+                        <h3>You are included in this ride.</h3>
+                        @endif
+                    </div>
+
+
+                    @else --}}
+
+
+
+
+
+
+                    <div class="booking-info">
+
+
+                        {{-- {{dd($ride->passengers, $ride->creator, $ride->driver, $logged_in_user == $ride->creator, $logged_in_user == $ride->driver)}}
+                        --}}
+                        {{-- {{dd($logged_in_user != $ride->creator && $logged_in_user != $ride->driver)}} --}}
+
+                        {{-- {{dd($ride->passengers->isEmpty())}} --}}
+
+
+                        @if($ride->available_seats != 0 && $ride->available_seats != null) {{-- 1 --}}
+                        @if($logged_in_user != $ride->driver || $logged_in_user != $ride->creator) {{-- 2 --}}
+                        @if( $ride->passengers->where('user_id','=', $logged_in_user->uuid)->isEmpty()){{-- 3 --}}
+                        <h3>Join This Trip</h3>
+                        <div class="form-group">
+                            <div class="form-elements form-adult">
+                                <label>Seats</label>
+                                <div class="form-item">
+                                    <select class="awe-select seats-needed-selector">
+                                        @for ($i = 1; $i <= $ride->available_seats; $i++)
+                                            <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-elements form-kids">
+                                <label>Luggages</label>
+                                <div class="form-item">
+                                    <select class="awe-select luggage-space-selector">
+                                        @for ($i = 1; $i <= $ride->luggage_space_available; $i++)
+                                            <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+                                    </select>
+                                </div>
+                                <span>23 Kg or Less</span>
+                            </div>
+                        </div>
+                        <div class="form-select-date">
+                            <div class="form-elements">
+                                <label>Need To Be Picked Up?</label>
+                                <div class="form-item">
+                                    <i class="fa fa-car"></i>
+                                    <input type="text" placeholder="Pickup Location" id="pickup_location_input">
+                                </div>
+                                <span>Leave Blank if you will be at the designated pickup location</span>
+                                <span>* Individual Pickup Fees maybe be added based on the Driver</span>
+                            </div>
+                        </div>
+                        <div class="price">
+                            <em>Your Total</em>
+                            <span class="ride-price-amount-text">{{$ride->fare_split}} <sub>+
+                                    {{$ride->pickupPrice ?? 0.00}} For Pickup</sub></span>
+                        </div>
+                        <div class="form-submit">
+                            <div class="add-to-cart">
+                                <button type="submit" class="submit-join-ride-button">
+                                    <i class="awe-icon awe-icon-cart"></i>Join This Ride
+                                </button>
+                            </div>
+                        </div>
+                        @else {{-- 3 --}}
+                        <h3>You Are Already Included In This Ride</h3>
+                        @endif {{-- 3 --}}
+                        @else {{-- 2 --}}
+                        <h3>You Are Already Included In This Ride</h3>
+                        @endif{{-- 2 --}}
+
+                        @elseif($ride->driver == null && $logged_in_user != $ride->creator )
+                        <h3>Become The Driver</h3>
+                        @if($logged_in_user->cars->isNotEmpty())
+
+                        <div class="departure-time-form">
+                              <label>Estimated Arrival Time: </label>
+                            <div class="input-group date" id="driver_schedule_time_picker">
+                                <input type="text" id="driver_schedule_time_input" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div>
+                        </div>
+                              
+
+                        <div class="form-group">
+                            <label>Select A Car</label>
+                            <select class="form-control" id="car_option_selector">
+                                @foreach($logged_in_user->cars as $carOption)
+                                <option id="car_option" data-carID="{{$carOption->uuid}}">{{$carOption->year}}
+                                    {{$carOption->model}} - {{$carOption->color}}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-submit">
+                            <div class="add-to-cart">
+                                <button type="submit" class="submit-drive-ride-button">
+                                    <i class="awe-icon awe-icon-cart"></i>Drive  This Ride
+                                </button>
+                            </div>
+                        </div>
+                        @else
+                        <h3>You must add a car to your account before creating or joining any rides that require you to
+                            drive.</h3>
+
+                        @endif
+                        {{-- 1 --}}
+                        @else {{-- 1 --}}
+                        <h3>This Ride is Full and not accepting any more passengers</h3>
+                        @endif{{-- 1 --}}
+
+
+                    </div>
+
 
                 </div>
             </div>
@@ -115,59 +277,59 @@
                 <div class="product-detail__gallery">
                     <div class="product-slider-wrapper">
                         <div class="product-slider">
-
-                            <div class="item">
-
-
-
-                                @if($ride->driver_id != null )
-
-
-                                <img src="{{$ride->driver->cars->first()->picture}}">
-
-
-
-
-                                @endif
-
-
-
-
-
-                            </div>
                             <div class="item">
                                 <img src="{{$ride->creator->picture}}" alt="">
+                            </div>
+                            <div class="item">
+                                <img
+                                    src="{{$ride->driver->picture ?? asset('img/frontend/user/placeholders/user-noimg.jpg')}}">
+                            </div>
+                            <div class="item">
+
+                                @if($ride->driver)
+                                <img src="{{$ride->driver->cars->first()->picture}}">
+                                @else
+                                <img src="{{asset('img/frontend/user/placeholders/user-noimg.jpg')}}">
+                                @endif
 
                             </div>
+                            @forelse($ride->passengers as $passenger)
+
+                            <div class="item">
+                                <img src="{{$passenger->picture}}" alt="">
+                            </div>
+
+                            @empty
+                            @endforelse
+
 
                         </div>
                         <div class="product-slider-thumb-row">
                             <div class="product-slider-thumb">
 
-                                <div class="item">
+                                @if($ride->creator != $ride->driver)
 
-
-
-                                    @if($ride->driver_id != null )
-
-
-                                    <img src="{{$ride->driver->cars->first()->picture}}">
-
-
-
-
-
-                                    @endif
-
-
-
-
-
-                                </div>
                                 <div class="item">
                                     <img src="{{$ride->creator->picture}}" alt="">
-
                                 </div>
+                                @endif
+
+                                <div class="item">
+                                    <img
+                                        src="{{$ride->driver->picture ?? asset('img/frontend/user/placeholders/user-noimg.jpg')}}">
+                                </div>
+                                @if($ride->driver)
+                                <img src="{{$ride->driver->cars->first()->picture}}">
+                                @else
+                                <img src="{{asset('img/frontend/user/placeholders/user-noimg.jpg')}}">
+                                @endif
+                                @forelse($ride->passengers as $passenger)
+
+                                <div class="item">
+                                    <img src="{{$passenger->picture}}" alt="">
+                                </div>
+                                @empty
+                                @endforelse
 
 
                             </div>
@@ -212,8 +374,9 @@
                                             </div>
                                             <div class="item">
                                                 <h6>Time length</h6>
-                                                <p><i class="fa fa-clock-o"></i>{{round($ride->total_distance, 1)}}KM,
-                                                    {{round($ride->travel_time)}} Minutes</p>
+                                                <p>{{round($ride->total_distance, 1)}}KM, <br>
+                                                    {{convertMinuteTimeToHourMinute(round($ride->travel_time), '%02d hours %02d minutes')}}
+                                                </p>
                                             </div>
                                         </div>
                                         <br>
@@ -249,10 +412,8 @@
                                             <p> Driver</p>
                                         </th>
                                         <td>
-                                            @if($ride->driver_id != null )
+                                            @if($ride->driver != null)
                                             <p>{{$ride->driver->name}}</p>
-
-
                                             @else
                                             <p>A Driver has not joied this ride yet.</p>
                                             @endif
@@ -273,19 +434,22 @@
                                             </p>
                                         </td>
                                     </tr>
-                                    @if($ride->pickup_price == 0.00 || $ride->pickup_price == null)
+
                                     <tr>
                                         <th>
                                             <p>Pickup Price</p>
                                         </th>
-
+                                        @if($ride->pickup_price != null)
                                         <td>
-
-
                                             <p>{{$ride->pickup_price}}</p>
                                         </td>
+                                        @elseif($ride->pickup_price == 0.00)
+                                        <td>
+                                            <p>Free Pickups</p>
+                                        </td>
+                                        @endif
                                     </tr>
-                                    @endif
+
                                     <tr>
                                         <th>
                                             <p>Seating</p>
@@ -294,14 +458,15 @@
                                             @if($ride->seats_needed != null)
                                             <p>This Rider needs <b> {{$ride->seats_needed}} Seats</b>,
                                                 @if($ride->child_seats != null)
-
                                                 {{$ride->child_seats}} of which are for children.
                                                 @endif
                                             </p>
                                             @endif
+
                                             @if($ride->max_seats != null)
                                             <p>There are a Maximum of <b> {{$ride->max_seats}} Seats Available For This
-                                                    Ride</b></p>
+                                                    Ride</b>
+                                            </p>
                                             @endif
                                         </td>
                                     </tr>
@@ -623,20 +788,26 @@
                                             <p>Pickup Information</p>
                                         </th>
                                         <td>
-                                            
-                                            @if($ride->pickups->isNotEmpty() && count($ride->passengers) > 1) )
+
+                                            @if($ride->pickups->isNotEmpty() && count($ride->passengers) > 0)
                                             <p>{{$ride->pickup_fee}}</p>
 
                                             @forelse($ride->passengers as $passenger)
-                                            @if($ride->pickups->where('passenger','=',$passenger->uuid)->first()->pickup_location
+
+                                            @if($ride->pickups->where('passenger','=',$passenger->user_id)->first()->pickup_location
                                             != null)
-                                            <p>{{$passenger->passenger_name}} needs to be picked up at
-                                                {{$ride->pickups->where('passenger','=',$passenger->uuid)->first()->pickup_location}}
+                                            <p>{{$passenger->passenger_name}}
+
+                                                needs to be picked up at
+
+                                                {{$ride->pickups->where('passenger','=',$passenger->user_id)->first()->pickup_location}}
                                             </p>
                                             @else
                                             <p>will be meet at the designated location.
                                             </p>
                                             @endif
+
+
                                             @empty
                                             <p>No passenger Pickup Information</p>
                                             @endforelse
@@ -657,9 +828,11 @@
                                         </th>
 
                                         <td>
-                                            @if($ride->pickups->isNotEmpty() && count($ride->passengers) > 1) )
+                                            @if($ride->pickups->isNotEmpty() && count($ride->passengers) > 0)
+
                                             @forelse($ride->passengers as $passenger)
-                                            <p>{{$passenger->passenger_name}} needs
+                                            <p>{{$passenger->passenger_name}}
+                                                needs
                                                 {{$ride->pickups->where('passenger','=',$passenger->user_id)->first()->seats_needed}}
                                                 seat(s)</p>
 
@@ -668,6 +841,7 @@
 
                                             <p>No passenger Seating Information</p>
                                             @endforelse
+
                                             @else
 
                                             @if($logged_in_user->id == $ride->driver_id)
@@ -694,7 +868,7 @@
                                         </th>
 
                                         <td>
-                                            @if($ride->pickups->isNotEmpty() && count($ride->passengers) > 1) )
+                                            @if($ride->pickups->isNotEmpty() && count($ride->passengers) > 0)
                                             @forelse($ride->passengers as $passenger)
                                             <p>{{$passenger->passenger_name}} Has
                                                 {{$ride->pickups->where('passenger','=',$passenger->user_id)->first()->luggage_space_needed}}
@@ -705,6 +879,8 @@
                                             @endforelse
 
                                             @else
+
+
                                             @if($logged_in_user->id == $ride->driver_id)
                                             <p>No passenger Luggage Information</p>
                                             @else
@@ -727,101 +903,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="detail-sidebar">
-                    <div class="call-to-book">
-                        <i class="awe-icon awe-icon-phone"></i>
 
-                        @if($ride->driver_id != null )
-
-
-
-                        <span>Driver {{$ride->driver->name}}. <br> Reach Them At {{$ride->driver->phone_number}}</span>
-                        @else
-
-                        <span>Requested By {{$ride->creator->name}}. <br> Reach Them At
-                            {{$ride->creator->phone_number}}</span>
-
-                        @endif
-
-                    </div>
-                    
-                    @if($ride->available_seats == 0 || $logged_in_user->id == $ride->driver_id ||
-                    $ride->passengers->where('user_id', '=', $logged_in_user->uuid)->isNotEmpty())
-
-                    <div class="booking-info">
-                        @if($ride->available_seats == 0 || $ride->available_seats == null)
-                        <h3>This Ride is Full and not accepting any more passengers</h3>
-                        @else
-                        <h3>You are included in this ride.</h3>
-                        @endif
-                    </div>
-
-
-                    @else
-
-
-                    <div class="booking-info">
-                        @if($ride->available_seats == 0 || $ride->available_seats == null)
-                        <h3>This Ride is Full and not accepting any more passengers</h3>
-                        @else
-                        <h3>Booking info</h3>
-                        <div class="form-group">
-                            <div class="form-elements form-adult">
-                                <label>Seats</label>
-                                <div class="form-item">
-
-                                    <select class="awe-select seats-needed-selector">
-
-                                        @for ($i = 1; $i <= $ride->available_seats; $i++)
-                                            <option value="{{ $i }}">{{ $i }}</option>
-                                            @endfor
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-elements form-kids">
-                                <label>Luggages</label>
-                                <div class="form-item">
-                                    <select class="awe-select luggage-space-selector">
-                                        @for ($i = 1; $i <= $ride->luggage_space_available; $i++)
-                                            <option value="{{ $i }}">{{ $i }}</option>
-                                            @endfor
-                                    </select>
-                                </div>
-                                <span>23 Kg or Less</span>
-                            </div>
-                        </div>
-                        <div class="form-select-date">
-                            <div class="form-elements">
-                                <label>Need To Be Picked Up?</label>
-                                <div class="form-item">
-                                    <i class="fa fa-car"></i>
-                                    <input type="text" placeholder="Pickup Location" id="pickup_location_input">
-                                </div>
-                                <span>Leave Blank if you will be at the designated pickup location</span>
-                                <span>* Individual Pickup Fees maybe be added based on the Driver</span>
-                            </div>
-                        </div>
-                        <div class="price">
-                            <em>Your Total</em>
-                            <span class="ride-price-amount-text">{{$ride->fare_split}} <sub>+
-                                    {{$ride->pickupPrice ?? 0.00}} For Pickup</sub></span>
-                        </div>
-                        <div class="form-submit">
-                            <div class="add-to-cart">
-                                <button type="submit" class="submit-join-ride-button">
-                                    <i class="awe-icon awe-icon-cart"></i>Join This Ride
-                                </button>
-                            </div>
-                        </div>
-                        @endif
-
-                    </div>
-                    @endif
-
-                </div>
-            </div>
         </div>
     </div>
 </section>

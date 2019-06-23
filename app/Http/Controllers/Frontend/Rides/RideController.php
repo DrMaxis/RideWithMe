@@ -11,11 +11,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Auth\Accounts\Account;
 use Illuminate\Support\Facades\Session;
 use App\Events\Frontend\Auth\Rides\RideCreated;
+use App\Events\Frontend\Auth\Rides\DriverJoined;
 use App\Repositories\Frontend\Ride\RideRepository;
 use App\Events\Frontend\Auth\Rides\PassengerJoined;
 use App\Http\Requests\Frontend\Rides\CreateRideRequest;
 use App\Http\Requests\Frontend\Session\RideSessionRequest;
 use App\Http\Requests\Frontend\Rides\Passenger\JoinRideRequest;
+use App\Http\Requests\Frontend\Rides\Driver\JoinAsDriverRequest;
 
 /**
  * Class RideController.
@@ -157,11 +159,11 @@ return response()->json('Ride Created:'.$ride->name);
     }
 
 
-    public function joinAsPassenger(JoinRideRequest $request, $rideID)  {
+    public function joinAsPassenger(JoinRideRequest $request, $slug)  {
 
 
         $passenger = auth()->user();
-        $ride = Ride::where('uuid','=', $rideID)->first();
+        $ride = Ride::where('slug','=', $slug)->first();
         $data = array('pickupLocation' => $request['pickupLocation'], 'seatsNeeded' => $request['seatsNeeded'], 'luggageSpaceNeeded' => $request['luggageSpaceNeeded']);
 
 
@@ -187,9 +189,9 @@ return response()->json('Ride Created:'.$ride->name);
     public function joinAsDriver(JoinAsDriverRequest $request, $slug) {
 
         $driver = auth()->user();
-        $ride = Ride::where('slug','=', $slug);
-        $data = $request->only('car_id','driverArriveTime');
-        $update = $this->rideRepository->joinAsDriver($ride->id, $data);
+        $ride = Ride::where('slug','=', $slug)->first();
+        $data = $request->only('car_id','driverArrivalTime');
+        $update = $this->rideRepository->joinAsDriver($ride, $data, $driver->id);
 
         if ($update) {
             event(new DriverJoined($ride, $driver));

@@ -35,7 +35,6 @@ class RegisterRequest extends FormRequest
             'g-recaptcha-response' => ['required_if:captcha_status,true', 'captcha'],
             'phone_number' => ['required'],
             'phone_country_code' => ['required'],
-            'phone_network' => ['required'],
             
         ];
     }

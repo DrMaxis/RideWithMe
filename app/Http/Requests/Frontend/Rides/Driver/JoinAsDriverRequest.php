@@ -28,9 +28,7 @@ class JoinAsDriverRequest extends FormRequest
     {
         return [
             'car_id' => ['required'],
-            'leave_time' => ['required'],
-            'price_option' => ['required'],
-            'time_option' => ['required'],
+            'driverArrivalTime' => ['required'],
         
             
         ];
@@ -42,7 +40,8 @@ class JoinAsDriverRequest extends FormRequest
      public function messages()
     {
         return [
-            
+            'car_id.required' => 'You must have selected a car before you can drive',
+            'driverArrivalTime' => 'You must have specified a time when you will arrive at the pickup location'
       
         ];
     } 

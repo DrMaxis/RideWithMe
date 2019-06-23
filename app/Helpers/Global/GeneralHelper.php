@@ -71,7 +71,7 @@ if (!function_exists('single_ride')) {
     function single_ride($slug)
     {
 
-        return route('frontend.ride.show', ['slug' => $slug]);
+        return route('frontend.user.ride.show', ['slug' => $slug]);
     }
 }
 
@@ -162,6 +162,23 @@ if (!function_exists('getRideLocations')) {
             ];
         }
         return $rideLocations;
+    }
+}
+
+
+if(!function_exists('convertMinuteTimeToHourMinute')) {
+
+
+
+    function convertMinuteTimeToHourMinute($time, $format = '%02d:%02d') {
+
+
+        if ($time < 1) {
+            return;
+        }
+        $hours = floor($time / 60);
+        $minutes = ($time % 60);
+        return sprintf($format, $hours, $minutes);
     }
 }
 

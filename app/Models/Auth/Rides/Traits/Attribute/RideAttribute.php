@@ -55,6 +55,7 @@ $maxSeats = $this->max_seats;
 
     return $creator;
   }
+  
 
 
   public function getPickupAddressAttribute() {

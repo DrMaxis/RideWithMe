@@ -38,7 +38,7 @@ class ConfirmRideController extends Controller
         
         $this->ride->confirm($token, auth()->user());
 
-        return redirect()->route('frontend.ride.show',$this->ride->slug)->withFlashSuccess(__('exceptions.frontend.auth.confirmation.success'));
+        return redirect()->route('frontend.user.ride.show',$this->ride->slug)->withFlashSuccess(__('exceptions.frontend.auth.confirmation.success'));
     }
 
    

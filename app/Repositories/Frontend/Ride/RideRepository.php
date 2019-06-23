@@ -114,7 +114,7 @@ class RideRepository extends BaseRepository
             } elseif ($data['rideOption'] == 'Passenger') {
                 $ride = parent::create([
                     'ride_notes' => $data['rideNotes'],
-                    'slug' => slugify($data['pickupLocation'] . ' to ' . $data['dropoffLocation']) . '-' . $now,
+                    'slug' => slugify($data['pickupLocation'] . ' to ' . $data['dropoffLocation']) . '-' . mt_rand(),
                     'user_id' => $user->id,
                     'creator_name' => $user->name,
                     'creator_phone' => $user->phone_number,
@@ -130,6 +130,7 @@ class RideRepository extends BaseRepository
                     'child_seats' => $data['childSeatsNeeded'],
                     'seats_needed' => $data['seatsNeeded'],
                     'confirmation_code' => md5(uniqid(mt_rand(), true)),
+                    'pickups_needed' => 1,
 
 
                 ]);
@@ -231,28 +232,29 @@ class RideRepository extends BaseRepository
 
 
 
-    public function joinAsDriver($id, array $input)
+    public function joinAsDriver(Ride $ride, array $input, $driverID)
     {
 
 
-        $ride = Ride::where('id', '=', $id)->first();
-        $user = auth()->user();
+        $user = User::where('id','=', $driverID)->first();
         $ride->driver_id = $user->id;
         $ride->driver_name = $user->name;
         $ride->driver_phone = $user->phone_number;
-        $ride->driver_arrive_time = $input['driverArriveTime'];
+        $ride->driver_arrive_time = $input['driverArrivalTime'];
         $ride->car_id = $input['car_id'];
+
         RideUser::create([
             'user_id' => $user->id,
             'ride_id' => $ride->id,
         ]);
-
-
         RidePickup::create([
             'ride_id' => $ride->id,
             'user_id' => $ride->user_id,
             'pickup_location' => $ride->pickup_location,
             'pickup_price' => $ride->pickup_price ?? 0.00,
+            'passenger' => User::where('id', '=', $ride->user_id)->first()->uuid,
+            'seats_needed' => $ride->seats_needed,
+            'luggage_space_needed' => $ride->luggage_space_needed
 
         ]);
 

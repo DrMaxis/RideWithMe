@@ -140,7 +140,7 @@ class UserRepository extends BaseRepository
                 'active' => true,
                 'password' => $data['password'],
                 'phone_number' => $data['phone_country_code'].$data['phone_number'],
-                'phone_network' => $data['phone_network'],
+                'phone_network' => getPhoneData($data['phone_country_code'].$data['phone_number'])->getCurrentCarrier()['name'],
                 'national_id_number' => $data['national_id'],
                 // If users require approval or needs to confirm email
                 'confirmed' => ! (config('access.users.requires_approval') || config('access.users.confirm_phone_number')),

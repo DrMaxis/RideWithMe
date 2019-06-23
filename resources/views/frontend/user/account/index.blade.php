@@ -107,13 +107,13 @@
                     @forelse($logged_in_user->rides as $ride)
 
                   <tr>
-                    <td>{{$ride->dropoff_location}}</td>
+                    <td><a href="{{route('frontend.user.ride.show', $ride->slug)}}"> {{$ride->dropoff_location}}</a></td>
                     @if($ride->driver_id == $logged_in_user->id)
                     <td>You</td>
                     @else 
-                    <td> {{$ride->driver_name}}</td>
+                    <td> {{$ride->driver_name ?? 'A Driver has not been determined yet.'}}</td>
                     @endif
-                    <td>Total Fare: {{$ride->asking_price}} Split Fare:  {{$ride->fare_split}} </td>
+                    <td>Total Fare: {{$ride->asking_price}} <br>  Split Fare:  {{$ride->fare_split}} </td>
                     <td>{{timezone()->convertToLocal($ride->created_at) }}</td>
                   </tr>
 
