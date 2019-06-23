@@ -37,22 +37,6 @@ mix.setPublicPath('public')
     .sourceMaps();
 
 if (mix.inProduction()) {
-    mix.version()
-        .options({
-            // optimize js minification process
-            terser: {
-                cache: true,
-                parallel: true,
-                sourceMap: true
-            }
-        });
-} else {
-    // Uses inline source-maps on development
-    mix.webpackConfig({ devtool: 'inline-source-map' });
-}
-
-
-
 var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 mix.webpackConfig({
     plugins: [
@@ -76,7 +60,7 @@ mix.webpackConfig({
             '/booking': ['resources/views/frontend/user/account/ride.blade.php'],
             '/login': ['resources/views/frontend/auth/login.blade.php'],
             '/register': ['resources/views/frontend/auth/register.blade.php'],
-            '/phone/confirm/form': ['resources/views/frontend/auth/verfication/phone.blade.php'],
+            '/phone/confirm/form': ['resources/views/frontend/auth/verification/phone.blade.php'],
             
 
             // '/posts': ['resources/views/posts.blade.php']
@@ -97,3 +81,18 @@ mix.webpackConfig({
     })
     ]
 });
+    mix.version()
+        .options({
+            // optimize js minification process
+            terser: {
+                cache: true,
+                parallel: true,
+                sourceMap: true
+            }
+        });
+} else {
+    // Uses inline source-maps on development
+    mix.webpackConfig({ devtool: 'inline-source-map' });
+}
+
+

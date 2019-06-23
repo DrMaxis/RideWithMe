@@ -124,7 +124,7 @@
 
 <!-- Scripts -->
 @stack('before-scripts')
-{!! script(mix('js/manifest.js')) !!}
+
 {!! script(mix('js/frontend_a.js')) !!} 
    
 
