@@ -51,48 +51,5 @@ if (mix.inProduction()) {
     // Uses inline source-maps on development
     mix.webpackConfig({ devtool: 'inline-source-map' });
 }
-var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
-mix.webpackConfig({
-    plugins: [
-    new SWPrecacheWebpackPlugin({
-        cacheId: 'pwa',
-        filename: 'service-worker.js',
-        staticFileGlobs:  ['public/**/*.{css,html}'],
-        minify: true,
-        stripPrefix: 'public/',
-        handleFetch: true,
-        dynamicUrlToDependencies: { 
-            //you should add the path to your blade files here so they can be cached
-               //and have full support for offline first (example below)
-            '/': ['resources/views/frontend/index.blade.php'],
-            '/contact': ['resources/views/frontend/contact.blade.php'],
-            '/riderequests': ['resources/views/frontend/requestedRides.blade.php'],
-            '/openrides': ['resources/views/frontend/requestedRides.blade.php'],
-            '/account': ['resources/views/frontend/user/account/index.blade.php'],
-            '/account/settings': ['resources/views/frontend/user/account/settings.blade.php'],
-            '/user/cars': ['resources/views/frontend/user/account/cars.blade.php'],
-            '/booking': ['resources/views/frontend/user/account/ride.blade.php'],
-            '/login': ['resources/views/frontend/auth/login.blade.php'],
-            '/register': ['resources/views/frontend/auth/register.blade.php'],
-            '/phone/confirm/form': ['resources/views/frontend/auth/verification/phone.blade.php']
-            
 
-            // '/posts': ['resources/views/posts.blade.php']
-        },
-        staticFileGlobsIgnorePatterns: [/\.map$/, /mix-manifest\.json$/, /manifest\.json$/, /service-worker\.js$/],
-        navigateFallback: '/',
-        runtimeCaching: [
-            {
-                urlPattern: /^https:\/\/fonts\.googleapis\.com\//,
-                handler: 'cacheFirst'
-            },
-            {
-                urlPattern: /^https:\/\/www\.thecocktaildb\.com\/images\/media\/drink\/(\w+)\.jpg/,
-                handler: 'cacheFirst'
-            }
-        ],
-        // importScripts: ['./js/push_message.js']
-    })
-    ]
-});
 
