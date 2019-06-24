@@ -43,7 +43,7 @@ mix.webpackConfig({
     new SWPrecacheWebpackPlugin({
         cacheId: 'pwa',
         filename: 'service-worker.js',
-        staticFileGlobs:  ['public/**/*.{css,eot,svg,ttf,woff,woff2,js,html,png,jpg}'],
+        staticFileGlobs:  ['public/**/*.{css,html,png,jpg}'],
         minify: true,
         stripPrefix: 'public/',
         handleFetch: true,
@@ -60,7 +60,7 @@ mix.webpackConfig({
             '/booking': ['resources/views/frontend/user/account/ride.blade.php'],
             '/login': ['resources/views/frontend/auth/login.blade.php'],
             '/register': ['resources/views/frontend/auth/register.blade.php'],
-            '/phone/confirm/form': ['resources/views/frontend/auth/verification/phone.blade.php'],
+            '/phone/confirm/form': ['resources/views/frontend/auth/verification/phone.blade.php']
             
 
             // '/posts': ['resources/views/posts.blade.php']
