@@ -37,6 +37,20 @@ mix.setPublicPath('public')
     .sourceMaps();
 
 if (mix.inProduction()) {
+
+    mix.version()
+        .options({
+            // optimize js minification process
+            terser: {
+                cache: true,
+                parallel: true,
+                sourceMap: true
+            }
+        });
+} else {
+    // Uses inline source-maps on development
+    mix.webpackConfig({ devtool: 'inline-source-map' });
+}
 var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 mix.webpackConfig({
     plugins: [
@@ -81,18 +95,4 @@ mix.webpackConfig({
     })
     ]
 });
-    mix.version()
-        .options({
-            // optimize js minification process
-            terser: {
-                cache: true,
-                parallel: true,
-                sourceMap: true
-            }
-        });
-} else {
-    // Uses inline source-maps on development
-    mix.webpackConfig({ devtool: 'inline-source-map' });
-}
-
 
