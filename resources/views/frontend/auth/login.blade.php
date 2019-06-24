@@ -118,7 +118,7 @@
 @endsection
 
 
-@push('after-scripts')
+
 
 @section('xjs')
 
