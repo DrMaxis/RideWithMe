@@ -44,7 +44,6 @@ class Ride extends Model
         'slug',
         'user_id',
         'stauts',
-        'confirmation_code',
         'passengers',
         'driver_id',
         'driver_name',

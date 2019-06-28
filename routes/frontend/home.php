@@ -8,7 +8,7 @@ use App\Http\Controllers\Frontend\User\AccountController;
 use App\Http\Controllers\Frontend\User\ProfileController;
 use App\Http\Controllers\Frontend\User\DashboardController;
 use App\Http\Controllers\Frontend\Rides\Booking\BookingController;
-
+use App\Http\Controllers\Frontend\Rides\Confirmation\ConfirmRideController;
 
 /*
  * Frontend Controllers
@@ -65,6 +65,8 @@ Route::get('/rides/{ride}', [RideController::class, 'index'])->name('ride.show')
 Route::post('/{ride}/passenger/join', [RideController::class, 'joinAsPassenger'])->name('ride.passenger.join');
 //Join as A Driver
 Route::post('/{ride}/driver/join', [RideController::class, 'joinAsDriver'])->name('ride.driver.join');
+
+Route::post('/{ride}/passenger/confirm', [ConfirmRideController::class, 'confirm'])->name('ride.passenger.confirm');
 
 
 

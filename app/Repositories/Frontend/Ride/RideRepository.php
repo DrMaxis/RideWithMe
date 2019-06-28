@@ -12,10 +12,11 @@ use App\Exceptions\GeneralException;
 use App\Repositories\BaseRepository;
 use App\Models\Auth\Amenities\Amenity;
 use App\Models\Auth\RideUser\RideUser;
+use App\Models\Auth\RidePickups\RidePickup;
 use App\Models\Auth\AmenityRide\AmenityRide;
 use App\Events\Frontend\Auth\Rides\RideConfirmed;
 use App\Models\Auth\RidePassengers\RidePassenger;
-use App\Models\Auth\RidePickups\RidePickup;
+use App\Events\Frontend\Auth\Rides\PassengerConfirmed;
 
 /**
  * Class RideRepository.
@@ -90,7 +91,6 @@ class RideRepository extends BaseRepository
                     'asking_price_offer' =>   $data['askingPriceOffer'] ?? 0.00,
                     'car_id' => $data['car'],
                     'luggage_space_available' => $data['luggageSpaceAvailable'],
-                    'confirmation_code' => md5(uniqid(mt_rand(), true)),
                     'pickup_price' => $data['pickupPrice'],
                     'pickups_offerd' => $data['pickupsOfferd']
 
@@ -129,7 +129,6 @@ class RideRepository extends BaseRepository
                     'luggage_space_needed' => $data['luggageSpaceNeeded'],
                     'child_seats' => $data['childSeatsNeeded'],
                     'seats_needed' => $data['seatsNeeded'],
-                    'confirmation_code' => md5(uniqid(mt_rand(), true)),
                     'pickups_needed' => 1,
 
 
@@ -146,7 +145,10 @@ class RideRepository extends BaseRepository
                     'passenger_name' => $user->name,
                     'passenger_email' => $user->email,
                     'phone_number' => $user->phone_number,
+                    'confirmation_code' => generateSixDigitCode(4),
+                    
                 ]);
+                $this->sendRideConfirmation($ride, $user);
             } else {
                 throw new GeneralException('An Ride option must be selected');
             }
@@ -172,8 +174,6 @@ class RideRepository extends BaseRepository
      * @throws GeneralException
      * @return array|bool
      */ /* ;*/
-
-
     public function joinAsPassenger(Ride $ride, array $input, $passengerID)
     {
 
@@ -181,7 +181,7 @@ class RideRepository extends BaseRepository
         $user = User::where('id', '=', $passengerID)->first();
 
         if ($ride->available_seats > 0) {
-            $seats = $ride->available_seats - $input['seats_needed'];
+            $seats = $ride->available_seats - $input['seatsNeeded'];
         } else {
             $seats = 0;
         }
@@ -193,12 +193,13 @@ class RideRepository extends BaseRepository
             'ride_id' => $ride->id,
         ]);
 
-        RidePassenger::create([
+        $passenger = RidePassenger::create([
             'user_id' => $user->uuid,
             'ride_id' => $ride->id,
             'passenger_name' => $user->name,
             'passenger_email' => $user->email,
             'phone_number' => $user->phone_number,
+            'confirmation_code' => generateSixDigitCode(4),
         ]);
 
         if ($input['pickupLocation']) {
@@ -226,17 +227,20 @@ class RideRepository extends BaseRepository
 
             ]);
         }
+        //send ride passenenger confirmation
+      /*   $this->sendRideConfirmation($ride, $passenger); */
+        //Send Notification to Driver that a passenger has joined.
+        $this->sendPassengerJoinToDriver($ride, $passenger);
 
         return $ride->save();
     }
 
 
 
+
     public function joinAsDriver(Ride $ride, array $input, $driverID)
     {
-
-
-        $user = User::where('id','=', $driverID)->first();
+        $user = User::where('id', '=', $driverID)->first();
         $ride->driver_id = $user->id;
         $ride->driver_name = $user->name;
         $ride->driver_phone = $user->phone_number;
@@ -258,33 +262,84 @@ class RideRepository extends BaseRepository
 
         ]);
 
+
+
+        //send Notification to Ride Creator that a driver has joined
+        $this->sendDriverJoinToRequestor($ride->creator, $user, $ride);
         return $ride->save();
     }
 
 
+    public function sendRideConfirmation($ride, $passenger)
+    {
+        die(print_r($passenger));
 
+        $code = $passenger->confirmation_code;
+        $client = app('Nexmo\Client');
+        $client->message()->send([
+            'to' => $passenger->phone_number,
+            'from' => env('BUISNESS_PHONE_NUMBER'),
+            'text' => 'You have Joined a Ride on RideWithMe'.$code .'  Please Visit'.route('frontend.user.ride.show', $ride->slug) . ' to confirm and verify your existance on the ride!',
+        ]);
+
+
+        return $client;
+    }
+
+    public function sendPassengerJoinToDriver($ride, $passenger)
+    {
+        
+        if ($ride->driver) {
+            
+            $driver = User::where('id', '=', $ride->driver_id)->first();
+            $client = app('Nexmo\Client');
+            $client->message()->send([
+                'to' => $driver->phone_number,
+                'from' => env('BUISNESS_PHONE_NUMBER'),
+                'text' =>  $passenger->name . ' Has Joined Your Ride to' . $ride->dropoff_location . ' Scheduled For ' . $ride->scheduled_date . ' Please make sure to verfify that this passenger is on your ride before leaving the pickup location.',
+            ]);
+            return $client;
+        } else {
+            throw new GeneralException('A Driver is not present on this ride!');
+        }
+    }
+
+    public function sendDriverJoinToRequestor($creator, $driver, $ride)
+    {
+
+        $client = app('Nexmo\Client');
+        $client->message()->send([
+            'to' => $creator->phone_number,
+            'from' => env('BUISNESS_PHONE_NUMBER'),
+            'text' => $driver->name . 'Has Accpeted and Joined Your Ride Request to' . $ride->dropoff_location . ' And has determined that they will arrive at' . $ride->driver_arrive_time . ' Please Make sure to be at the pickup location at the designated time.',
+        ]);
+
+        return $client;
+    }
     /**
      * @param $code
      *
      * @throws GeneralException
      * @return bool
      */
-    public function confirm($code, $user)
+    public function confirmPassenger($code, $passenger)
     {
 
-        $ride = $this->findByConfirmationCode($code);
-        $passenger = RidePassenger::where('user_id', '=', $user->id)->where('ride_id', '=', $ride->id)->first();
-
-        if ($passenger->confirmed === true) {
+        $ridePassenger = $this->findByConfirmationCode($code);
+        $ride = Ride::where('id', '=', $ridePassenger->ride_id)->first();
+        $now = Carbon::now()->toDateTimeString();
+        if ($ridePassenger->confirmed === true) {
             throw new GeneralException(__('exceptions.frontend.auth.confirmation.already_confirmed'));
         }
 
-        if ($ride->confirmation_code === $code) {
-            $passenger->confirmed = true;
+        if ($ridePassenger->confirmation_code === $code) {
+            $ridePassenger->confirmed = true;
+            $ridePassenger->confirmation_code = 'Confirmed at ' . $now;
 
-            event(new RideConfirmed($ride, $user));
+            event(new PassengerConfirmed($ride, $passenger));
 
-            return $passenger->save();
+
+            return $ridePassenger->save();
         }
 
         throw new GeneralException(__('exceptions.frontend.auth.confirmation.mismatch'));
@@ -302,14 +357,12 @@ class RideRepository extends BaseRepository
      */
     public function findByConfirmationCode($code)
     {
-        $ride = $this->model
-            ->where('confirmation_code', $code)
-            ->first();
+        $passenger = RidePassenger::where('confirmation_code', '=', $code)->first();
 
-        if ($ride instanceof $this->model) {
-            return $ride;
+        if ($passenger) {
+            return $passenger;
+        } else {
+            throw new GeneralException(__('exceptions.backend.access.users.not_found'));
         }
-
-        throw new GeneralException(__('exceptions.backend.access.users.not_found'));
     }
 }

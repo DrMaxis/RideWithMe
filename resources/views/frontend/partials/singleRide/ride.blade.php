@@ -899,6 +899,19 @@
 
                                 </tbody>
                             </table>
+
+                            <div class="container">
+                                <div class="login-register-page__content">
+                                    <div class="content-title">
+                                      
+                                        <h4>Confirm Your Ride!</h4>
+                                    </div>
+                                 @include('frontend.partials.singleRide.confirmationForm')
+                                    
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>

@@ -30,7 +30,6 @@ class CreateRidesTable extends Migration
             $table->string('driver_name')->nullable();
             $table->string('driver_phone')->nullable();
             $table->string('car_id')->nullable();
-            $table->text('confirmation_code')->nullable();
             $table->string('scheduled_time')->nullable();
             $table->string('scheduled_date')->nullable();
             $table->integer('available_seats')->nullable();

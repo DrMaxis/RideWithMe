@@ -30,6 +30,7 @@ class JoinRideRequest extends FormRequest
             'pickupLocation' => ['sometimes'],
             'seatsNeeded' => ['required'],
             'luggageSpaceNeeded' => ['sometimes'],
+            'rideID' => ['required'],
 
 
 

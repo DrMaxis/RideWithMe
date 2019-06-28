@@ -159,11 +159,11 @@ return response()->json('Ride Created:'.$ride->name);
     }
 
 
-    public function joinAsPassenger(JoinRideRequest $request, $slug)  {
+    public function joinAsPassenger(JoinRideRequest $request)  {
 
 
         $passenger = auth()->user();
-        $ride = Ride::where('slug','=', $slug)->first();
+        $ride = Ride::where('uuid','=', $request->rideID)->first();
         $data = array('pickupLocation' => $request['pickupLocation'], 'seatsNeeded' => $request['seatsNeeded'], 'luggageSpaceNeeded' => $request['luggageSpaceNeeded']);
 
 
@@ -173,6 +173,7 @@ return response()->json('Ride Created:'.$ride->name);
 
    if ($update) {
             event(new PassengerJoined($ride, $passenger));
+            
         } else {
              //  Throw Exeception
             throw new GeneralException('Failed to add you to the ride');

@@ -40,6 +40,8 @@
 @section('xjs')
 <script src="{{asset('vendor/moment/moment-with-locales.js')}}"></script>
 <script src="{{asset('vendor/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendor/js/jquery.notify.min.js')}}"> </script>
+
 
 
 
@@ -105,6 +107,7 @@ $('.submit-join-ride-button').on('click', function() {
 var passengerJoinUrl = "{{route('frontend.user.ride.passenger.join', $ride->uuid)}}"
 var seatsNeeded = $('.seats-needed-selector').val();
 var luggageSpaceNeeded = $('.luggage-space-selector').val();
+var rideID = "{{$ride->uuid}}";
 if($('#pickup_location_input').val().length != 0) {
 
   var pickupLocation = $('#pickup_location_input').val();
@@ -123,6 +126,7 @@ $.ajax({
 								pickupLocation: pickupLocation, 
                 seatsNeeded: seatsNeeded,
                 luggageSpaceNeeded:luggageSpaceNeeded,
+                rideID: rideID
 						},
 
 

@@ -25,6 +25,7 @@ class UserTableSeeder extends Seeder
             'password' => 'secret',
             'confirmation_code' => md5(uniqid(mt_rand(), true)),
             'national_id_number' => '229-32-3354',
+            'phone_number' => '6788503582',
             'confirmed' => true,
         ]);
 

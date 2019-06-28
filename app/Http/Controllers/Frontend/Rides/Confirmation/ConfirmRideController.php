@@ -33,12 +33,12 @@ class ConfirmRideController extends Controller
      * @throws \App\Exceptions\GeneralException
      * @return mixed
      */
-    public function confirm($token)
+    public function confirm($ride, Request $request)
     {
         
-        $this->ride->confirm($token, auth()->user());
+        $this->ride->confirmPassenger($request->ride_confirmation_code_input, auth()->user());
 
-        return redirect()->route('frontend.user.ride.show',$this->ride->slug)->withFlashSuccess(__('exceptions.frontend.auth.confirmation.success'));
+        return redirect()->route('frontend.user.ride.show',$ride)->withFlashSuccess(__('exceptions.frontend.auth.confirmation.success'));
     }
 
    

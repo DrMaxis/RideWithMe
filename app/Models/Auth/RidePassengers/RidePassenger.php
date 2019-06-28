@@ -44,7 +44,8 @@ class RidePassenger extends Model
         'passenger_name',
         'passenger_email',
         'phone_number',
-        'confiemd',
+        'confirmed',
+        'confirmation_code',
     ];
 
 
