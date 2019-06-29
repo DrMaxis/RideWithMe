@@ -990,7 +990,7 @@ $('.transaction-loader').removeClass('off');
         position: 8,
         dir: 'ltr',
         autoClose: true,
-        duration: 5000,
+        duration: 10000,
         onOpen: null,
         onClose: null
 		    }); 
@@ -1101,7 +1101,7 @@ var seatsNeeded = $('#seats_needed_input').val();
         position: 8,
         dir: 'ltr',
         autoClose: true,
-        duration: 5000,
+        duration: 10000,
         onOpen: null,
         onClose: null
 		}); 

@@ -348,9 +348,9 @@
                         <li>
                             <a href="#tabs-2">Details</a>
                         </li>
-                        <li>
+                      {{--   <li>
                             <a href="#tabs-3">Reviews</a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a href="#tabs-4">Rider Information</a>
                         </li>
@@ -512,7 +512,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div id="tabs-3">
+                        {{-- <div id="tabs-3">
                             <div id="reviews">
                                 <div class="rating-info">
                                     <div class="average-rating-review good">
@@ -744,7 +744,7 @@
                                 </div>
                             </div>
                         </div>
-
+ --}}
 
                         <div id="tabs-4">
                             <table class="confirmation-information good-to-know-table">

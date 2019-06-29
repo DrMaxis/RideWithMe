@@ -10,6 +10,7 @@
             {{ html()->text('car_model')
                 ->class('form-control')
                 ->placeholder(__('validation.attributes.frontend.car_model'))
+                ->value($car->model)
                 ->attribute('maxlength', 191)
                 ->required()
                 ->autofocus() }}
@@ -28,6 +29,7 @@
             {{ html()->text('car_year')
                 ->class('form-control')
                 ->placeholder(__('validation.attributes.frontend.car_year'))
+                ->value($car->year)
                 ->attribute('maxlength', 191)
                 ->required() }}
         </div>
@@ -45,6 +47,7 @@
             {{ html()->text('car_color')
                         ->class('form-control')
                         ->placeholder(__('validation.attributes.frontend.car_color'))
+                        ->value($car->color)
                         ->attribute('maxlength', 191)
                         ->required() }}
         </div>

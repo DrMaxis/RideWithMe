@@ -148,7 +148,7 @@ class RideRepository extends BaseRepository
                     'confirmation_code' => generateSixDigitCode(4),
                     
                 ]);
-                $this->sendRideConfirmation($ride, $user);
+               /*  $this->sendRideConfirmation($ride, $user); */
             } else {
                 throw new GeneralException('An Ride option must be selected');
             }
@@ -272,7 +272,7 @@ class RideRepository extends BaseRepository
 
     public function sendRideConfirmation($ride, $passenger)
     {
-        die(print_r($passenger));
+        
 
         $code = $passenger->confirmation_code;
         $client = app('Nexmo\Client');

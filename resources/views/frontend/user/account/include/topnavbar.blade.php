@@ -27,8 +27,8 @@
               <img class="img-profile rounded-circle" src="{{$logged_in_user->picture}}">
             </a>
             <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
- <a class="dropdown-item" {{ active_class(Active::checkRoute('frontend.user.account.settings')) }}" href="{{route('frontend.user.account.settings')}}">
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" style="left:auto;" aria-labelledby="userDropdown">
+ <a class="dropdown-item" {{ active_class(Active::checkRoute('frontend.user.account.settings')) }} href="{{route('frontend.user.account.settings')}}">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Account Settings</span>
                   </a>
